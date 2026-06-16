@@ -281,6 +281,7 @@
       gap:14px;
       margin-top:22px;
       text-align:left;
+      align-items:stretch;
     }
     .shop-panel{
       border:2px solid #000;
@@ -289,18 +290,30 @@
       box-shadow:4px 4px 0 #000;
       padding:16px;
       display:grid;
+      grid-template-rows:auto auto 1fr auto;
       gap:12px;
+      min-height:272px;
+    }
+    .shop-panel strong{
+      display:block;
+      font-size:18px;
+      line-height:1.2;
+      min-height:2.4em;
     }
     .shop-panel .price{
       color:var(--warn);
       font-weight:800;
       font-size:14px;
+      margin-top:-2px;
     }
     .shop-panel .desc{
       color:var(--muted);
-      line-height:1.5;
+      line-height:1.55;
       font-size:13px;
-      min-height:3.2em;
+      margin:0;
+      min-height:5.4em;
+      display:flex;
+      align-items:flex-start;
     }
     .shop-panel .buy-btn{
       width:100%;
@@ -1758,81 +1771,81 @@
 
   
     /* === Compact desktop layout + richer Mario-style scene === */
-    @keyframes runnerSprite {
-      from { background-position: 0% 0; }
-      to { background-position: 100% 0; }
-    }
-    @keyframes skyDrift {
-      from { background-position: 0 0, 0 0, 0 0; }
-      to { background-position: -120px 0, 0 0, 0 0; }
-    }
-    @media (min-width: 1100px) {
-      .menu-wrap, .shop-wrap {
+    @keyframes runnerSprite {{
+      from {{ background-position: 0% 0; }}
+      to {{ background-position: 100% 0; }}
+    }}
+    @keyframes skyDrift {{
+      from {{ background-position: 0 0, 0 0, 0 0; }}
+      to {{ background-position: -120px 0, 0 0, 0 0; }}
+    }}
+    @media (min-width: 1100px) {{
+      .menu-wrap, .shop-wrap {{
         width: min(1060px, calc(100% - 36px));
-      }
-      .game-shell {
+      }}
+      .game-shell {{
         width: min(920px, calc(100% - 36px));
-      }
-      .menu-card, .shop-card {
+      }}
+      .menu-card, .shop-card {{
         width: 100%;
-      }
-      .menu-card, .shop-card {
+      }}
+      .menu-card, .shop-card {{
         padding: 20px 20px 22px;
-      }
-      .game-shell {
+      }}
+      .game-shell {{
         padding-bottom: 8px;
-      }
-    }
-    @media (max-width: 1099px) {
-      .menu-wrap, .shop-wrap, .game-shell {
+      }}
+    }}
+    @media (max-width: 1099px) {{
+      .menu-wrap, .shop-wrap, .game-shell {{
         width: min(100%, calc(100% - 24px));
-      }
-    }
-    .menu, .shop, .game {
+      }}
+    }}
+    .menu, .shop, .game {{
       padding: 12px;
-    }
-    .menu-card, .shop-card {
+    }}
+    .menu-card, .shop-card {{
       max-width: 100%;
       border-radius: 22px;
-    }
-    .title {
+    }}
+    .title {{
       font-size: clamp(38px, 6.8vw, 82px);
-    }
-    .subtitle {
+    }}
+    .subtitle {{
       max-width: 700px;
       font-size: 14px;
-    }
-    .game-shell {
+    }}
+    .game-shell {{
       display: block;
-    }
-    .hud {
+    }}
+    .hud {{
       gap: 10px;
       margin-bottom: 12px;
-    }
-    .hud-item {
+    }}
+    .hud-item {{
       padding: 10px 12px;
-    }
-    .hud-item .v {
+    }}
+    .hud-item .v {{
       font-size: 16px;
-    }
-    .layout {
+    }}
+    .layout {{
       gap: 14px;
-    }
-    .arena-inner, .card, .menu-panel, .shop-panel {
+    }}
+    .arena-inner, .card, .menu-panel, .shop-panel {{
       padding: 16px;
-    }
-    .question {
+    }}
+    .question {{
       font-size: clamp(22px, 3.4vw, 40px);
-    }
+    }}
 
     .mario-scene,
-    .mario-scene-game {
+    .mario-scene-game {{
       background:
         linear-gradient(180deg, #7fd4ff 0%, #9ee7ff 30%, #d8fbff 54%, #c7ee9c 54%, #88cf59 100%);
       filter: saturate(1.06) brightness(1.03);
-    }
+    }}
     .mario-scene::before,
-    .mario-scene-game::before {
+    .mario-scene-game::before {{
       content: "";
       position: absolute;
       inset: 0;
@@ -1848,9 +1861,9 @@
         radial-gradient(circle at 48% 90%, rgba(103,194,82,.72) 0 120px, transparent 121px);
       opacity: .9;
       pointer-events: none;
-    }
+    }}
     .mario-scene::after,
-    .mario-scene-game::after {
+    .mario-scene-game::after {{
       content: "";
       position: absolute;
       inset: 0;
@@ -1861,8 +1874,8 @@
       opacity: .45;
       animation: skyDrift 24s linear infinite;
       pointer-events: none;
-    }
-    .mario-hill.back {
+    }}
+    .mario-hill.back {{
       background: linear-gradient(180deg, #a7ea7e 0%, #67c85f 100%);
       width: 27vw;
       max-width: 370px;
@@ -1871,8 +1884,8 @@
       left: 2%;
       bottom: 10%;
       opacity: .78;
-    }
-    .mario-hill.mid {
+    }}
+    .mario-hill.mid {{
       background: linear-gradient(180deg, #8ee46d 0%, #54b95a 100%);
       width: 32vw;
       max-width: 470px;
@@ -1881,8 +1894,8 @@
       right: 12%;
       bottom: 8%;
       opacity: .92;
-    }
-    .mario-hill.front {
+    }}
+    .mario-hill.front {{
       background: linear-gradient(180deg, #b2f081 0%, #71ce61 100%);
       width: 19vw;
       max-width: 270px;
@@ -1891,40 +1904,40 @@
       left: 20%;
       bottom: 6%;
       opacity: .88;
-    }
-    .mario-bricks {
+    }}
+    .mario-bricks {{
       opacity: .68;
       filter: saturate(1.1);
-    }
-    .mario-question-blocks {
+    }}
+    .mario-question-blocks {{
       gap: 10px;
       top: 14%;
       left: 48%;
-    }
-    .mario-question-blocks .block {
+    }}
+    .mario-question-blocks .block {{
       width: 44px;
       height: 44px;
       font-size: 20px;
       border-radius: 8px;
       background: linear-gradient(180deg, #fff2a2 0 14px, #f2c83d 14px 100%);
       color: #8b5d00;
-    }
-    .mario-pipe {
+    }}
+    .mario-pipe {{
       border-color: #2d7f2e;
       background: linear-gradient(180deg, #92ef93 0 18px, #52bf52 18px 100%);
-    }
-    .mario-pipe::before {
+    }}
+    .mario-pipe::before {{
       border-color: #2d7f2e;
       background: linear-gradient(180deg, #a1f6a1, #5ed45b);
-    }
-    .mario-ground {
+    }}
+    .mario-ground {{
       height: 17%;
       background:
         linear-gradient(180deg, rgba(255,255,255,.20) 0 11%, rgba(120,210,98,.58) 11% 13%, rgba(68,165,70,.95) 13% 100%),
         repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 42px, rgba(255,255,255,.12) 42px 44px);
-    }
+    }}
 
-    .mario-runner {
+    .mario-runner {{
       width: 52px;
       height: 60px;
       background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20128%2048%22%20shape-rendering%3D%22crispEdges%22%3E%3Cg%20transform%3D%22translate%280%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2216%22%20y%3D%2238%22%20width%3D%2210%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2218%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2832%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%229%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2217%22%20y%3D%2236%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2222%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2864%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2216%22%20y%3D%2238%22%20width%3D%2210%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2218%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2896%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%229%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2217%22%20y%3D%2236%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2222%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
@@ -1936,41 +1949,41 @@
         runnerSprite .55s steps(4) infinite,
         heroRun 7s linear infinite;
       transform-origin: center bottom;
-    }
-    .mario-runner > span {
+    }}
+    .mario-runner > span {{
       display: none !important;
-    }
+    }}
 
-    .menu-card, .shop-card {
+    .menu-card, .shop-card {{
       background: linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.12));
       backdrop-filter: blur(2px);
       box-shadow: 0 16px 34px rgba(0,0,0,.14);
-    }
-    .menu-panel, .shop-panel, .card, .arena-inner, .mini-stat, .hud-item, .shop-wallet {
+    }}
+    .menu-panel, .shop-panel, .card, .arena-inner, .mini-stat, .hud-item, .shop-wallet {{
       border-radius: 18px;
-    }
-    .menu-banner {
+    }}
+    .menu-banner {{
       background: linear-gradient(180deg, rgba(255,255,255,.56), rgba(255,255,255,.28));
       color: #17324e;
-    }
-    .menu-chip {
+    }}
+    .menu-chip {{
       background: linear-gradient(180deg, rgba(255,255,255,.58), rgba(255,255,255,.30));
       color: #17324e;
-    }
-    .shop-wallet {
+    }}
+    .shop-wallet {{
       width: min(340px, 100%);
       margin: 14px auto 0;
-    }
-    .shop-wallet .v {
+    }}
+    .shop-wallet .v {{
       font-size: 24px;
       font-weight: 900;
-    }
-    .menu-actions {
+    }}
+    .menu-actions {{
       gap: 10px;
-    }
-    .btn, .smallbtn, .buy-btn {
+    }}
+    .btn, .smallbtn, .buy-btn {{
       border-radius: 12px;
-    }
+    }}
 
   </style>
 </head>
@@ -2075,23 +2088,41 @@
           <section class="panel pixel-frame">
             <h3>Vật phẩm</h3>
             <div class="shop-grid-main">
-              <div class="shop-panel">
+              <div class="shop-panel" data-shop="heal">
                 <strong>Heal Potion</strong>
                 <div class="price">30 xu</div>
-                <div class="desc">Hồi 25 HP, hợp khi bạn muốn đánh tiếp ngay.</div>
+                <div class="desc">Hồi 25 HP để bạn trụ lâu hơn trong trận.</div>
                 <button class="buy-btn" data-shop="heal">Mua</button>
               </div>
-              <div class="shop-panel">
+              <div class="shop-panel" data-shop="mana">
                 <strong>Mana Potion</strong>
                 <div class="price">25 xu</div>
-                <div class="desc">Hồi 20 mana để dùng gợi ý hoặc bỏ qua câu hỏi.</div>
+                <div class="desc">Hồi 20 mana cho gợi ý và bỏ qua câu hỏi.</div>
                 <button class="buy-btn" data-shop="mana">Mua</button>
               </div>
-              <div class="shop-panel">
+              <div class="shop-panel" data-shop="shield">
                 <strong>Shield</strong>
                 <div class="price">60 xu</div>
                 <div class="desc">Chặn 1 lần mất máu khi trả lời sai.</div>
                 <button class="buy-btn" data-shop="shield">Mua</button>
+              </div>
+              <div class="shop-panel" data-shop="boost">
+                <strong>Power Drink</strong>
+                <div class="price">70 xu</div>
+                <div class="desc">Nhân đôi EXP nhận được trong 5 câu tiếp theo.</div>
+                <button class="buy-btn" data-shop="boost">Mua</button>
+              </div>
+              <div class="shop-panel" data-shop="heart">
+                <strong>Heart Core</strong>
+                <div class="price">90 xu</div>
+                <div class="desc">Tăng tối đa 20 HP và hồi đầy máu ngay.</div>
+                <button class="buy-btn" data-shop="heart">Mua</button>
+              </div>
+              <div class="shop-panel" data-shop="ether">
+                <strong>Ether Core</strong>
+                <div class="price">80 xu</div>
+                <div class="desc">Tăng tối đa 15 mana và hồi đầy năng lượng.</div>
+                <button class="buy-btn" data-shop="ether">Mua</button>
               </div>
             </div>
             <div class="menu-actions" style="margin-top:18px;">
@@ -2741,6 +2772,7 @@
       ui.gameScreen.classList.add('hidden');
       refreshShopButtons();
       refreshMenuStats();
+      if (ui.shopCoinText) ui.shopCoinText.textContent = `${state.coins} xu`;
     }
 
     function showGame(){
@@ -2750,15 +2782,26 @@
       resumeGame();
     }
 
+    const shopCatalog = {
+      heal: { cost: 30, label: 'Heal Potion' },
+      mana: { cost: 25, label: 'Mana Potion' },
+      shield: { cost: 60, label: 'Shield' },
+      boost: { cost: 70, label: 'Power Drink' },
+      heart: { cost: 90, label: 'Heart Core' },
+      ether: { cost: 80, label: 'Ether Core' }
+    };
+
     function refreshShopButtons(){
       const coinText = `${state.coins} xu`;
+      if (ui.shopCoinText) ui.shopCoinText.textContent = coinText;
       document.querySelectorAll('.shop-panel').forEach(panel => {
-        const title = panel.querySelector('strong')?.textContent || '';
+        const type = panel.dataset.shop || panel.querySelector('.buy-btn')?.dataset.shop || '';
         const btn = panel.querySelector('.buy-btn');
         if(!btn) return;
-        const cost = { 'Heal Potion':30, 'Mana Potion':25, 'Shield':60 }[title] || 0;
+        const info = shopCatalog[type] || { cost: 0 };
+        const cost = info.cost || 0;
         btn.disabled = state.coins < cost;
-        btn.textContent = state.coins < cost ? `Cần ${cost} xu (${coinText})` : `Mua - ${cost} xu`;
+        btn.textContent = state.coins < cost ? `Cần ${cost} xu` : `Mua - ${cost} xu`;
       });
     }
 
@@ -2768,6 +2811,7 @@
       ui.hpText.textContent = `${Math.max(0, state.hp)} / ${state.maxHp}`;
       ui.mpText.textContent = `${state.mp} / ${state.maxMp}`;
       ui.xpText2.textContent = `${state.xp} / ${state.xpNeed}`;
+      if (ui.shopCoinText) ui.shopCoinText.textContent = `${state.coins} xu`;
 
       if (ui.uiHpPanel) ui.uiHpPanel.textContent = `${Math.max(0, state.hp)} / ${state.maxHp}`;
       if (ui.uiMpPanel) ui.uiMpPanel.textContent = `${state.mp} / ${state.maxMp}`;
@@ -3051,15 +3095,39 @@
     }
 
     function buy(type){
-      const cost = { heal: 30, mana: 25, shield: 60 }[type];
+      const info = shopCatalog[type];
+      if(!info){
+        toast('Món này chưa có');
+        return;
+      }
+      const { cost } = info;
       if(state.coins < cost){
         toast('Không đủ xu');
         return;
       }
       state.coins -= cost;
-      if(type === 'heal') healHp(25);
-      if(type === 'mana') healMp(20);
-      if(type === 'shield') state.shield += 1;
+      switch(type){
+        case 'heal':
+          healHp(25);
+          break;
+        case 'mana':
+          healMp(20);
+          break;
+        case 'shield':
+          state.shield += 1;
+          break;
+        case 'boost':
+          state.xpBoostTurns = Math.max(state.xpBoostTurns, 5);
+          break;
+        case 'heart':
+          state.maxHp += 20;
+          state.hp = state.maxHp;
+          break;
+        case 'ether':
+          state.maxMp += 15;
+          state.mp = state.maxMp;
+          break;
+      }
       toast('Đã mua thành công');
       log(`Mua ${type} với ${cost} xu`, 'good');
       updateBars();
