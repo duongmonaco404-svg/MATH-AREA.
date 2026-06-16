@@ -1985,7 +1985,882 @@
       border-radius: 12px;
     }}
 
-  </style>
+    /* --- Shop alignment fix --- */
+    .shop-card{
+      width:min(1180px,100%);
+    }
+    .shop-grid-main{
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:16px;
+      align-items:stretch;
+    }
+    .shop-panel{
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      text-align:left;
+      gap:10px;
+      min-height:280px;
+      padding:18px;
+    }
+    .shop-panel strong{
+      min-height:2.4em;
+      line-height:1.2;
+      margin:0;
+    }
+    .shop-panel .price{
+      margin:0;
+      min-height:1.4em;
+    }
+    .shop-panel .desc{
+      margin:0;
+      min-height:4.8em;
+      line-height:1.6;
+      color:var(--muted);
+      display:block;
+    }
+    .shop-panel .buy-btn{
+      margin-top:auto;
+    }
+    @media (max-width: 900px){
+      .shop-grid-main{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 620px){
+      .shop-grid-main{
+        grid-template-columns:1fr;
+      }
+    }
+
+  
+
+    /* ===== Final polish: parchment frames + richer Mario backdrop ===== */
+    :root{
+      --paper:#f4e0b6;
+      --paper2:#e8cf9b;
+      --wood:#6f4418;
+      --wood2:#8d5a24;
+      --ink:#101010;
+    }
+    html,body{overflow-x:hidden;}
+    body{
+      color:var(--ink);
+    }
+    .screen{
+      background:transparent;
+    }
+    .mario-scene,
+    .mario-scene-game,
+    .mario-scene-shop{
+      background:
+        linear-gradient(180deg, #78c8ff 0%, #9edfff 28%, #c7f1ff 54%, #dff7c1 54%, #a8df7f 100%);
+    }
+    .mario-scene::after,
+    .mario-scene-game::after,
+    .mario-scene-shop::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height:18%;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.20) 0 10%, rgba(115, 205, 95, .60) 10% 13%, rgba(75, 170, 74, .96) 13% 100%),
+        repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 42px, rgba(255,255,255,.12) 42px 44px);
+      background-size:100% 100%, 120px 100%;
+      animation:groundScroll 9s linear infinite;
+      z-index:0;
+    }
+    .mario-scene::before,
+    .mario-scene-game::before,
+    .mario-scene-shop::before{
+      background:
+        radial-gradient(circle at 12% 14%, rgba(255,255,255,.96) 0 24px, transparent 25px),
+        radial-gradient(circle at 16% 14%, rgba(255,255,255,.96) 0 10px, transparent 11px),
+        radial-gradient(circle at 38% 9%, rgba(255,255,255,.92) 0 22px, transparent 23px),
+        radial-gradient(circle at 70% 18%, rgba(255,255,255,.96) 0 26px, transparent 27px),
+        radial-gradient(circle at 74% 18%, rgba(255,255,255,.96) 0 11px, transparent 12px),
+        radial-gradient(circle at 86% 10%, rgba(255,255,255,.92) 0 18px, transparent 19px);
+      opacity:.50;
+      animation:skyNoise 32s linear infinite;
+    }
+    .mario-castle{
+      position:absolute;
+      right:3.5%;
+      bottom:12%;
+      width:112px;
+      height:148px;
+      z-index:0;
+      background:
+        linear-gradient(180deg, #d4a86d 0 18px, #ba8a4c 18px 100%);
+      border:4px solid #6d4a1d;
+      border-bottom-width:8px;
+      border-radius:10px 10px 6px 6px;
+      box-shadow:6px 6px 0 rgba(0,0,0,.08);
+    }
+    .mario-castle::before,
+    .mario-castle::after{
+      content:"";
+      position:absolute;
+      top:-34px;
+      width:28px;
+      height:58px;
+      background:linear-gradient(180deg, #d4a86d 0 18px, #ba8a4c 18px 100%);
+      border:4px solid #6d4a1d;
+      border-bottom-width:8px;
+      border-radius:12px 12px 6px 6px;
+    }
+    .mario-castle::before{ left:10px; }
+    .mario-castle::after{ right:10px; }
+    .mario-castle .tower-mid{ display:none; }
+    .mario-castle span{ display:none; }
+    .mario-castle:after{
+      box-shadow:none;
+    }
+    .mario-castle::marker{ content:""; }
+    .mario-castle .roof{ display:none; }
+    .mario-castle::selection{ background:transparent; }
+    .mario-castle::first-line{ color:transparent; }
+    .mario-castle{
+      clip-path: polygon(0 100%, 0 32%, 16% 32%, 16% 12%, 32% 12%, 32% 0, 68% 0, 68% 12%, 84% 12%, 84% 32%, 100% 32%, 100% 100%);
+    }
+    .mario-castle::after{ /* keep tower styles already defined above */ }
+    .mario-castle .door{ display:none; }
+    .mario-castle::before,
+    .mario-castle::after{
+      box-shadow:0 0 0 2px rgba(255,255,255,.08) inset;
+    }
+    .mario-castle{
+      background-image:
+        linear-gradient(180deg, transparent 0 56px, rgba(255,255,255,.12) 56px 58px, transparent 58px 100%),
+        linear-gradient(180deg, #ddb27a 0 18px, #c49353 18px 100%);
+    }
+    .mario-castle::before{
+      left:14px;
+      background-image:
+        linear-gradient(180deg, transparent 0 38px, rgba(255,255,255,.12) 38px 40px, transparent 40px 100%),
+        linear-gradient(180deg, #ddb27a 0 18px, #c49353 18px 100%);
+    }
+    .mario-castle::after{
+      right:14px;
+      background-image:
+        linear-gradient(180deg, transparent 0 38px, rgba(255,255,255,.12) 38px 40px, transparent 40px 100%),
+        linear-gradient(180deg, #ddb27a 0 18px, #c49353 18px 100%);
+    }
+    .mario-flower{
+      position:absolute;
+      bottom:14%;
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      background:radial-gradient(circle at 50% 50%, #ffd84d 0 28%, #ffb93b 29% 100%);
+      box-shadow:
+        0 -12px 0 -6px #5abf58,
+        0 -18px 0 -8px #4aa54d,
+        -10px -2px 0 -6px #fff,
+        10px -2px 0 -6px #fff,
+        -6px -10px 0 -6px #fff,
+        6px -10px 0 -6px #fff;
+      z-index:0;
+      animation:flowerBob 4s ease-in-out infinite;
+    }
+    .mario-flower.f1{ left:7%; }
+    .mario-flower.f2{ left:15%; animation-delay:-1.7s; transform:scale(.9); }
+    @keyframes flowerBob{
+      0%,100%{ transform:translateY(0) scale(1); }
+      50%{ transform:translateY(-5px) scale(1.04); }
+    }
+    .mario-hill.back{ left:2%; }
+    .mario-hill.mid{ right:12%; }
+    .mario-hill.front{ left:16%; }
+    .menu-wrap,.shop-wrap,.game-shell{
+      width:min(1120px,100%);
+      margin:0 auto;
+      position:relative;
+      z-index:2;
+    }
+    .menu-card,
+    .shop-card{
+      background:linear-gradient(180deg, rgba(244,224,182,.96), rgba(233,206,149,.96));
+      border:6px solid var(--wood);
+      border-radius:18px;
+      box-shadow:
+        0 0 0 6px #b88337,
+        0 16px 24px rgba(0,0,0,.18);
+      color:var(--ink);
+    }
+    .menu-card::after,
+    .menu-card::before,
+    .shop-card::after,
+    .shop-card::before{
+      display:none !important;
+    }
+    .eyebrow,
+    .menu-banner,
+    .grade-tag,
+    .menu-chip,
+    .badge,
+    .shop-wallet,
+    .hud-item,
+    .mini-stat,
+    .shop-panel,
+    .card,
+    .arena-inner,
+    .menu-panel,
+    .shop-panel .buy-btn,
+    .btn.secondary{
+      color:var(--ink);
+    }
+    .subtitle{
+      color:#1f1408;
+      background:rgba(255,255,255,.35);
+      border:2px solid rgba(0,0,0,.18);
+      box-shadow:3px 3px 0 rgba(0,0,0,.12);
+    }
+    .menu-panel,
+    .shop-panel,
+    .card,
+    .arena-inner,
+    .hud-item,
+    .mini-stat,
+    .shop-wallet{
+      background:rgba(255,247,226,.92);
+      border:3px solid #8a5a24;
+      box-shadow:4px 4px 0 rgba(107,69,24,.9);
+      border-radius:14px;
+    }
+    .shop-grid-main{
+      gap:14px;
+      align-items:stretch;
+    }
+    .shop-panel{
+      display:flex;
+      flex-direction:column;
+      min-height:220px;
+    }
+    .shop-panel strong{ font-size:16px; color:#0f0f0f; }
+    .shop-panel .desc{
+      color:#111;
+      min-height:4.2em;
+      line-height:1.55;
+    }
+    .shop-panel .price{ color:#7a4c00; }
+    .shop-panel .buy-btn,
+    .btn,
+    .smallbtn{
+      background:linear-gradient(180deg, #68c83a, #4c9c1d);
+      color:#fff;
+      border:3px solid #2f5d10;
+      box-shadow:3px 3px 0 rgba(0,0,0,.45);
+      text-shadow:1px 1px 0 rgba(0,0,0,.4);
+    }
+    .btn.secondary{ background:linear-gradient(180deg, #d8e4ff, #b6c7eb); }
+    .mario-runner{ filter:drop-shadow(3px 3px 0 rgba(0,0,0,.18)); }
+    .mario-scene-shop .mario-castle{ opacity:.95; }
+    .mario-scene-shop .mario-bricks{ opacity:.82; }
+    .mario-scene-shop .mario-pipe.b{ opacity:.96; }
+    .mario-scene-shop .mario-hill.front{ transform:translateX(8px); }
+    .menu-card .title, .shop-card .title{ color:#0f0f0f; text-shadow:3px 3px 0 rgba(255,255,255,.25); }
+    .menu-card-mini h3, .panel h3, .card h3{ color:#0f0f0f; }
+    .menu-panel select{ background:#fff7e6; color:#111; }
+    .hud{ gap:10px; }
+    .hud-item .k{ color:#4d3614; }
+    .hud-item .v{ color:#111; }
+    .question, .hint, .badge, .tiny, .row, .shop-item span{ color:#111; }
+    .choices .choice{ background:linear-gradient(180deg, #dfead2, #b7d0a7); color:#111; border-color:#60431d; }
+    .choice.correct{ background:linear-gradient(180deg, #c8f2c5, #8bcb83); }
+    .choice.wrong{ background:linear-gradient(180deg, #f1c1c1, #e18f8f); }
+    .arena, .card, .menu-panel, .shop-panel{ border-radius:16px; }
+    .menu-actions{ justify-content:center; }
+    .shop-card .subtitle{ max-width:720px; }
+    .mario-scene-shop .mario-ground{ height:17%; }
+    .mario-scene-shop .mario-question-blocks{ display:none; }
+    .mario-scene-shop .mario-bricks{
+      left:30%; top:26%; width:180px; height:54px;
+    }
+    @media (max-width: 900px){
+      .shop-grid-main{ grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width: 620px){
+      .shop-grid-main{ grid-template-columns:1fr; }
+      .menu-card,.shop-card{ border-width:4px; }
+    }
+
+  
+
+    /* ===== FINAL OVERRIDES: match the parchment Mario-style reference more closely ===== */
+    :root{
+      --ink:#111111;
+      --paper:#f8e7bf;
+      --paper2:#efcf95;
+      --paper3:#e7bf74;
+      --wood:#7a4a1f;
+      --wood2:#5d3718;
+      --line:#5d3718;
+    }
+    body{
+      background:
+        radial-gradient(circle at 50% 8%, rgba(255,255,255,.60) 0 3%, transparent 3.2%),
+        radial-gradient(circle at 78% 10%, rgba(255,255,255,.52) 0 3%, transparent 3.2%),
+        linear-gradient(180deg, #1794de 0%, #33b0f0 26%, #7dd6ff 48%, #b9e8ff 58%, #c9edc8 59%, #79bc54 100%);
+      color:var(--ink);
+      font-family:"Courier New", monospace;
+    }
+    .screen{
+      padding:10px;
+      background:transparent;
+    }
+    .menu,.shop,.game{padding:10px;}
+    .menu-wrap,.shop-wrap,.game-shell{
+      width:min(1360px,100%);
+      margin:0 auto;
+    }
+    .mario-scene,
+    .mario-scene-game,
+    .mario-scene-shop{
+      background:
+        linear-gradient(180deg, #0f86d9 0%, #43b6f1 24%, #8dddfd 49%, #c9f0ff 56%, #c9eeb8 57%, #7cc34e 100%);
+    }
+    .mario-sky-sun{ right:6%; top:6%; width:92px; height:92px; }
+    .mario-cloud{ width:110px; height:36px; opacity:.98; }
+    .mario-cloud.a{ left:10%; top:10%; }
+    .mario-cloud.b{ left:64%; top:16%; }
+    .mario-cloud.c{ left:38%; top:8%; }
+    .mario-hill.back{ left:2%; width:24vw; max-width:360px; height:15vw; max-height:230px; }
+    .mario-hill.mid{ right:12%; width:29vw; max-width:430px; height:18vw; max-height:270px; }
+    .mario-hill.front{ left:16%; bottom:7%; width:18vw; max-width:250px; height:11vw; max-height:160px; }
+    .mario-ground{
+      height:18%;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.14) 0 8%, rgba(115,194,88,.88) 8% 14%, rgba(78,150,56,.98) 14% 48%, rgba(102,67,34,1) 48% 100%),
+        repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 44px, rgba(255,255,255,.10) 44px 46px);
+      background-size:100% 100%, 120px 100%;
+    }
+    .mario-pipe{ border-color:#2f7f2f; box-shadow:6px 6px 0 rgba(0,0,0,.15); }
+    .mario-castle{
+      right:2.8%;
+      bottom:12%;
+      width:118px;
+      height:156px;
+      background:
+        linear-gradient(180deg, transparent 0 50px, rgba(255,255,255,.12) 50px 52px, transparent 52px 100%),
+        linear-gradient(180deg, #dcb07a 0 18px, #bf8b4d 18px 100%);
+      border:4px solid var(--wood2);
+      border-bottom-width:8px;
+      border-radius:12px 12px 6px 6px;
+      box-shadow:6px 6px 0 rgba(0,0,0,.10);
+      clip-path: polygon(0 100%, 0 28%, 18% 28%, 18% 11%, 34% 11%, 34% 0, 66% 0, 66% 11%, 82% 11%, 82% 28%, 100% 28%, 100% 100%);
+    }
+    .mario-castle::before,
+    .mario-castle::after{
+      top:-36px;
+      width:30px;
+      height:60px;
+      border-color:var(--wood2);
+      background:
+        linear-gradient(180deg, transparent 0 38px, rgba(255,255,255,.12) 38px 40px, transparent 40px 100%),
+        linear-gradient(180deg, #dcb07a 0 18px, #bf8b4d 18px 100%);
+    }
+    .mario-castle::before{ left:12px; }
+    .mario-castle::after{ right:12px; }
+    .mario-flower{ bottom:15%; }
+    .mario-flower.f1{ left:9%; }
+    .mario-flower.f2{ left:17%; }
+    .mario-scene-shop .mario-flower.f2{ left:20%; }
+    .mario-scene-shop .mario-bricks{ left:28%; top:25%; width:170px; height:50px; opacity:.78; }
+    .mario-scene-shop .mario-pipe.b{ height:118px; }
+    .mario-scene-shop .mario-castle{ opacity:.97; }
+    .mario-scene-shop .mario-hill.front{ transform:translateX(6px); }
+    .mario-question-blocks{ display:none; }
+    .mario-runner{ animation-duration:7.1s; }
+    .menu-card,
+    .shop-card,
+    .arena,
+    .card,
+    .menu-panel,
+    .shop-panel,
+    .hud-item,
+    .mini-stat,
+    .shop-wallet,
+    .badge{
+      background:linear-gradient(180deg, rgba(251,232,185,.98), rgba(239,204,132,.98));
+      border:4px solid var(--wood2);
+      box-shadow:
+        0 0 0 4px rgba(255,255,255,.08) inset,
+        6px 6px 0 rgba(0,0,0,.32);
+      border-radius:12px;
+      color:var(--ink);
+    }
+    .menu-card,
+    .shop-card{
+      position:relative;
+      overflow:hidden;
+      backdrop-filter:none;
+    }
+    .menu-card::before,
+    .shop-card::before{
+      content:"";
+      position:absolute;
+      inset:8px;
+      border:2px solid rgba(92,55,24,.35);
+      border-radius:8px;
+      pointer-events:none;
+    }
+    .menu-card::after,
+    .shop-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.12), transparent 18%),
+        linear-gradient(90deg, rgba(255,255,255,.08), transparent 12%, transparent 88%, rgba(255,255,255,.08));
+      mix-blend-mode:soft-light;
+    }
+    .menu-card .title,
+    .shop-card .title{
+      color:#0d0d0d;
+      text-shadow:
+        3px 3px 0 rgba(255,255,255,.26),
+        0 0 12px rgba(255,255,255,.05);
+    }
+    .menu-banner,
+    .eyebrow,
+    .grade-tag,
+    .menu-chip,
+    .shop-wallet .k,
+    .hud-item .k,
+    .mini-stat .l,
+    .badge,
+    .panel h3,
+    .card h3,
+    .menu-card-mini h3,
+    .shop-panel strong{
+      color:#111;
+    }
+    .subtitle{
+      color:#1f150a;
+      background:rgba(255,255,255,.34);
+      border:2px solid rgba(92,55,24,.18);
+      box-shadow:3px 3px 0 rgba(0,0,0,.10);
+    }
+    .menu-panel,
+    .shop-panel,
+    .card,
+    .arena-inner,
+    .hud-item,
+    .mini-stat,
+    .shop-wallet{
+      padding:16px;
+    }
+    .menu-panel select,
+    .menu-panel input,
+    .shop-panel .buy-btn,
+    .btn,
+    .smallbtn{
+      font-family:"Courier New", monospace;
+      font-weight:900;
+      letter-spacing:.02em;
+    }
+    .menu-panel select{
+      background:rgba(255,250,235,.95);
+      color:#111;
+      border:3px solid var(--wood2);
+      box-shadow:3px 3px 0 rgba(0,0,0,.28);
+    }
+    .btn,
+    .smallbtn,
+    .shop-panel .buy-btn{
+      background:linear-gradient(180deg, #77c83e, #4d9d1f);
+      color:#fff;
+      border:3px solid #2f5d10;
+      box-shadow:3px 3px 0 rgba(0,0,0,.42);
+      text-shadow:1px 1px 0 rgba(0,0,0,.38);
+    }
+    .btn.secondary{ background:linear-gradient(180deg, #dde8fb, #b9c9e7); color:#111; }
+    .menu-card,
+    .shop-card{
+      padding:22px;
+    }
+    .menu-grid > .panel{ width:min(900px,100%); }
+    .menu-panel{ max-width:620px; margin:22px auto 0; }
+    .shop-card .menu-grid{ margin-top:18px; }
+    .shop-wallet{
+      position:absolute;
+      right:18px;
+      top:18px;
+      min-width:240px;
+      padding:12px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      z-index:2;
+      background:linear-gradient(180deg, rgba(18,24,40,.98), rgba(12,16,28,.98));
+      border-color:#8a5a24;
+      box-shadow:4px 4px 0 rgba(0,0,0,.35);
+    }
+    .shop-wallet .k{ color:#f1d28e; text-transform:uppercase; letter-spacing:.06em; font-size:13px; }
+    .shop-wallet .v{ color:#ffd04d; font-size:24px; font-weight:900; }
+    .shop-grid-main{
+      gap:18px;
+      align-items:stretch;
+    }
+    .shop-panel{
+      min-height:222px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      align-items:flex-start;
+      text-align:left;
+      padding:16px 14px 14px;
+    }
+    .shop-panel strong{
+      font-size:15px;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .shop-panel .price{
+      color:#7b4b00;
+      font-size:14px;
+      font-weight:900;
+      margin-top:2px;
+    }
+    .shop-panel .desc{
+      color:#111;
+      font-size:14px;
+      line-height:1.45;
+      min-height:6.0em;
+      margin-top:2px;
+      text-align:left;
+    }
+    .shop-panel .buy-btn{
+      margin-top:auto;
+      width:100%;
+    }
+    .menu-actions{ justify-content:center; }
+    .shop-card .subtitle{ max-width:760px; margin-left:auto; margin-right:auto; }
+    .layout{ grid-template-columns:1.06fr .74fr; gap:14px; }
+    .game-shell{ max-width:1180px; }
+    .arena-inner{ min-height:540px; }
+    .hud{ grid-template-columns:repeat(6, 1fr); gap:10px; }
+    .hud-item .v,
+    .mini-stat .v,
+    .row strong,
+    .row span,
+    .question,
+    .hint,
+    .tiny{ color:#111; }
+    .choices .choice{ background:linear-gradient(180deg, #e1edcf, #bfd4ae); color:#111; border-color:#6d4a1f; }
+    .choice.correct{ background:linear-gradient(180deg, #d4f1d0, #8fca83); }
+    .choice.wrong{ background:linear-gradient(180deg, #f3c8c8, #df9595); }
+    .timer-wrap{ background:#e7d4a3; border-color:#6d4a1f; }
+    .timer-bar{ background:linear-gradient(90deg, #7adbff, #8f7bff); }
+    .menu-chip{ background:rgba(255,255,255,.36); border:2px solid rgba(0,0,0,.2); }
+    .shop-card .title{ margin-top:42px; }
+    .menu-card-mini h3::before,
+    .panel h3::before,
+    .card h3::before{ color:#7b4b00; }
+    @media (max-width: 1080px){
+      .layout{ grid-template-columns:1fr; }
+      .menu-grid,.modal-grid{ grid-template-columns:1fr 1fr; }
+      .hud{ grid-template-columns:repeat(3, 1fr); }
+      .shop-wallet{ position:static; margin:0 auto 14px; }
+      .shop-card .title{ margin-top:0; }
+    }
+    @media (max-width: 680px){
+      .menu,.game{ padding:8px; }
+      .menu-card,.shop-card{ padding:16px; }
+      .menu-grid,.choices,.controls,.modal-grid,.stat-grid,.hud{ grid-template-columns:1fr; }
+      .shop-grid-main{ grid-template-columns:1fr; }
+      .shop-panel{ min-height:0; }
+      .shop-panel .desc{ min-height:0; }
+      .shop-wallet{ min-width:0; width:100%; }
+    }
+
+
+/* === reference-like paper/wood UI overhaul === */
+:root{
+  --paper:#f4e0b6;
+  --paper2:#ead09a;
+  --paper3:#fff4d4;
+  --wood:#6f4418;
+  --wood2:#9a642b;
+  --ink:#111111;
+  --sky-top:#0e7dd5;
+  --sky-mid:#46b8ff;
+  --sky-light:#c7f2ff;
+  --grass:#72c84f;
+  --grass2:#4caf50;
+  --dirt:#7a4b20;
+  --dirt2:#5c3717;
+}
+
+body{
+  color:var(--ink) !important;
+  background:
+    linear-gradient(180deg, #0f7dd6 0%, #30a8ef 30%, #8be1ff 56%, #c9f7ff 58%, #9ce170 58%, #66bf46 100%) !important;
+}
+
+.screen{
+  background:transparent !important;
+}
+
+#menuScreen, #shopScreen, #gameScreen{
+  background:transparent !important;
+}
+
+.mario-scene,
+.mario-scene-game,
+.mario-scene-shop{
+  background:
+    radial-gradient(circle at 18% 16%, rgba(255,255,255,.96) 0 20px, transparent 21px),
+    radial-gradient(circle at 23% 19%, rgba(255,255,255,.96) 0 14px, transparent 15px),
+    radial-gradient(circle at 79% 12%, rgba(255,255,255,.96) 0 18px, transparent 19px),
+    radial-gradient(circle at 84% 16%, rgba(255,255,255,.96) 0 12px, transparent 13px),
+    linear-gradient(180deg, #0f7dd6 0%, #2ca7ef 26%, #7fdcff 53%, #d4f7ff 57%, #b8ea92 57%, #7fd052 100%) !important;
+}
+
+.mario-scene::before,
+.mario-scene-game::before,
+.mario-scene-shop::before{
+  opacity:0 !important;
+}
+
+.mario-sky-sun,
+.mario-bricks,
+.mario-question-blocks,
+.mario-pipe,
+.mario-runner{
+  display:none !important;
+}
+
+.mario-cloud{
+  width:110px !important;
+  height:36px !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.98) !important;
+  filter:none !important;
+  opacity:1 !important;
+}
+.mario-cloud::before{ width:42px !important; height:42px !important; left:12px !important; top:-15px !important; }
+.mario-cloud::after{ width:52px !important; height:52px !important; right:15px !important; top:-20px !important; }
+.mario-cloud.a{ left:6% !important; top:10% !important; }
+.mario-cloud.b{ left:62% !important; top:15% !important; transform:scale(1.05) !important; }
+.mario-cloud.c{ left:33% !important; top:6% !important; transform:scale(.88) !important; }
+
+.mario-hill{
+  display:block !important;
+  bottom:11% !important;
+  background:linear-gradient(180deg, #a9eb7c 0%, #69c95c 100%) !important;
+}
+.mario-hill.back{ left:1% !important; width:22vw !important; max-width:300px !important; height:13vw !important; max-height:180px !important; opacity:.72 !important; }
+.mario-hill.mid{ right:14% !important; width:26vw !important; max-width:370px !important; height:16vw !important; max-height:230px !important; opacity:.88 !important; }
+.mario-hill.front{ left:17% !important; bottom:8% !important; width:18vw !important; max-width:240px !important; height:10vw !important; max-height:150px !important; opacity:.96 !important; }
+
+.mario-ground{
+  height:18% !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.22) 0 10%, rgba(118,209,88,.60) 10% 13%, rgba(73,171,74,.98) 13% 100%),
+    repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 46px, rgba(255,255,255,.12) 46px 48px) !important;
+  background-size:100% 100%, 120px 100% !important;
+  animation:groundScroll 11s linear infinite !important;
+}
+
+.mario-castle{
+  position:absolute;
+  right:3.5%;
+  bottom:14%;
+  width:112px;
+  height:148px;
+  z-index:0;
+  background:linear-gradient(180deg, #dcb177 0 18px, #c08f53 18px 100%);
+  border:4px solid #6d4a1d;
+  border-bottom-width:8px;
+  border-radius:10px 10px 6px 6px;
+  box-shadow:6px 6px 0 rgba(0,0,0,.08);
+}
+.mario-castle::before,
+.mario-castle::after{
+  content:"";
+  position:absolute;
+  top:-34px;
+  width:28px;
+  height:58px;
+  background:linear-gradient(180deg, #dcb177 0 18px, #c08f53 18px 100%);
+  border:4px solid #6d4a1d;
+  border-bottom-width:8px;
+  border-radius:12px 12px 6px 6px;
+}
+.mario-castle::before{ left:10px; }
+.mario-castle::after{ right:10px; }
+
+.mario-flower{
+  position:absolute;
+  bottom:14%;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:radial-gradient(circle at 50% 50%, #ffd84d 0 28%, #ffb93b 29% 100%);
+  box-shadow:
+    0 -12px 0 -6px #5abf58,
+    0 -18px 0 -8px #4aa54d,
+    -10px -2px 0 -6px #fff,
+    10px -2px 0 -6px #fff,
+    -6px -10px 0 -6px #fff,
+    6px -10px 0 -6px #fff;
+  z-index:0;
+  animation:flowerBob 4s ease-in-out infinite;
+}
+.mario-flower.f1{ left:7%; }
+.mario-flower.f2{ left:15%; animation-delay:-1.7s; transform:scale(.9); }
+
+@keyframes flowerBob{
+  0%,100%{ transform:translateY(0) scale(1); }
+  50%{ transform:translateY(-5px) scale(1.04); }
+}
+
+.pixel-frame{
+  border:5px solid var(--wood) !important;
+  box-shadow:
+    0 0 0 3px var(--wood2) inset,
+    7px 7px 0 rgba(0,0,0,.15) !important;
+  background:
+    linear-gradient(180deg, rgba(255,248,228,.98), rgba(241,217,160,.98)) !important;
+}
+
+.menu-card,
+.shop-card,
+.arena{
+  border-radius:16px !important;
+}
+
+.menu-card,
+.shop-card{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg, rgba(255,244,214,.96), rgba(236,210,152,.96)) !important;
+}
+
+.menu-card::before,
+.shop-card::before,
+.arena::before{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border:2px solid rgba(0,0,0,.18);
+  border-radius:12px;
+  pointer-events:none;
+}
+
+.menu-card{
+  box-shadow:
+    0 0 0 5px #d8b97f inset,
+    8px 8px 0 rgba(0,0,0,.18) !important;
+}
+
+.shop-card{
+  box-shadow:
+    0 0 0 5px #d8b97f inset,
+    8px 8px 0 rgba(0,0,0,.18) !important;
+}
+
+.menu-wrap,.shop-wrap,.game-shell{
+  width:min(1120px, 100%) !important;
+}
+
+.menu-card,.shop-card{
+  backdrop-filter:none !important;
+}
+
+.eyebrow{
+  background:linear-gradient(180deg, #ea4036, #b8201d) !important;
+  color:#fff !important;
+  border:3px solid #7f150f !important;
+  box-shadow:4px 4px 0 rgba(0,0,0,.20) !important;
+  letter-spacing:.06em !important;
+}
+
+.title{
+  color:#0d273b !important;
+  text-shadow:
+    3px 3px 0 rgba(255,255,255,.55),
+    5px 5px 0 rgba(0,0,0,.22) !important;
+}
+
+.subtitle{
+  color:var(--ink) !important;
+  background:rgba(255,255,255,.28) !important;
+  border:2px solid rgba(0,0,0,.18) !important;
+  box-shadow:3px 3px 0 rgba(0,0,0,.10) !important;
+}
+
+.panel,
+.menu-panel,
+.shop-panel,
+.hud-item,
+.card,
+.mini-stat,
+.shop-wallet,
+.badge,
+.choice,
+.smallbtn,
+.btn,
+.select,
+select,
+input{
+  border-color:#6b4318 !important;
+}
+
+.menu-panel,
+.shop-panel,
+.arena-inner,
+.card,
+.shop-wallet{
+  background:linear-gradient(180deg, rgba(255,247,224,.98), rgba(244,220,170,.98)) !important;
+}
+
+.shop-card .menu-grid > .panel{
+  background:linear-gradient(180deg, rgba(255,247,224,.98), rgba(244,220,170,.98)) !important;
+}
+
+.shop-grid-main{
+  gap:12px !important;
+}
+
+.shop-panel{
+  min-height:260px !important;
+  border-radius:14px !important;
+  box-shadow:3px 3px 0 rgba(0,0,0,.15) !important;
+  padding:14px 14px 12px !important;
+}
+
+.shop-panel strong,
+.shop-panel .price,
+.shop-panel .desc{
+  color:#111 !important;
+}
+
+.shop-panel .desc{
+  min-height:4.8em !important;
+}
+
+.shop-panel .buy-btn{
+  background:linear-gradient(180deg, #8ed63d, #4f9f1d) !important;
+  color:#fff !important;
+  border-color:#2f5f14 !important;
+  box-shadow:3px 3px 0 rgba(0,0,0,.20) !important;
+}
+
+.shop-wallet .v{
+  color:#b17a11 !important;
+}
+
+.shop-card .title{
+  font-size:clamp(34px, 7vw, 70px) !important;
+}
+
+</style>
 </head>
 <body>
     
@@ -2006,15 +2881,11 @@
     </div>
     <div class="mario-pipe a"></div>
     <div class="mario-pipe b"></div>
+    
+    <div class="mario-castle"></div>
+    <div class="mario-flower f1"></div>
+    <div class="mario-flower f2"></div>
     <div class="mario-ground"></div>
-    <div class="mario-runner">
-      <span class="runner-head"></span>
-      <span class="runner-body"></span>
-      <span class="runner-arm l"></span>
-      <span class="runner-arm r"></span>
-      <span class="runner-leg l"></span>
-      <span class="runner-leg r"></span>
-    </div>
   </div>
   <div class="menu-wrap">
     <div class="menu-card pixel-frame">
@@ -2070,6 +2941,22 @@
   </div>
 </div>
 <div id="shopScreen" class="screen shop hidden">
+  <div class="mario-scene mario-scene-shop" aria-hidden="true">
+    <div class="mario-sky-sun"></div>
+    <div class="mario-cloud a"></div>
+    <div class="mario-cloud b"></div>
+    <div class="mario-cloud c"></div>
+    <div class="mario-hill back"></div>
+    <div class="mario-hill mid"></div>
+    <div class="mario-hill front"></div>
+    <div class="mario-castle"></div>
+    <div class="mario-bricks"></div>
+    <div class="mario-pipe a"></div>
+    <div class="mario-pipe b"></div>
+    <div class="mario-ground"></div>
+    <div class="mario-flower f1"></div>
+    <div class="mario-flower f2"></div>
+  </div>
 
     <div class="shop-wrap">
       <div class="menu-card pixel-frame shop-card">
@@ -2150,15 +3037,11 @@
     <div class="mario-bricks"></div>
     <div class="mario-pipe a"></div>
     <div class="mario-pipe b"></div>
+    
+    <div class="mario-castle"></div>
+    <div class="mario-flower f1"></div>
+    <div class="mario-flower f2"></div>
     <div class="mario-ground"></div>
-    <div class="mario-runner" style="animation-duration:6.5s; bottom:9%;">
-      <span class="runner-head"></span>
-      <span class="runner-body"></span>
-      <span class="runner-arm l"></span>
-      <span class="runner-arm r"></span>
-      <span class="runner-leg l"></span>
-      <span class="runner-leg r"></span>
-    </div>
   </div>
   <div class="game-shell">
 
