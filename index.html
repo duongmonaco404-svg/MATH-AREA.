@@ -91,7 +91,7 @@
       padding:24px;
     }
     .menu-card{
-      width:min(1100px,100%);
+      width:min(1240px,100%);
       padding:28px;
       border-radius:24px;
       position:relative;
@@ -112,6 +112,154 @@
       image-rendering:pixelated;
       pointer-events:none;
     }
+    .menu-shell{
+      display:grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(300px, .82fr);
+      gap:18px;
+      align-items:start;
+      margin-top:18px;
+      text-align:left;
+    }
+    .menu-hero{
+      display:grid;
+      justify-items:center;
+      gap:10px;
+      text-align:center;
+    }
+    .menu-title-row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .menu-emblem{
+      width:46px;
+      height:46px;
+      border:2px solid #000;
+      border-radius:12px;
+      background:linear-gradient(180deg, #22345c, #15213b);
+      box-shadow:4px 4px 0 #000;
+      display:grid;
+      place-items:center;
+      font-size:22px;
+    }
+    .menu-banner{
+      display:inline-block;
+      padding:10px 24px;
+      border:2px solid #000;
+      background:linear-gradient(180deg, #203866, #142238);
+      box-shadow:4px 4px 0 #000;
+      border-radius:16px;
+      letter-spacing:.16em;
+      font-size:17px;
+      font-weight:900;
+      text-transform:uppercase;
+    }
+    .grade-tag{
+      display:inline-block;
+      font-size:12px;
+      letter-spacing:.08em;
+      color:#d8deef;
+      padding:2px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      margin-top:2px;
+    }
+    .menu-side{
+      display:grid;
+      gap:14px;
+    }
+    .menu-card-mini{
+      padding:16px;
+      border-radius:18px;
+      text-align:left;
+      display:grid;
+      gap:10px;
+    }
+    .menu-card-mini h3{
+      margin:0;
+      font-size:15px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .profile-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      min-height:72px;
+    }
+    .profile-avatar{
+      width:64px;
+      height:64px;
+      border-radius:16px;
+      border:2px solid #000;
+      background:linear-gradient(180deg, #22345c, #101b33);
+      box-shadow:4px 4px 0 #000;
+      display:grid;
+      place-items:center;
+      font-size:30px;
+      flex:0 0 auto;
+    }
+    .profile-meta{
+      flex:1;
+      min-width:0;
+    }
+    .profile-meta strong{
+      display:block;
+      font-size:18px;
+      margin-bottom:4px;
+    }
+    .profile-meta span{
+      color:var(--muted);
+      font-size:13px;
+    }
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:10px;
+    }
+    .mini-item{
+      border:2px solid #000;
+      border-radius:14px;
+      background:#101b33;
+      box-shadow:4px 4px 0 #000;
+      padding:12px 10px;
+      text-align:center;
+      display:grid;
+      gap:8px;
+      min-height:120px;
+    }
+    .mini-item .icon{
+      font-size:28px;
+      line-height:1;
+    }
+    .mini-item .name{
+      font-size:14px;
+      font-weight:800;
+    }
+    .mini-item .count{
+      color:var(--muted);
+      font-size:12px;
+    }
+    .achievement-list{
+      display:grid;
+      gap:8px;
+    }
+    .achievement-row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 12px;
+      border:2px solid #000;
+      border-radius:12px;
+      background:#101b33;
+      box-shadow:4px 4px 0 #000;
+      font-size:13px;
+    }
+    .achievement-row span{ color:var(--muted); }
     .shop{
       display:flex;
       align-items:center;
@@ -183,10 +331,11 @@
     }
     .title{
       margin:0;
-      font-size:clamp(42px, 8vw, 92px);
-      line-height:.95;
-      letter-spacing:-0.06em;
-      text-shadow: 4px 4px 0 #000;
+      font-size:clamp(44px, 8.5vw, 96px);
+      line-height:.86;
+      letter-spacing:-0.04em;
+      text-shadow: 5px 5px 0 #000;
+      text-transform:uppercase;
     }
     .subtitle{
       margin:18px 0 0;
@@ -951,75 +1100,964 @@
     .toast.show{display:block}
     .tiny{color:var(--muted);font-size:13px;line-height:1.45}
     @media (max-width: 1080px){
-      .menu-grid,.layout{grid-template-columns:1fr}
+      .menu-shell,.menu-grid,.layout{grid-template-columns:1fr}
       .hud{grid-template-columns:repeat(3,1fr)}
       .choices,.controls,.modal-grid{grid-template-columns:1fr 1fr}
     }
     @media (max-width: 680px){
       .menu,.game{padding:12px}
+      .menu-card{padding:18px}
       .hud,.choices,.controls,.modal-grid,.stat-grid{grid-template-columns:1fr}
       .question{font-size:clamp(22px, 7vw, 38px)}
     }
+  
+    /* --- Bright Mario-style scene overrides --- */
+    #menuScreen, #gameScreen{
+      background: linear-gradient(180deg, rgba(210,245,255,.88), rgba(178,230,255,.86));
+    }
+    .menu, .game{
+      position:relative;
+    }
+    .mario-scene,
+    .mario-scene-game{
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+      pointer-events:none;
+      z-index:0;
+      background:
+        linear-gradient(180deg, #8ed8ff 0%, #a8e6ff 34%, #c7f2ff 58%, #dff8c7 58%, #b4e48e 100%);
+      filter:saturate(1.05) brightness(1.02);
+    }
+    .mario-scene::before,
+    .mario-scene-game::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(255,255,255,.95) 0 3px, transparent 4px),
+        radial-gradient(circle at 78% 10%, rgba(255,255,255,.95) 0 3px, transparent 4px),
+        radial-gradient(circle at 51% 22%, rgba(255,255,255,.95) 0 3px, transparent 4px);
+      opacity:.55;
+      pointer-events:none;
+    }
+    .mario-sky-sun{
+      position:absolute;
+      right:7%;
+      top:7%;
+      width:112px;
+      height:112px;
+      border-radius:50%;
+      background:radial-gradient(circle at 35% 35%, #fffde6 0 16%, #fff08a 33%, #ffd45a 60%, #ffbf39 100%);
+      box-shadow:0 0 0 14px rgba(255,232,132,.22), 0 0 0 32px rgba(255,232,132,.12);
+      animation:sunPulse 6s ease-in-out infinite;
+    }
+    .mario-cloud{
+      position:absolute;
+      width:132px;
+      height:42px;
+      border-radius:999px;
+      background:rgba(255,255,255,.98);
+      filter:drop-shadow(4px 4px 0 rgba(0,0,0,.08));
+      animation:cloudFloat 20s linear infinite;
+    }
+    .mario-cloud::before,
+    .mario-cloud::after{
+      content:"";
+      position:absolute;
+      background:rgba(255,255,255,.98);
+      border-radius:999px;
+    }
+    .mario-cloud::before{ width:48px; height:48px; left:14px; top:-18px; }
+    .mario-cloud::after{ width:60px; height:60px; right:18px; top:-24px; }
+    .mario-cloud.a{ left:8%; top:12%; animation-duration:24s; }
+    .mario-cloud.b{ left:58%; top:20%; animation-duration:30s; animation-delay:-9s; transform:scale(1.12); }
+    .mario-cloud.c{ left:36%; top:8%; animation-duration:34s; animation-delay:-16s; transform:scale(.9); }
+    .mario-hill{
+      position:absolute;
+      bottom:9%;
+      border-radius:50% 50% 0 0;
+      background:linear-gradient(180deg, #a5e979 0%, #67c95d 100%);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.10);
+      animation:hillBob 9s ease-in-out infinite;
+    }
+    .mario-hill.back{ left:2%; width:24vw; max-width:340px; height:15vw; max-height:220px; opacity:.82; }
+    .mario-hill.mid{ right:14%; width:30vw; max-width:450px; height:19vw; max-height:280px; opacity:.9; animation-duration:12s; animation-direction:reverse; }
+    .mario-hill.front{ left:18%; bottom:7%; width:18vw; max-width:250px; height:11vw; max-height:160px; opacity:.92; animation-duration:7s; }
+    .mario-ground{
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height:16%;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.18) 0 12%, rgba(111,202,94,.65) 12% 14%, rgba(76,170,78,.95) 14% 100%),
+        repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 44px, rgba(255,255,255,.12) 44px 46px);
+      background-size:100% 100%, 120px 100%;
+      animation:groundScroll 10s linear infinite;
+    }
+    .mario-pipe{
+      position:absolute;
+      bottom:0;
+      width:74px;
+      height:150px;
+      border:4px solid #2f7f2f;
+      border-bottom-width:10px;
+      border-radius:12px 12px 0 0;
+      background:linear-gradient(180deg, #86e486 0 18px, #4eb84e 18px 100%);
+      box-shadow:6px 6px 0 rgba(0,0,0,.12);
+      animation:pipeBounce 5.5s ease-in-out infinite;
+    }
+    .mario-pipe::before{
+      content:"";
+      position:absolute;
+      left:-6px; right:-6px; top:-16px;
+      height:16px;
+      border:4px solid #2f7f2f;
+      border-bottom:0;
+      border-radius:12px 12px 0 0;
+      background:linear-gradient(180deg, #8def8d, #5bc95a);
+    }
+    .mario-pipe.a{ left:10%; }
+    .mario-pipe.b{ right:16%; height:116px; animation-delay:-2.2s; }
+    .mario-bricks{
+      position:absolute;
+      left:36%;
+      top:26%;
+      width:140px;
+      height:42px;
+      border:4px solid #c99820;
+      background:
+        repeating-linear-gradient(0deg, #f2cb57 0 12px, #e3b63a 12px 14px),
+        repeating-linear-gradient(90deg, #f2cb57 0 24px, #e3b63a 24px 26px);
+      box-shadow:6px 6px 0 rgba(0,0,0,.08);
+      opacity:.9;
+      image-rendering:pixelated;
+      animation:blockScroll 22s linear infinite;
+    }
+    .mario-question-blocks{
+      position:absolute;
+      left:50%;
+      top:18%;
+      transform:translateX(-50%);
+      display:flex;
+      gap:12px;
+      z-index:0;
+      animation:blockScroll 18s linear infinite;
+    }
+    .mario-question-blocks .block{
+      width:42px;
+      height:42px;
+      border:4px solid #c99820;
+      box-shadow:4px 4px 0 rgba(0,0,0,.08);
+      border-radius:6px;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      color:#7f5b00;
+      background:
+        linear-gradient(180deg, #ffe98b 0 14px, #f0c73c 14px 100%);
+      text-shadow:1px 1px 0 rgba(255,255,255,.42);
+    }
+    .mario-question-blocks .block.coin{
+      color:#8b5d00;
+      background:linear-gradient(180deg, #fff4a8 0 14px, #ffd84d 14px 100%);
+    }
+    .mario-runner{
+      position:absolute;
+      left:8%;
+      bottom:10%;
+      width:40px;
+      height:56px;
+      z-index:0;
+      animation:heroRun 7s linear infinite;
+      image-rendering:pixelated;
+      filter:drop-shadow(4px 4px 0 rgba(0,0,0,.20));
+    }
+    .mario-runner .runner-head,
+    .mario-runner .runner-body,
+    .mario-runner .runner-arm,
+    .mario-runner .runner-leg{
+      position:absolute;
+      display:block;
+    }
+    .mario-runner .runner-head{
+      left:12px;
+      top:2px;
+      width:14px;
+      height:12px;
+      border-radius:4px 4px 5px 5px;
+      background:#f1c8a0;
+      box-shadow:
+        0 -6px 0 0 #d43a34,
+        2px -8px 0 0 #d43a34,
+        6px -8px 0 0 #d43a34,
+        10px -6px 0 0 #d43a34;
+    }
+    .mario-runner .runner-head::before{
+      content:"";
+      position:absolute;
+      left:2px;
+      top:3px;
+      width:3px;
+      height:3px;
+      border-radius:50%;
+      background:#3b271d;
+      box-shadow:6px 0 0 #3b271d;
+    }
+    .mario-runner .runner-head::after{
+      content:"";
+      position:absolute;
+      left:3px;
+      bottom:-2px;
+      width:8px;
+      height:2px;
+      background:#7a4a21;
+      border-radius:999px;
+    }
+    .mario-runner .runner-body{
+      left:10px;
+      top:14px;
+      width:18px;
+      height:22px;
+      border-radius:4px;
+      background:linear-gradient(180deg, #2b71db 0 14px, #1a4aa0 14px 100%);
+      box-shadow:
+        inset 6px 0 0 0 #72d8ff,
+        inset -6px 0 0 0 #72d8ff;
+    }
+    .mario-runner .runner-body::before{
+      content:"";
+      position:absolute;
+      left:5px;
+      top:3px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#f1c8a0;
+    }
+    .mario-runner .runner-body::after{
+      content:"";
+      position:absolute;
+      left:2px;
+      top:18px;
+      width:14px;
+      height:4px;
+      border-radius:999px;
+      background:#6c1b1a;
+    }
+    .mario-runner .runner-arm{
+      width:5px;
+      height:18px;
+      top:15px;
+      background:#f1c8a0;
+      border-radius:4px;
+      transform-origin:top center;
+    }
+    .mario-runner .runner-arm.l{ left:6px; animation:armLeft .55s ease-in-out infinite; }
+    .mario-runner .runner-arm.r{ left:27px; animation:armRight .55s ease-in-out infinite; }
+    .mario-runner .runner-leg{
+      width:6px;
+      height:18px;
+      top:33px;
+      background:#1f3f7a;
+      border-radius:4px;
+      transform-origin:top center;
+    }
+    .mario-runner .runner-leg.l{ left:12px; animation:legLeft .55s ease-in-out infinite; }
+    .mario-runner .runner-leg.r{ left:20px; animation:legRight .55s ease-in-out infinite; }
+    .mario-runner .runner-leg::after{
+      content:"";
+      position:absolute;
+      bottom:-3px;
+      left:-1px;
+      width:8px;
+      height:4px;
+      border-radius:4px;
+      background:#5c3418;
+    }
+
+    .menu-wrap{
+      position:relative;
+      z-index:2;
+      width:min(1200px,100%);
+      margin:0 auto;
+    }
+    .menu-card{
+      background:linear-gradient(180deg, rgba(15,25,47,.50), rgba(10,16,32,.72));
+      backdrop-filter: blur(2px);
+      width:min(1120px,100%);
+      padding:24px 24px 30px;
+      border-radius:26px;
+      position:relative;
+      overflow:hidden;
+      text-align:center;
+      margin:0 auto;
+      box-shadow:0 18px 40px rgba(0,0,0,.18);
+    }
+    .menu-card::after{ display:none; }
+    .menu-card::before{
+      content:"";
+      position:absolute;
+      inset:auto 10px 10px 10px;
+      height:12px;
+      border-radius:999px;
+      background:linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.38), rgba(255,255,255,.0));
+      opacity:.9;
+      pointer-events:none;
+    }
+    .menu-hero{
+      display:grid;
+      justify-items:center;
+      gap:10px;
+      text-align:center;
+    }
+    .menu-title-row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-top:4px;
+    }
+    .menu-emblem{
+      width:46px;
+      height:46px;
+      border:2px solid #000;
+      border-radius:12px;
+      background:linear-gradient(180deg, #ffe98b, #ffbf39);
+      box-shadow:4px 4px 0 #000;
+      display:grid;
+      place-items:center;
+      font-size:22px;
+      color:#000;
+    }
+    .menu-banner{
+      display:inline-block;
+      padding:10px 18px;
+      border:2px solid #000;
+      background:linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.28));
+      box-shadow:4px 4px 0 #000;
+      border-radius:16px;
+      letter-spacing:.16em;
+      font-size:14px;
+      font-weight:900;
+      text-transform:uppercase;
+      color:#16324d;
+      margin-bottom:4px;
+    }
+    .title{
+      margin:0;
+      font-size:clamp(52px, 10vw, 110px);
+      line-height:.84;
+      letter-spacing:-0.08em;
+      text-shadow:5px 5px 0 #000, 0 0 18px rgba(255,255,255,.18);
+      text-transform:uppercase;
+    }
+    .subtitle{
+      margin:12px 0 0;
+      max-width:760px;
+      color:#1c3a54;
+      font-size:15px;
+      line-height:1.7;
+      background:rgba(255,255,255,.20);
+      border:2px solid rgba(0,0,0,.24);
+      box-shadow:4px 4px 0 rgba(0,0,0,.14);
+      padding:12px 16px;
+      border-radius:18px;
+    }
+    .grade-tag{
+      display:inline-block;
+      font-size:10px;
+      letter-spacing:.12em;
+      color:#102236;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.2);
+      background:rgba(255,255,255,.42);
+      margin-top:4px;
+      font-weight:700;
+    }
+    .menu-panel{
+      max-width:620px;
+      margin:22px auto 0;
+      padding:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.12));
+      border-radius:22px;
+    }
+    .menu-panel h3{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      font-size:17px;
+      margin-bottom:16px;
+    }
+    .menu-panel h3::before{ content:"⚙"; color:#ffbf39; font-size:18px; }
+    .menu-panel .settings{ max-width:540px; margin:0 auto; }
+    .menu-panel select{
+      background:rgba(255,255,255,.88);
+      color:#102236;
+      border-color:#000;
+    }
+    .menu-stage{
+      position:relative;
+      margin-top:18px;
+      padding:14px 12px 2px;
+    }
+    .menu-stage::before{
+      content:"";
+      position:absolute;
+      left:4%; right:4%; bottom:0;
+      height:14px;
+      border-radius:999px;
+      background:rgba(15,25,47,.18);
+      box-shadow:0 0 0 2px rgba(0,0,0,.08) inset;
+    }
+    .menu-stage::after{
+      content:"";
+      position:absolute;
+      left:2%; right:2%; bottom:4px;
+      height:10px;
+      background:repeating-linear-gradient(90deg, rgba(255,255,255,.0) 0 34px, rgba(255,255,255,.38) 34px 36px);
+      opacity:.55;
+      border-radius:999px;
+    }
+    .menu-foot{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+      margin-top:18px;
+    }
+    .menu-chip{
+      padding:8px 12px;
+      border:2px solid #000;
+      border-radius:999px;
+      background:linear-gradient(180deg, rgba(255,255,255,.50), rgba(255,255,255,.28));
+      box-shadow:3px 3px 0 #000;
+      color:#102236;
+      font-size:12px;
+      letter-spacing:.05em;
+      font-weight:700;
+    }
+    .menu-actions{ margin-top:16px; }
+
+    @media (max-width: 1080px){
+      .menu-shell,.menu-grid,.layout{grid-template-columns:1fr}
+      .hud{grid-template-columns:repeat(3,1fr)}
+      .choices,.controls,.modal-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 680px){
+      .menu,.game{padding:12px}
+      .menu-card{padding:18px}
+      .hud,.choices,.controls,.modal-grid,.stat-grid{grid-template-columns:1fr}
+      .question{font-size:clamp(22px, 7vw, 38px)}
+      .title{font-size:clamp(38px, 16vw, 76px)}
+      .subtitle{font-size:14px}
+      .menu-banner{font-size:12px}
+    }
+  
+    /* ===== Override: cleaner stacked gameplay + richer Mario-style scenes ===== */
+    .game-shell{
+      width:min(780px,100%);
+    }
+    .layout{
+      grid-template-columns:1fr;
+    }
+    .side{
+      display:grid;
+      grid-template-columns:1fr;
+    }
+    .arena{
+      width:100%;
+    }
+    .hud{
+      grid-template-columns:repeat(3, minmax(0,1fr));
+    }
+    .shop-card{
+      position:relative;
+    }
+    .shop-wallet{
+      width:min(360px, 100%);
+      margin:16px auto 0;
+      padding:14px 16px;
+      border-radius:18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.52));
+      border:2px solid #000;
+      box-shadow:4px 4px 0 #000;
+      text-align:left;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      color:#102236;
+    }
+    .shop-wallet .k{
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      opacity:.8;
+    }
+    .shop-wallet .v{
+      font-size:24px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .mario-scene,
+    .mario-scene-game{
+      background:
+        linear-gradient(180deg, #79ccff 0%, #9fe0ff 26%, #c9f1ff 52%, #d5f5bf 52%, #9fdb74 100%);
+    }
+    .mario-scene::before,
+    .mario-scene-game::before{
+      background:
+        radial-gradient(circle at 14% 14%, rgba(255,255,255,.96) 0 22px, transparent 23px),
+        radial-gradient(circle at 16% 14%, rgba(255,255,255,.96) 0 10px, transparent 11px),
+        radial-gradient(circle at 40% 8%, rgba(255,255,255,.92) 0 20px, transparent 21px),
+        radial-gradient(circle at 72% 18%, rgba(255,255,255,.95) 0 26px, transparent 27px),
+        radial-gradient(circle at 74% 18%, rgba(255,255,255,.95) 0 11px, transparent 12px),
+        radial-gradient(circle at 84% 10%, rgba(255,255,255,.90) 0 18px, transparent 19px);
+      opacity:.45;
+      animation: skyNoise 32s linear infinite;
+    }
+    .mario-sky-sun{
+      width:122px;
+      height:122px;
+      right:6%;
+      top:6%;
+      background:radial-gradient(circle at 35% 35%, #fffde8 0 16%, #fff28d 33%, #ffd65c 62%, #ffbf3d 100%);
+      box-shadow:0 0 0 12px rgba(255,236,138,.20), 0 0 0 28px rgba(255,236,138,.10);
+      animation:sunPulse 7s ease-in-out infinite;
+    }
+    .mario-cloud{
+      width:150px;
+      height:46px;
+      opacity:.98;
+      animation-duration:26s;
+      filter:drop-shadow(4px 6px 0 rgba(0,0,0,.08));
+    }
+    .mario-cloud.a{ left:6%; top:11%; animation-duration:30s; }
+    .mario-cloud.b{ left:61%; top:21%; animation-duration:38s; animation-delay:-11s; transform:scale(1.18); }
+    .mario-cloud.c{ left:34%; top:7%; animation-duration:42s; animation-delay:-19s; transform:scale(.92); }
+    .mario-hill{
+      background:linear-gradient(180deg, #b0ef88 0%, #62c85a 100%);
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,.10), 8px 12px 0 rgba(0,0,0,.06);
+      animation: hillBob 10s ease-in-out infinite;
+    }
+    .mario-hill.back{
+      left:0;
+      width:26vw;
+      max-width:360px;
+      height:16vw;
+      max-height:230px;
+      bottom:10%;
+      clip-path: polygon(0 100%, 18% 42%, 36% 58%, 55% 25%, 74% 52%, 100% 100%);
+      opacity:.9;
+    }
+    .mario-hill.mid{
+      right:12%;
+      width:32vw;
+      max-width:470px;
+      height:20vw;
+      max-height:290px;
+      bottom:8%;
+      clip-path: polygon(0 100%, 14% 48%, 28% 60%, 41% 33%, 62% 20%, 80% 50%, 100% 100%);
+      opacity:.96;
+      animation-duration:13s;
+      animation-direction:reverse;
+    }
+    .mario-hill.front{
+      left:17%;
+      width:19vw;
+      max-width:270px;
+      height:12vw;
+      max-height:170px;
+      bottom:7%;
+      clip-path: polygon(0 100%, 22% 54%, 42% 40%, 61% 18%, 78% 38%, 100% 100%);
+      opacity:.95;
+      animation-duration:8s;
+    }
+    .mario-bricks{
+      left:34%;
+      top:25%;
+      width:170px;
+      height:50px;
+      border-color:#cc9b1c;
+      background:
+        repeating-linear-gradient(0deg, #ffde79 0 12px, #f0c73c 12px 13px),
+        repeating-linear-gradient(90deg, #ffde79 0 24px, #f0c73c 24px 25px);
+      box-shadow:6px 6px 0 rgba(0,0,0,.08);
+      opacity:.86;
+      animation:blockScroll 20s linear infinite;
+    }
+    .mario-question-blocks{
+      left:50%;
+      top:18%;
+      transform:translateX(-50%);
+      gap:10px;
+      animation:blockScroll 18s linear infinite;
+    }
+    .mario-question-blocks .block{
+      width:44px;
+      height:44px;
+      border-color:#cc9b1c;
+      border-radius:8px;
+      background:
+        linear-gradient(180deg, #fff0a6 0 12px, #f4cb44 12px 100%);
+    }
+    .mario-question-blocks .block.coin{
+      background:linear-gradient(180deg, #fff6bf 0 12px, #ffd94d 12px 100%);
+    }
+    .mario-pipe{
+      width:82px;
+      border-color:#2b7a2d;
+      background:linear-gradient(180deg, #9cef9b 0 18px, #55c055 18px 100%);
+      box-shadow:6px 8px 0 rgba(0,0,0,.08);
+    }
+    .mario-pipe.a{ left:9%; }
+    .mario-pipe.b{ right:14%; height:118px; animation-delay:-2.2s; }
+    .mario-pipe::before{
+      border-color:#2b7a2d;
+      background:linear-gradient(180deg, #aef4ab, #68d266);
+    }
+    .mario-ground{
+      height:18%;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.20) 0 11%, rgba(120, 214, 100, .70) 11% 13%, rgba(84, 183, 81, .98) 13% 100%),
+        repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 42px, rgba(255,255,255,.12) 42px 44px, rgba(0,0,0,0) 44px 120px),
+        linear-gradient(180deg, rgba(56,132,55,.0), rgba(56,132,55,.28));
+      background-size:100% 100%, 120px 100%, 100% 100%;
+      animation:groundScroll 9s linear infinite;
+      box-shadow: inset 0 10px 0 rgba(255,255,255,.06);
+    }
+    .mario-runner{
+      bottom:9%;
+      animation-duration:6s;
+      transform-origin:center bottom;
+    }
+
+    .mario-scene-game{
+      filter:saturate(1.08) brightness(1.02);
+    }
+    .mario-scene-game .mario-hill.back{
+      opacity:.8;
+    }
+    .mario-scene-game .mario-hill.mid{
+      opacity:.9;
+    }
+    .mario-scene-game .mario-bricks{
+      opacity:.72;
+      transform:translateY(2px);
+    }
+
+    @keyframes skyNoise{
+      from{ transform:translateX(0); }
+      to{ transform:translateX(4%); }
+    }
+
+  
+    /* === Compact desktop layout + richer Mario-style scene === */
+    @keyframes runnerSprite {
+      from { background-position: 0% 0; }
+      to { background-position: 100% 0; }
+    }
+    @keyframes skyDrift {
+      from { background-position: 0 0, 0 0, 0 0; }
+      to { background-position: -120px 0, 0 0, 0 0; }
+    }
+    @media (min-width: 1100px) {
+      .menu-wrap, .shop-wrap {
+        width: min(1060px, calc(100% - 36px));
+      }
+      .game-shell {
+        width: min(920px, calc(100% - 36px));
+      }
+      .menu-card, .shop-card {
+        width: 100%;
+      }
+      .menu-card, .shop-card {
+        padding: 20px 20px 22px;
+      }
+      .game-shell {
+        padding-bottom: 8px;
+      }
+    }
+    @media (max-width: 1099px) {
+      .menu-wrap, .shop-wrap, .game-shell {
+        width: min(100%, calc(100% - 24px));
+      }
+    }
+    .menu, .shop, .game {
+      padding: 12px;
+    }
+    .menu-card, .shop-card {
+      max-width: 100%;
+      border-radius: 22px;
+    }
+    .title {
+      font-size: clamp(38px, 6.8vw, 82px);
+    }
+    .subtitle {
+      max-width: 700px;
+      font-size: 14px;
+    }
+    .game-shell {
+      display: block;
+    }
+    .hud {
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .hud-item {
+      padding: 10px 12px;
+    }
+    .hud-item .v {
+      font-size: 16px;
+    }
+    .layout {
+      gap: 14px;
+    }
+    .arena-inner, .card, .menu-panel, .shop-panel {
+      padding: 16px;
+    }
+    .question {
+      font-size: clamp(22px, 3.4vw, 40px);
+    }
+
+    .mario-scene,
+    .mario-scene-game {
+      background:
+        linear-gradient(180deg, #7fd4ff 0%, #9ee7ff 30%, #d8fbff 54%, #c7ee9c 54%, #88cf59 100%);
+      filter: saturate(1.06) brightness(1.03);
+    }
+    .mario-scene::before,
+    .mario-scene-game::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(255,255,255,.96) 0 4px, transparent 5px),
+        radial-gradient(circle at 20% 16%, rgba(255,255,255,.96) 0 6px, transparent 7px),
+        radial-gradient(circle at 28% 18%, rgba(255,255,255,.96) 0 4px, transparent 5px),
+        radial-gradient(circle at 74% 14%, rgba(255,255,255,.96) 0 4px, transparent 5px),
+        radial-gradient(circle at 82% 16%, rgba(255,255,255,.96) 0 6px, transparent 7px),
+        radial-gradient(circle at 91% 18%, rgba(255,255,255,.96) 0 4px, transparent 5px),
+        radial-gradient(circle at 15% 82%, rgba(97,178,67,.78) 0 90px, transparent 91px),
+        radial-gradient(circle at 84% 84%, rgba(84,155,58,.80) 0 140px, transparent 141px),
+        radial-gradient(circle at 48% 90%, rgba(103,194,82,.72) 0 120px, transparent 121px);
+      opacity: .9;
+      pointer-events: none;
+    }
+    .mario-scene::after,
+    .mario-scene-game::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 2px, transparent 2px 60px),
+        repeating-linear-gradient(180deg, rgba(0,0,0,.04) 0 1px, transparent 1px 24px),
+        linear-gradient(180deg, transparent 0 74%, rgba(255,255,255,.06) 74% 75%, transparent 75% 100%);
+      opacity: .45;
+      animation: skyDrift 24s linear infinite;
+      pointer-events: none;
+    }
+    .mario-hill.back {
+      background: linear-gradient(180deg, #a7ea7e 0%, #67c85f 100%);
+      width: 27vw;
+      max-width: 370px;
+      height: 16vw;
+      max-height: 230px;
+      left: 2%;
+      bottom: 10%;
+      opacity: .78;
+    }
+    .mario-hill.mid {
+      background: linear-gradient(180deg, #8ee46d 0%, #54b95a 100%);
+      width: 32vw;
+      max-width: 470px;
+      height: 19vw;
+      max-height: 280px;
+      right: 12%;
+      bottom: 8%;
+      opacity: .92;
+    }
+    .mario-hill.front {
+      background: linear-gradient(180deg, #b2f081 0%, #71ce61 100%);
+      width: 19vw;
+      max-width: 270px;
+      height: 12vw;
+      max-height: 180px;
+      left: 20%;
+      bottom: 6%;
+      opacity: .88;
+    }
+    .mario-bricks {
+      opacity: .68;
+      filter: saturate(1.1);
+    }
+    .mario-question-blocks {
+      gap: 10px;
+      top: 14%;
+      left: 48%;
+    }
+    .mario-question-blocks .block {
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #fff2a2 0 14px, #f2c83d 14px 100%);
+      color: #8b5d00;
+    }
+    .mario-pipe {
+      border-color: #2d7f2e;
+      background: linear-gradient(180deg, #92ef93 0 18px, #52bf52 18px 100%);
+    }
+    .mario-pipe::before {
+      border-color: #2d7f2e;
+      background: linear-gradient(180deg, #a1f6a1, #5ed45b);
+    }
+    .mario-ground {
+      height: 17%;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.20) 0 11%, rgba(120,210,98,.58) 11% 13%, rgba(68,165,70,.95) 13% 100%),
+        repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 42px, rgba(255,255,255,.12) 42px 44px);
+    }
+
+    .mario-runner {
+      width: 52px;
+      height: 60px;
+      background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20128%2048%22%20shape-rendering%3D%22crispEdges%22%3E%3Cg%20transform%3D%22translate%280%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2216%22%20y%3D%2238%22%20width%3D%2210%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2218%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2832%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%229%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2217%22%20y%3D%2236%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2222%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2864%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2216%22%20y%3D%2238%22%20width%3D%2210%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2218%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2896%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%229%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2217%22%20y%3D%2236%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2222%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-size: 400% 100%;
+      image-rendering: pixelated;
+      filter: drop-shadow(4px 4px 0 rgba(0,0,0,.22));
+      animation:
+        runnerSprite .55s steps(4) infinite,
+        heroRun 7s linear infinite;
+      transform-origin: center bottom;
+    }
+    .mario-runner > span {
+      display: none !important;
+    }
+
+    .menu-card, .shop-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.12));
+      backdrop-filter: blur(2px);
+      box-shadow: 0 16px 34px rgba(0,0,0,.14);
+    }
+    .menu-panel, .shop-panel, .card, .arena-inner, .mini-stat, .hud-item, .shop-wallet {
+      border-radius: 18px;
+    }
+    .menu-banner {
+      background: linear-gradient(180deg, rgba(255,255,255,.56), rgba(255,255,255,.28));
+      color: #17324e;
+    }
+    .menu-chip {
+      background: linear-gradient(180deg, rgba(255,255,255,.58), rgba(255,255,255,.30));
+      color: #17324e;
+    }
+    .shop-wallet {
+      width: min(340px, 100%);
+      margin: 14px auto 0;
+    }
+    .shop-wallet .v {
+      font-size: 24px;
+      font-weight: 900;
+    }
+    .menu-actions {
+      gap: 10px;
+    }
+    .btn, .smallbtn, .buy-btn {
+      border-radius: 12px;
+    }
+
   </style>
 </head>
 <body>
-  <div id="menuScreen" class="screen menu">
-    <div class="menu-wrap">
-      <div class="menu-card pixel-frame">
-        <div class="eyebrow">Math Arena</div>
-        <h1 class="title">Math Arena</h1>
-        <p class="subtitle">
-          Đấu trường toán THPT với 3 khối 10, 11, 12. Câu hỏi được đẩy lên mức giải tích, tổ hợp,
-          xác suất, Oxyz, số phức, logarit và đạo hàm. Mỗi câu có đúng 3 phút để trả lời.
-        </p>
-
-        <div class="menu-grid">
-          <section class="panel pixel-frame">
-            <h3>Thiết lập trận đấu</h3>
-            <div class="settings">
-              <div class="field">
-                <label for="modeSelect">Chế độ</label>
-                <select id="modeSelect">
-                  <option value="arena">Arena</option>
-                  <option value="survival">Survival</option>
-                  <option value="boss">Boss Rush</option>
-                  <option value="exam">Exam</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="gradeSelect">Khối</label>
-                <select id="gradeSelect">
-                  <option value="10">Lớp 10</option>
-                  <option value="11" selected>Lớp 11</option>
-                  <option value="12">Lớp 12</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="classSelect">Nhân vật</label>
-                <select id="classSelect">
-                  <option value="mage">Mage - Mana rất cao, EXP +</option>
-                  <option value="warrior">Warrior - HP cực cao, xu +</option>
-                  <option value="sage">Sage - EXP cực cao, mana +</option>
-                  <option value="rogue">Rogue - xu cực cao, sát thương nhận +</option>
-                </select>
-              </div>
-            </div>
-            <div class="menu-actions">
-              <button type="button" class="btn" id="startBtn">Bắt đầu</button>
-            </div>
-            <div class="decor-row" aria-hidden="true">
-              <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
-            </div>
-          </section>
-
-
-        </div>
-      </div>
+    
+<div id="menuScreen" class="screen menu">
+  <div class="mario-scene" aria-hidden="true">
+    <div class="mario-sky-sun"></div>
+    <div class="mario-cloud a"></div>
+    <div class="mario-cloud b"></div>
+    <div class="mario-cloud c"></div>
+    <div class="mario-hill back"></div>
+    <div class="mario-hill mid"></div>
+    <div class="mario-hill front"></div>
+    <div class="mario-bricks"></div>
+    <div class="mario-question-blocks" aria-hidden="true">
+      <div class="block">?</div>
+      <div class="block coin">★</div>
+      <div class="block">?</div>
     </div>
-
+    <div class="mario-pipe a"></div>
+    <div class="mario-pipe b"></div>
+    <div class="mario-ground"></div>
+    <div class="mario-runner">
+      <span class="runner-head"></span>
+      <span class="runner-body"></span>
+      <span class="runner-arm l"></span>
+      <span class="runner-arm r"></span>
+      <span class="runner-leg l"></span>
+      <span class="runner-leg r"></span>
+    </div>
   </div>
+  <div class="menu-wrap">
+    <div class="menu-card pixel-frame">
+      <div class="menu-hero">
+        <div class="menu-title-row">
+          <div class="menu-emblem">★</div>
+          <div>
+            <div class="menu-banner">Đấu Trường Toán Học</div>
+            <h1 class="title">MATH<br>ARENA</h1>
+            <div class="grade-tag">Lớp 10</div>
+          </div>
+          <div class="menu-emblem">Σ</div>
+        </div>
+        <p class="subtitle">
+          Chinh phục thử thách Toán học, tích lũy vàng, nâng cấp vật phẩm và trở thành nhà vô địch!
+        </p>
+      </div>
 
-  <div id="shopScreen" class="screen shop hidden">
+      <section class="menu-card-mini pixel-frame menu-panel">
+        <h3>Cài đặt trò chơi</h3>
+        <div class="settings">
+          <div class="field">
+            <label for="modeSelect">Chế độ</label>
+            <select id="modeSelect">
+              <option value="arena">Arena</option>
+              <option value="survival">Survival</option>
+              <option value="boss">Boss Rush</option>
+              <option value="exam">Exam</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="classSelect">Nhân vật</label>
+            <select id="classSelect">
+              <option value="mage">Mage - Mana rất cao, EXP +</option>
+              <option value="warrior">Warrior - HP cực cao, xu +</option>
+              <option value="sage">Sage - EXP cực cao, mana +</option>
+              <option value="rogue">Rogue - xu cực cao, sát thương nhận +</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="menu-actions">
+          <button type="button" class="btn" id="startBtn">Bắt đầu</button>
+        </div>
+
+        <div class="menu-foot" aria-hidden="true">
+          <div class="menu-chip">Hệ thức lượng</div>
+          <div class="menu-chip">Đại số tổ hợp</div>
+          <div class="menu-chip">8-bit retro</div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<div id="shopScreen" class="screen shop hidden">
+
     <div class="shop-wrap">
       <div class="menu-card pixel-frame shop-card">
         <div class="eyebrow">Cửa hàng</div>
@@ -1027,6 +2065,11 @@
         <p class="subtitle">
           Mua đồ bằng xu đã kiếm được trong trận. Vật phẩm mua ở đây sẽ được lưu lại và dùng cho các ván sau.
         </p>
+
+        <div class="shop-wallet pixel-frame" aria-label="Số xu hiện có">
+          <div class="k">Số xu hiện có</div>
+          <div class="v" id="shopCoinText">0 xu</div>
+        </div>
 
         <div class="menu-grid">
           <section class="panel pixel-frame">
@@ -1063,25 +2106,31 @@
     </div>
   </div>
 
-  <div id="gameScreen" class="screen game hidden">
-    <div class="retro-bg" aria-hidden="true">
-      <div class="retro-sun"></div>
-      <div class="retro-blocks"></div>
-      <div class="retro-hills"></div>
-      <div class="retro-pipes"></div>
-      <div class="retro-cloud cloud-a"></div>
-      <div class="retro-cloud cloud-b"></div>
-      <div class="retro-coin"></div>
-      <div class="retro-hero" title="retro runner">
-        <span class="hero-head"></span>
-        <span class="hero-body"></span>
-        <span class="hero-arm hero-arm-l"></span>
-        <span class="hero-arm hero-arm-r"></span>
-        <span class="hero-leg hero-leg-l"></span>
-        <span class="hero-leg hero-leg-r"></span>
-      </div>
+  
+<div id="gameScreen" class="screen game hidden">
+  <div class="mario-scene-game" aria-hidden="true">
+    <div class="mario-sky-sun"></div>
+    <div class="mario-cloud a"></div>
+    <div class="mario-cloud b"></div>
+    <div class="mario-cloud c"></div>
+    <div class="mario-hill back"></div>
+    <div class="mario-hill mid"></div>
+    <div class="mario-hill front"></div>
+    <div class="mario-bricks"></div>
+    <div class="mario-pipe a"></div>
+    <div class="mario-pipe b"></div>
+    <div class="mario-ground"></div>
+    <div class="mario-runner" style="animation-duration:6.5s; bottom:9%;">
+      <span class="runner-head"></span>
+      <span class="runner-body"></span>
+      <span class="runner-arm l"></span>
+      <span class="runner-arm r"></span>
+      <span class="runner-leg l"></span>
+      <span class="runner-leg r"></span>
     </div>
-    <div class="game-shell">
+  </div>
+  <div class="game-shell">
+
       <div class="hud">
         <div class="hud-item"><div class="k">Điểm</div><div class="v" id="uiScore">0</div></div>
         <div class="hud-item"><div class="k">Cấp</div><div class="v" id="uiLevel">1</div></div>
@@ -1221,11 +2270,19 @@
       toast: $('toast'),
       menuScreen: $('menuScreen'),
       shopScreen: $('shopScreen'),
-      gameScreen: $('gameScreen')
+      gameScreen: $('gameScreen'),
+      shopCoinText: $('shopCoinText'),
+      menuCoinText: $('menuCoinText'),
+      menuLifeCount: $('menuLifeCount'),
+      menuTimeCount: $('menuTimeCount'),
+      menuShieldCount: $('menuShieldCount'),
+      menuBestScore: $('menuBestScore'),
+      menuBestRound: $('menuBestRound'),
+      menuBestAccuracy: $('menuBestAccuracy')
     };
 
     const modeNames = { arena: 'Arena', survival: 'Survival', boss: 'Boss Rush', exam: 'Exam' };
-    const gradeNames = { 10: 'Lớp 10', 11: 'Lớp 11', 12: 'Lớp 12' };
+    const gradeNames = { 10: 'Lớp 10' };
     const classNames = { mage: 'Mage', warrior: 'Warrior', sage: 'Sage', rogue: 'Rogue' };
 
     function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
@@ -1243,6 +2300,20 @@
       ui.toast.classList.add('show');
       clearTimeout(toast._t);
       toast._t = setTimeout(() => ui.toast.classList.remove('show'), 1400);
+    }
+
+    function refreshMenuStats(){
+      if(ui.shopCoinText) ui.shopCoinText.textContent = `${state.coins || 0} xu`;
+      if(ui.menuCoinText) ui.menuCoinText.textContent = String(state.coins || 0);
+      if(ui.menuLifeCount) ui.menuLifeCount.textContent = `x${state.menuLifeCount || 1}`;
+      if(ui.menuTimeCount) ui.menuTimeCount.textContent = `x${state.menuTimeCount || 1}`;
+      if(ui.menuShieldCount) ui.menuShieldCount.textContent = `x${state.shield || 0}`;
+      if(ui.menuBestScore) ui.menuBestScore.textContent = String(state.bestMenuScore || state.score || 0);
+      if(ui.menuBestRound) ui.menuBestRound.textContent = String(state.bestMenuRound || state.index || 0);
+      if(ui.menuBestAccuracy) {
+        const acc = state.bestMenuAccuracy ?? (state.correct + state.wrong ? Math.round((state.correct / Math.max(1, state.correct + state.wrong)) * 100) : 0);
+        ui.menuBestAccuracy.textContent = `${acc}%`;
+      }
     }
     function log(msg, tone='normal'){}
 
@@ -1309,72 +2380,119 @@
     function qGrade10(){
       const pool = [
         () => {
-          const a = rand(1, 5);
-          const b = rand(-10, 10);
-          const c = rand(-12, 12);
-          const delta = b * b - 4 * a * c;
-          const signB = b >= 0 ? `+ ${b}` : `- ${Math.abs(b)}`;
-          const signC = c >= 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
+          const opp = rand(3, 9);
+          const hyp = opp * 2;
+          const answer = hyp;
           return {
-            text: `Cho phương trình ${a}x² ${signB}x ${signC} = 0. Tính Δ.`,
-            answer: delta,
-            choices: createChoices(delta, Math.max(12, Math.ceil(Math.abs(delta) * 0.3) + 6)),
-            hint: 'Δ = b² - 4ac.'
-          };
-        },
-        () => {
-          const a = rand(1, 5);
-          const x0 = rand(-4, 4);
-          const b = -2 * a * x0;
-          const c = rand(-8, 8);
-          const signB = b >= 0 ? `+ ${b}` : `- ${Math.abs(b)}`;
-          const signC = c >= 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
-          const answer = x0;
-          return {
-            text: `Với hàm số y = ${a}x² ${signB}x ${signC}, hoành độ đỉnh là bao nhiêu?`,
+            text: `Trong tam giác vuông, sin α = 1/2 và cạnh đối diện góc α dài ${opp}. Tính cạnh huyền.`,
             answer,
-            choices: createChoices(answer, 6),
-            hint: 'x đỉnh = -b / (2a).'
+            choices: createChoices(answer, 10),
+            hint: 'sin α = cạnh đối / cạnh huyền.'
           };
         },
         () => {
-          const a = rand(2, 8);
-          const b = rand(-10, 10);
-          const x = rand(-6, 6);
-          const c = rand(-15, 15);
-          const value = a * x * x + b * x + c;
-          const signB = b >= 0 ? `+ ${b}` : `- ${Math.abs(b)}`;
-          const signC = c >= 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
+          const unit = rand(2, 5);
+          const adj = unit * 4;
+          const hyp = unit * 5;
+          const answer = adj;
           return {
-            text: `Tính f(${x}) với f(x) = ${a}x² ${signB}x ${signC}.`,
-            answer: value,
-            choices: createChoices(value, Math.max(10, Math.abs(value) / 3 + 6)),
-            hint: 'Thay trực tiếp x vào hàm số.'
+            text: `Trong tam giác vuông, cos α = 4/5 và cạnh huyền dài ${hyp}. Tính cạnh kề của góc α.`,
+            answer,
+            choices: createChoices(answer, 10),
+            hint: 'cos α = cạnh kề / cạnh huyền.'
           };
         },
         () => {
-          const a = rand(2, 9);
-          const x = rand(1, 12);
-          const b = rand(-10, 10);
-          const c = a * x + b;
-          const signB = b >= 0 ? `+ ${b}` : `- ${Math.abs(b)}`;
+          const unit = rand(2, 5);
+          const adj = unit * 4;
+          const opp = unit * 3;
+          const answer = opp;
           return {
-            text: `Giải nhanh: ${a}x ${signB} = ${c}. Tìm x.`,
-            answer: x,
-            choices: createChoices(x, 8),
-            hint: 'Chuyển hằng số sang vế phải rồi chia cho hệ số.'
+            text: `Trong tam giác vuông, tan α = 3/4 và cạnh kề của góc α dài ${adj}. Tính cạnh đối.`,
+            answer,
+            choices: createChoices(answer, 10),
+            hint: 'tan α = cạnh đối / cạnh kề.'
           };
         },
         () => {
-          const a = rand(2, 7);
-          const b = rand(1, 9);
-          const x = rand(1, 8);
-          const value = a * x * x + b * x;
+          const k = rand(2, 5);
+          const a = 3 * k;
+          const b = 4 * k;
+          const answer = 5 * k;
           return {
-            text: `Tính giá trị biểu thức ${a}x² + ${b}x tại x = ${x}.`,
-            answer: value,
-            choices: createChoices(value, Math.max(10, Math.abs(value) / 4 + 6)),
-            hint: 'Tính từng hạng tử rồi cộng lại.'
+            text: `Một tam giác vuông có hai cạnh góc vuông lần lượt là ${a} và ${b}. Tính cạnh huyền.`,
+            answer,
+            choices: createChoices(answer, 12),
+            hint: 'Dùng định lí Pythagore: c² = a² + b².'
+          };
+        },
+        () => {
+          const a = rand(4, 10);
+          const b = rand(5, 12);
+          const answer = Math.round((a * b) / 2);
+          return {
+            text: `Hai cạnh góc vuông của một tam giác vuông là ${a} và ${b}. Tính diện tích tam giác.`,
+            answer,
+            choices: createChoices(answer, 12),
+            hint: 'Diện tích tam giác vuông = 1/2 × a × b.'
+          };
+        },
+        () => {
+          const hyp = rand(10, 25);
+          const cosNum = rand(3, 5);
+          const cosDen = cosNum + rand(1, 3);
+          const unit = rand(2, 5);
+          const exactHyp = unit * cosDen;
+          const exactAdj = unit * cosNum;
+          const answer = exactAdj;
+          return {
+            text: `Biết cos α = ${cosNum}/${cosDen} và cạnh huyền dài ${exactHyp}. Tính cạnh kề của góc α.`,
+            answer,
+            choices: createChoices(answer, 12),
+            hint: 'Nhân cạnh huyền với giá trị cos.'
+          };
+        },
+        () => {
+          const n = rand(5, 8);
+          const k = rand(2, Math.min(3, n - 1));
+          const answer = factorial(n) / (factorial(k) * factorial(n - k));
+          return {
+            text: `Từ ${n} học sinh, chọn ${k} bạn đi trực nhật. Có bao nhiêu cách chọn?`,
+            answer,
+            choices: createChoices(answer, Math.max(12, answer * 0.3 + 6)),
+            hint: 'Đây là tổ hợp C(n, k).'
+          };
+        },
+        () => {
+          const n = rand(5, 8);
+          const k = rand(2, 4);
+          const answer = factorial(n) / factorial(n - k);
+          return {
+            text: `Từ ${n} học sinh khác nhau, chọn ${k} bạn xếp vào ${k} vị trí khác nhau. Có bao nhiêu cách?`,
+            answer,
+            choices: createChoices(answer, Math.max(14, answer * 0.3 + 6)),
+            hint: 'Đây là chỉnh hợp chập k của n: A(n, k) = n! / (n-k)!.'
+          };
+        },
+        () => {
+          const n = rand(4, 6);
+          const answer = factorial(n);
+          return {
+            text: `Có bao nhiêu cách sắp xếp ${n} quyển sách khác nhau trên một kệ?`,
+            answer,
+            choices: createChoices(answer, Math.max(12, answer * 0.25 + 6)),
+            hint: 'Xếp n đồ vật khác nhau: n! cách.'
+          };
+        },
+        () => {
+          const n = rand(3, 6);
+          const k = rand(1, n - 1);
+          const answer = factorial(n) / (factorial(k) * factorial(n - k));
+          return {
+            text: `Hệ số của x^${k} trong khai triển (x + 1)^${n} là bao nhiêu?`,
+            answer,
+            choices: createChoices(answer, 8),
+            hint: 'Hệ số là C(n, k).'
           };
         }
       ];
@@ -1567,9 +2685,7 @@
     }
 
     function generateQuestion(){
-      if(state.grade === 10) return qGrade10();
-      if(state.grade === 11) return qGrade11();
-      return qGrade12();
+      return qGrade10();
     }
 
     function buildLevels(total){
@@ -1581,7 +2697,6 @@
         ui.levels.appendChild(dot);
       }
     }
-
 
     function pauseGame(){
       if(state.running){
@@ -1616,6 +2731,7 @@
       ui.menuScreen.classList.remove('hidden');
       ui.shopScreen.classList.add('hidden');
       ui.gameScreen.classList.add('hidden');
+      refreshMenuStats();
     }
 
     function showShop(fromGame = false){
@@ -1624,6 +2740,7 @@
       ui.shopScreen.classList.remove('hidden');
       ui.gameScreen.classList.add('hidden');
       refreshShopButtons();
+      refreshMenuStats();
     }
 
     function showGame(){
@@ -1743,9 +2860,9 @@
 
     function startGame(){
       state.mode = $('modeSelect').value;
-      state.grade = Number($('gradeSelect').value);
+      state.grade = 10;
       state.klass = $('classSelect').value;
-      state.total = state.mode === 'boss' ? 9 : state.mode === 'exam' ? 14 : state.mode === 'survival' ? 999 : 12 + (state.grade - 10) * 2;
+      state.total = state.mode === 'boss' ? 9 : state.mode === 'exam' ? 14 : state.mode === 'survival' ? 999 : 12;
 
       state.index = 0;
       state.current = null;
@@ -1774,7 +2891,7 @@
 
       showGame();
 
-      log(`Bắt đầu ${modeNames[state.mode]} - ${gradeNames[state.grade]} | ${classNames[state.klass]}`, 'good');
+      log(`Bắt đầu ${modeNames[state.mode]} - ${gradeNames[state.grade]} | ${classNames[state.klass]} | Toán lớp 10`, 'good');
       if(state.mode === 'survival') log('Survival: sai sẽ bị trừ HP.', 'warn');
 
       chooseNextQuestion();
@@ -2010,7 +3127,7 @@
 
     function syncFromUI(){
       state.mode = $('modeSelect').value;
-      state.grade = Number($('gradeSelect').value);
+      state.grade = 10;
       state.klass = $('classSelect').value;
       setClassStats();
       updateBars();
@@ -2052,8 +3169,7 @@
     });
 
     on('modeSelect', 'change', syncFromUI);
-    on('gradeSelect', 'change', syncFromUI);
-    on('classSelect', 'change', syncFromUI);
+on('classSelect', 'change', syncFromUI);
 
     buildLevels(12);
     syncFromUI();
@@ -2061,8 +3177,8 @@
     refreshShopButtons();
     showMenu();
     ui.question.textContent = 'Math Arena sẵn sàng. Bấm Bắt đầu để vào trận đấu.';
-    ui.hint.textContent = '3 phút mỗi câu, câu hỏi THPT nâng cao.';
-    log('Sẵn sàng. Chọn khối và bắt đầu trận đấu.', 'normal');
+    ui.hint.textContent = '3 phút mỗi câu, tập trung vào Toán lớp 10.';
+    log('Sẵn sàng. Chọn lớp 10 và bắt đầu trận đấu.', 'normal');
   </script>
 </body>
 </html>
