@@ -2541,7 +2541,6 @@
     .shop-card .subtitle{ max-width:760px; margin-left:auto; margin-right:auto; }
     .layout{ grid-template-columns:1.06fr .74fr; gap:14px; }
     .game-shell{ max-width:1180px; }
-    .arena-inner{ min-height:540px; }
     .hud{ grid-template-columns:repeat(6, 1fr); gap:10px; }
     .hud-item .v,
     .mini-stat .v,
@@ -2598,7 +2597,7 @@
 body{
   color:var(--ink) !important;
   background:
-    linear-gradient(180deg, #0f7dd6 0%, #30a8ef 30%, #8be1ff 56%, #c9f7ff 58%, #9ce170 58%, #66bf46 100%) !important;
+    linear-gradient(180deg, #0f7dd6 0%, #30a8ef 30%, #8be1ff 56%, #c9f7ff 58%, #8fcf5d 58%, #5a9c3f 76%, #7a5530 88%, #4a3520 100%) !important;
 }
 
 .screen{
@@ -3352,6 +3351,225 @@ select{
   overflow-y:auto !important;
   overflow-x:hidden !important;
   -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+}
+
+/* ============ Fix: outer page had its own (empty) scroll layer ============ */
+/* html/body were left scrollable by default. On touch devices this created a second,
+   competing scroll region behind the fixed screen: a swipe could start scrolling the
+   empty body first (rubber-banding past the edges) before handing off to the screen's
+   own scroll, which felt like "broken"/double scrolling and also flashed the raw body
+   background through. Locking html/body to a single fixed viewport makes the visible
+   screen the only scrollable layer. */
+html, body{
+  height:100% !important;
+  overflow:hidden !important;
+  overscroll-behavior:none;
+}
+
+/* ============ Fix: top content (incl. shop coin badge) clipped out of reach ============ */
+/* .menu/.shop use align-items:center to center the card vertically. When the card is
+   taller than the viewport, centering pushes its top edge above scroll position 0 —
+   that area can never be scrolled into view. This made the "Số xu hiện có" badge at
+   the top of the shop (and anything above the fold on tall screens) unreachable. */
+.menu, .shop{
+  align-items:flex-start !important;
+  padding-top:24px !important;
+}
+
+/* ============ Fix: background scene scrolled away, exposing flat color below ============ */
+/* .scene-bg was position:absolute inside the scrollable screen, so it was sized to one
+   viewport-height and scrolled out of view past that point — anything further down
+   (e.g. the bottom card on tall screens) sat on the bare body gradient instead of the
+   castle photo. Pinning it to the viewport keeps the scene visible for the whole scroll. */
+.scene-bg{
+  position:fixed !important;
+}
+
+/* ============ Mobile compaction: fit content with little/no scrolling ============ */
+/* HP/Mana/EXP are duplicated below in the "Nhân vật" card (with bars), so on small
+   screens we drop them from the HUD and keep only Điểm/Cấp/Timer in one compact row.
+   Answer/control buttons, the question card, and the bottom cards are all tightened
+   so the whole game screen needs far less (often zero) scrolling on a phone. */
+@media (max-width:680px){
+  .hud{
+    grid-template-columns:repeat(3, 1fr) !important;
+    gap:6px !important;
+    margin-bottom:8px !important;
+  }
+  .hud-item{
+    padding:6px 4px !important;
+    text-align:center;
+  }
+  .hud-item .k{
+    font-size:9px !important;
+    margin-bottom:2px !important;
+  }
+  .hud-item .v{
+    font-size:12px !important;
+  }
+  .hud-item.hud-extra{
+    display:none !important;
+  }
+
+  .layout{
+    gap:8px !important;
+  }
+  .arena-inner{
+    padding:10px !important;
+  }
+  .question-meta{
+    gap:5px !important;
+    margin-bottom:6px !important;
+  }
+  .badge{
+    padding:5px 7px !important;
+    font-size:10px !important;
+    gap:4px !important;
+  }
+  .question{
+    font-size:clamp(16px, 4.6vw, 21px) !important;
+    margin:2px 0 5px !important;
+    line-height:1.22 !important;
+    min-height:0 !important;
+  }
+  .hint{
+    font-size:11px !important;
+    min-height:0 !important;
+    margin:0 0 6px !important;
+  }
+  .timer-wrap{
+    margin:6px 0 8px !important;
+    height:10px !important;
+  }
+  .choices{
+    grid-template-columns:1fr 1fr !important;
+    gap:6px !important;
+    margin-top:4px !important;
+  }
+  .choice{
+    min-height:42px !important;
+    font-size:13px !important;
+    padding:8px !important;
+  }
+  .controls{
+    grid-template-columns:repeat(3, 1fr) !important;
+    gap:5px !important;
+    margin-top:8px !important;
+  }
+  .controls .btn{
+    padding:8px 4px !important;
+    font-size:10px !important;
+  }
+
+  .bottom-row{
+    gap:8px !important;
+  }
+  .bottom-row .card{
+    padding:10px 12px 9px !important;
+  }
+  .bottom-row .card h3{
+    font-size:12px !important;
+    margin:0 0 5px !important;
+  }
+  .bottom-row .card .row{
+    margin-bottom:3px !important;
+    font-size:11px !important;
+  }
+  .bottom-row .card .meter{
+    height:7px !important;
+  }
+  .bottom-row .card .tiny{
+    margin-top:5px !important;
+    font-size:10px !important;
+  }
+  .bottom-row .levels{
+    gap:4px !important;
+  }
+  .bottom-row .levels .dot{
+    width:9px !important;
+    height:9px !important;
+  }
+  .bottom-row .card #classMiniNote{
+    padding-top:4px !important;
+  }
+
+  /* Menu screen: shave the small remaining overflow */
+  .menu-panel{
+    margin:12px auto 0 !important;
+    padding:14px !important;
+  }
+  .subtitle{
+    margin:8px 0 0 !important;
+    padding:9px 12px !important;
+    font-size:13px !important;
+  }
+  .menu-foot{
+    margin-top:10px !important;
+  }
+
+  /* Shop screen: 2-column items instead of 1, smaller panels */
+  .shop-grid-main{
+    grid-template-columns:1fr 1fr !important;
+    gap:8px !important;
+  }
+  .shop-panel{
+    min-height:0 !important;
+    padding:10px !important;
+    gap:6px !important;
+  }
+  .shop-panel strong{
+    font-size:12px !important;
+    min-height:0 !important;
+  }
+  .shop-panel .price{
+    font-size:11px !important;
+  }
+  .shop-panel .desc{
+    font-size:11px !important;
+    min-height:0 !important;
+    line-height:1.3 !important;
+  }
+  .shop-panel .buy-btn{
+    padding:7px !important;
+    font-size:11px !important;
+  }
+  .shop-wallet{
+    padding:8px 12px !important;
+    margin:8px auto 0 !important;
+  }
+  .decor-row{
+    display:none !important;
+  }
+  .eyebrow{
+    padding:5px 9px !important;
+    margin-bottom:8px !important;
+    font-size:10px !important;
+  }
+  .shop-card .title{
+    margin-top:0 !important;
+    font-size:clamp(28px, 9vw, 38px) !important;
+  }
+  .menu-grid{
+    margin-top:10px !important;
+  }
+  .panel{
+    padding:12px !important;
+  }
+  .panel h3{
+    margin:0 0 8px !important;
+    font-size:14px !important;
+  }
+  .shop-grid-main{
+    margin-top:10px !important;
+  }
+  .menu-actions{
+    margin-top:8px !important;
+  }
+  .shop-panel{
+    padding:8px !important;
+    gap:4px !important;
+  }
 }
 
 </style>
@@ -3542,9 +3760,9 @@ select{
       <div class="hud">
         <div class="hud-item"><div class="k">Điểm</div><div class="v" id="uiScore">0</div></div>
         <div class="hud-item"><div class="k">Cấp</div><div class="v" id="uiLevel">1</div></div>
-        <div class="hud-item"><div class="k">HP</div><div class="v" id="uiHpText">100 / 100</div></div>
-        <div class="hud-item"><div class="k">Mana</div><div class="v" id="uiMpText">50 / 50</div></div>
-        <div class="hud-item"><div class="k">EXP</div><div class="v" id="uiXpText2">0 / 100</div></div>
+        <div class="hud-item hud-extra"><div class="k">HP</div><div class="v" id="uiHpText">100 / 100</div></div>
+        <div class="hud-item hud-extra"><div class="k">Mana</div><div class="v" id="uiMpText">50 / 50</div></div>
+        <div class="hud-item hud-extra"><div class="k">EXP</div><div class="v" id="uiXpText2">0 / 100</div></div>
         <div class="hud-item"><div class="k">Timer</div><div class="v" id="uiTime">180s</div></div>
       </div>
 
