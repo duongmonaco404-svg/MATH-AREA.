@@ -4068,269 +4068,366 @@ html, body{
       return pool[rand(0, pool.length - 1)];
     }
 
-    // Grade 10
+
+    // Grade 10 — chỉ gồm Hệ thức lượng trong tam giác vuông & Đại số tổ hợp
     function qGrade10(){
       const pool = [
+
+        /* ══════════════ HỆ THỨC LƯỢNG TRONG TAM GIÁC VUÔNG ══════════════ */
+
+        // sin α → cạnh huyền
         () => {
-          const opp = rand(3, 9);
-          const hyp = opp * 2;
-          const answer = hyp;
+          const pairs = [[1,2],[2,5],[3,5],[4,5],[5,13],[3,13],[12,13],[5,17],[8,17]];
+          const [num,den] = pick(pairs);
+          const unit = rand(2,5);
+          const opp = unit * num, hyp = unit * den;
           return {
-            text: `Trong tam giác vuông, sin α = 1/2 và cạnh đối diện góc α dài ${opp}. Tính cạnh huyền.`,
-            answer,
-            choices: createChoices(answer, 10),
-            hint: 'sin α = cạnh đối / cạnh huyền.'
+            text: `Trong tam giác vuông, sin α = ${num}/${den} và cạnh đối diện góc α dài ${opp}. Tính cạnh huyền.`,
+            answer: hyp,
+            choices: createChoices(hyp, 10),
+            hint: 'sin α = cạnh đối / cạnh huyền → cạnh huyền = cạnh đối ÷ sin α.'
           };
         },
+
+        // cos α → cạnh kề
         () => {
-          const unit = rand(2, 5);
-          const adj = unit * 4;
-          const hyp = unit * 5;
-          const answer = adj;
+          const pairs = [[3,5],[4,5],[5,13],[12,13],[8,17],[15,17],[7,25],[24,25]];
+          const [num,den] = pick(pairs);
+          const unit = rand(2,5);
+          const adj = unit * num, hyp = unit * den;
           return {
-            text: `Trong tam giác vuông, cos α = 4/5 và cạnh huyền dài ${hyp}. Tính cạnh kề của góc α.`,
-            answer,
-            choices: createChoices(answer, 10),
-            hint: 'cos α = cạnh kề / cạnh huyền.'
+            text: `Trong tam giác vuông, cos α = ${num}/${den} và cạnh huyền dài ${hyp}. Tính cạnh kề của góc α.`,
+            answer: adj,
+            choices: createChoices(adj, 10),
+            hint: 'cos α = cạnh kề / cạnh huyền → cạnh kề = cạnh huyền × cos α.'
           };
         },
+
+        // tan α → cạnh đối
         () => {
-          const unit = rand(2, 5);
-          const adj = unit * 4;
-          const opp = unit * 3;
-          const answer = opp;
+          const pairs = [[3,4],[5,12],[8,15],[7,24],[1,1]];
+          const [num,den] = pick(pairs);
+          const unit = rand(2,5);
+          const opp = unit * num, adj = unit * den;
           return {
-            text: `Trong tam giác vuông, tan α = 3/4 và cạnh kề của góc α dài ${adj}. Tính cạnh đối.`,
-            answer,
-            choices: createChoices(answer, 10),
-            hint: 'tan α = cạnh đối / cạnh kề.'
+            text: `Trong tam giác vuông, tan α = ${num}/${den} và cạnh kề của góc α dài ${adj}. Tính cạnh đối.`,
+            answer: opp,
+            choices: createChoices(opp, 10),
+            hint: 'tan α = cạnh đối / cạnh kề → cạnh đối = cạnh kề × tan α.'
           };
         },
+
+        // tan α → cạnh kề (nghịch)
         () => {
-          const k = rand(2, 5);
-          const a = 3 * k;
-          const b = 4 * k;
-          const answer = 5 * k;
+          const pairs = [[3,4],[5,12],[8,15],[7,24]];
+          const [num,den] = pick(pairs);
+          const unit = rand(2,5);
+          const opp = unit * num, adj = unit * den;
           return {
-            text: `Một tam giác vuông có hai cạnh góc vuông lần lượt là ${a} và ${b}. Tính cạnh huyền.`,
+            text: `Trong tam giác vuông, tan α = ${num}/${den} và cạnh đối của góc α dài ${opp}. Tính cạnh kề.`,
+            answer: adj,
+            choices: createChoices(adj, 10),
+            hint: 'tan α = cạnh đối / cạnh kề → cạnh kề = cạnh đối ÷ tan α.'
+          };
+        },
+
+        // Pythagore: tìm cạnh huyền
+        () => {
+          const k = rand(2,5);
+          const triples = [[3,4,5],[5,12,13],[8,15,17],[7,24,25]];
+          const [a,b,c] = pick(triples);
+          const answer = c * k;
+          return {
+            text: `Một tam giác vuông có hai cạnh góc vuông lần lượt là ${a*k} và ${b*k}. Tính cạnh huyền.`,
             answer,
             choices: createChoices(answer, 12),
             hint: 'Dùng định lí Pythagore: c² = a² + b².'
           };
         },
+
+        // Pythagore: tìm cạnh góc vuông còn lại
         () => {
-          const a = rand(4, 10);
-          const b = rand(5, 12);
-          const answer = Math.round((a * b) / 2);
-          return {
-            text: `Hai cạnh góc vuông của một tam giác vuông là ${a} và ${b}. Tính diện tích tam giác.`,
-            answer,
-            choices: createChoices(answer, 12),
-            hint: 'Diện tích tam giác vuông = 1/2 × a × b.'
-          };
-        },
-        () => {
-          const hyp = rand(10, 25);
-          const cosNum = rand(3, 5);
-          const cosDen = cosNum + rand(1, 3);
-          const unit = rand(2, 5);
-          const exactHyp = unit * cosDen;
-          const exactAdj = unit * cosNum;
-          const answer = exactAdj;
-          return {
-            text: `Biết cos α = ${cosNum}/${cosDen} và cạnh huyền dài ${exactHyp}. Tính cạnh kề của góc α.`,
-            answer,
-            choices: createChoices(answer, 12),
-            hint: 'Nhân cạnh huyền với giá trị cos.'
-          };
-        },
-        () => {
-          const n = rand(5, 8);
-          const k = rand(2, Math.min(3, n - 1));
-          const answer = factorial(n) / (factorial(k) * factorial(n - k));
-          return {
-            text: `Từ ${n} học sinh, chọn ${k} bạn đi trực nhật. Có bao nhiêu cách chọn?`,
-            answer,
-            choices: createChoices(answer, Math.max(12, answer * 0.3 + 6)),
-            hint: 'Đây là tổ hợp C(n, k).'
-          };
-        },
-        () => {
-          const n = rand(5, 8);
-          const k = rand(2, 4);
-          const answer = factorial(n) / factorial(n - k);
-          return {
-            text: `Từ ${n} học sinh khác nhau, chọn ${k} bạn xếp vào ${k} vị trí khác nhau. Có bao nhiêu cách?`,
-            answer,
-            choices: createChoices(answer, Math.max(14, answer * 0.3 + 6)),
-            hint: 'Đây là chỉnh hợp chập k của n: A(n, k) = n! / (n-k)!.'
-          };
-        },
-        () => {
-          const n = rand(4, 6);
-          const answer = factorial(n);
-          return {
-            text: `Có bao nhiêu cách sắp xếp ${n} quyển sách khác nhau trên một kệ?`,
-            answer,
-            choices: createChoices(answer, Math.max(12, answer * 0.25 + 6)),
-            hint: 'Xếp n đồ vật khác nhau: n! cách.'
-          };
-        },
-        () => {
-          const n = rand(3, 6);
-          const k = rand(1, n - 1);
-          const answer = factorial(n) / (factorial(k) * factorial(n - k));
-          return {
-            text: `Hệ số của x^${k} trong khai triển (x + 1)^${n} là bao nhiêu?`,
-            answer,
-            choices: createChoices(answer, 8),
-            hint: 'Hệ số là C(n, k).'
-          };
-        },
-        () => {
-          const num = rand(2, 4), den = num + rand(1, 3);
-          const unit = rand(2, 5);
-          const hyp = unit * den, opp = unit * num;
-          const answer = hyp;
-          return {
-            text: `Trong tam giác vuông, sin α = ${num}/${den} và cạnh đối diện góc α dài ${opp}. Tính cạnh huyền.`,
-            answer,
-            choices: createChoices(answer, 10),
-            hint: 'sin α = cạnh đối / cạnh huyền.'
-          };
-        },
-        () => {
-          const num = rand(2, 5), den = num + rand(1, 4);
-          const unit = rand(2, 5);
-          const opp = unit * num, adj = unit * den;
-          const answer = adj;
-          return {
-            text: `Trong tam giác vuông, tan α = ${num}/${den} và cạnh đối của góc α dài ${opp}. Tính cạnh kề.`,
-            answer,
-            choices: createChoices(answer, 10),
-            hint: 'tan α = cạnh đối / cạnh kề.'
-          };
-        },
-        () => {
-          const k = rand(2, 6);
-          const triples = [[3,4,5],[5,12,13],[6,8,10],[8,15,17],[7,24,25]];
-          const t = pick(triples);
-          const a = t[0] * k, b = t[1] * k, c = t[2] * k;
-          const answer = a + b + c;
-          return {
-            text: `Một tam giác vuông có hai cạnh góc vuông là ${a} và ${b}. Tính chu vi tam giác.`,
-            answer,
-            choices: createChoices(answer, 16),
-            hint: 'Tìm cạnh huyền bằng định lí Pythagore rồi cộng cả ba cạnh.'
-          };
-        },
-        () => {
-          const k = rand(2, 6);
+          const k = rand(2,6);
           const triples = [[3,4,5],[5,12,13],[8,15,17],[7,24,25],[9,12,15]];
-          const t = pick(triples);
-          const knownIsFirst = Math.random() > 0.5;
-          const known = knownIsFirst ? t[0] : t[1];
-          const other = knownIsFirst ? t[1] : t[0];
-          const a = known * k, c = t[2] * k;
+          const [a,b,c] = pick(triples);
+          const flip = Math.random() > 0.5;
+          const known = flip ? a : b, other = flip ? b : a;
           const answer = other * k;
           return {
-            text: `Một tam giác vuông có cạnh huyền dài ${c} và một cạnh góc vuông dài ${a}. Tính cạnh góc vuông còn lại.`,
+            text: `Một tam giác vuông có cạnh huyền dài ${c*k} và một cạnh góc vuông dài ${known*k}. Tính cạnh góc vuông còn lại.`,
             answer,
             choices: createChoices(answer, 14),
             hint: 'Dùng định lí Pythagore: cạnh² = huyền² − cạnh kia².'
           };
         },
+
+        // Diện tích tam giác vuông (từ 2 cạnh góc vuông)
         () => {
-          const n = rand(5, 10);
-          const answer = factorial(n) / (factorial(2) * factorial(n - 2));
+          const a = rand(2,8) * 2;   // chẵn → tích a*b chia đôi luôn nguyên
+          const b = rand(3,10);
+          const answer = a * b / 2;
           return {
-            text: `Trong một buổi họp lớp có ${n} bạn, mỗi hai bạn bắt tay nhau đúng một lần. Hỏi có tất cả bao nhiêu cái bắt tay?`,
+            text: `Hai cạnh góc vuông của một tam giác vuông là ${a} và ${b}. Tính diện tích tam giác.`,
             answer,
-            choices: createChoices(answer, Math.max(10, answer * 0.3 + 6)),
-            hint: 'Số cái bắt tay = C(n, 2) = n(n−1)/2.'
+            choices: createChoices(answer, 12),
+            hint: 'Diện tích tam giác vuông = ½ × cạnh₁ × cạnh₂.'
           };
         },
+
+        // Chu vi tam giác vuông (Pythagore + cộng)
         () => {
-          const n = rand(5, 10);
-          const answer = n * (n - 3) / 2;
+          const k = rand(2,5);
+          const triples = [[3,4,5],[5,12,13],[8,15,17],[7,24,25]];
+          const [a,b,c] = pick(triples);
+          const answer = (a + b + c) * k;
           return {
-            text: `Một đa giác lồi có ${n} cạnh. Hỏi đa giác đó có bao nhiêu đường chéo?`,
+            text: `Một tam giác vuông có hai cạnh góc vuông là ${a*k} và ${b*k}. Tính chu vi tam giác.`,
             answer,
-            choices: createChoices(answer, Math.max(8, answer * 0.4 + 6)),
-            hint: 'Số đường chéo của đa giác n cạnh là n(n−3)/2.'
+            choices: createChoices(answer, 16),
+            hint: 'Tìm cạnh huyền bằng Pythagore, rồi chu vi = a + b + c.'
           };
         },
+
+        // Thang dựa tường (ứng dụng Pythagore)
         () => {
-          const shirts = rand(3, 6);
-          const pants = rand(2, 5);
-          const shoes = rand(2, 4);
-          const answer = shirts * pants * shoes;
+          const k = rand(1,4);
+          const triples = [[3,4,5],[5,12,13],[8,15,17],[6,8,10]];
+          const [a,b,c] = pick(triples);
+          const dist = a*k, wall = b*k, ladder = c*k;
           return {
-            text: `Một bạn có ${shirts} áo, ${pants} quần và ${shoes} đôi giày khác nhau. Hỏi có bao nhiêu cách chọn một bộ gồm 1 áo, 1 quần, 1 đôi giày?`,
-            answer,
-            choices: createChoices(answer, Math.max(14, answer * 0.25 + 8)),
-            hint: 'Áp dụng quy tắc nhân: số cách = số áo × số quần × số giày.'
+            text: `Một cái thang dài ${ladder}m dựa vào tường thẳng đứng. Chân thang cách chân tường ${dist}m. Đầu thang chạm tường ở độ cao bao nhiêu mét?`,
+            answer: wall,
+            choices: createChoices(wall, 10),
+            hint: 'Chiều cao² = thang² − khoảng cách². Dùng định lí Pythagore.'
           };
         },
+
+        // Sân chữ nhật: biết một cạnh và đường chéo, tìm cạnh còn lại
         () => {
-          const threshold = rand(1, 4);
-          const answer = 6 - threshold;
+          const k = rand(1,4);
+          const triples = [[3,4,5],[5,12,13],[8,15,17],[6,8,10]];
+          const [a,b,c] = pick(triples);
+          const flip = Math.random() > 0.5;
+          const known = flip ? a : b, other = flip ? b : a;
+          const answer = other * k;
           return {
-            text: `Gieo một con xúc xắc cân đối, đồng chất 6 mặt. Có bao nhiêu kết quả thuận lợi cho biến cố "số chấm xuất hiện lớn hơn ${threshold}"?`,
+            text: `Sân hình chữ nhật có một chiều dài ${known*k}m và đường chéo ${c*k}m. Tính chiều còn lại của sân.`,
             answer,
-            choices: createChoices(answer, 5),
-            hint: 'Liệt kê các mặt từ 1 đến 6 rồi đếm các mặt thoả điều kiện.'
+            choices: createChoices(answer, 12),
+            hint: 'Đường chéo² = chiều dài² + chiều rộng². Dùng Pythagore.'
           };
         },
+
+        // Diện tích tam giác vuông: biết huyền và một cạnh
+        () => {
+          const k = rand(1,3);
+          const triples = [[3,4,5],[5,12,13],[8,15,17]];
+          const [a,b,c] = pick(triples);
+          const answer = a * b * k * k / 2;
+          return {
+            text: `Tam giác vuông có cạnh huyền ${c*k}m và một cạnh góc vuông ${a*k}m. Tính diện tích tam giác.`,
+            answer,
+            choices: createChoices(answer, 14),
+            hint: 'Tìm cạnh kia bằng Pythagore: b² = c² − a², rồi S = ½ × a × b.'
+          };
+        },
+
+        // Chu vi sân chữ nhật biết một cạnh và đường chéo
+        () => {
+          const k = rand(1,3);
+          const triples = [[3,4,5],[5,12,13],[8,15,17]];
+          const [a,b,c] = pick(triples);
+          const answer = 2 * (a + b) * k;
+          return {
+            text: `Sân hình chữ nhật có chiều rộng ${a*k}m và đường chéo ${c*k}m. Tính chu vi sân.`,
+            answer,
+            choices: createChoices(answer, 16),
+            hint: 'Tìm chiều dài bằng Pythagore, rồi chu vi = 2 × (dài + rộng).'
+          };
+        },
+
+        /* ══════════════ ĐẠI SỐ TỔ HỢP ══════════════ */
+
+        // Tổ hợp C(n,k) — chọn nhóm không thứ tự
+        () => {
+          const n = rand(5, 9);
+          const k = rand(2, Math.min(4, n-1));
+          const answer = factorial(n) / (factorial(k) * factorial(n-k));
+          return {
+            text: `Từ ${n} học sinh, chọn ${k} bạn để làm trực nhật. Có bao nhiêu cách chọn?`,
+            answer,
+            choices: createChoices(answer, Math.max(12, answer * 0.3 + 6)),
+            hint: `Không phân biệt thứ tự → Tổ hợp C(${n},${k}).`
+          };
+        },
+
+        // Chỉnh hợp A(n,k) — xếp vào vị trí phân biệt
+        () => {
+          const n = rand(6, 10);
+          const k = rand(2, 3);
+          const answer = factorial(n) / factorial(n-k);
+          return {
+            text: `Từ ${n} học sinh khác nhau, chọn ${k} bạn xếp vào ${k} vị trí phân biệt. Có bao nhiêu cách?`,
+            answer,
+            choices: createChoices(answer, Math.max(20, answer * 0.2 + 10)),
+            hint: `Có thứ tự → Chỉnh hợp A(${n},${k}) = ${n}!/(${n-k})!.`
+          };
+        },
+
+        // Hoán vị n! — sắp xếp toàn bộ
         () => {
           const n = rand(4, 6);
-          const base = rand(5, 12);
-          const nums = [];
-          for(let i = 0; i < n; i++) nums.push(base + rand(-3, 3));
-          let sum = nums.reduce((s, v) => s + v, 0);
-          const remainder = ((sum % n) + n) % n;
-          if(remainder !== 0){
-            nums[n - 1] += (n - remainder);
-            sum += (n - remainder);
-          }
-          const answer = sum / n;
+          const answer = factorial(n);
+          const ctx = pick([
+            `${n} quyển sách khác nhau trên một kệ`,
+            `${n} học sinh xếp thành một hàng dọc`,
+            `${n} bức tranh khác nhau treo trên tường thẳng`
+          ]);
           return {
-            text: `Điểm kiểm tra của ${n} bạn lần lượt là: ${nums.join(', ')}. Tính điểm trung bình cộng.`,
+            text: `Có bao nhiêu cách sắp xếp ${ctx}?`,
             answer,
-            choices: createChoices(answer, 6),
-            hint: 'Số trung bình cộng = tổng các giá trị chia cho số lượng giá trị.'
+            choices: createChoices(answer, Math.max(12, answer * 0.25 + 6)),
+            hint: `Sắp thứ tự tất cả ${n} phần tử → Hoán vị P(${n}) = ${n}!.`
           };
         },
+
+        // Nhị thức Newton — hệ số của x^k trong (x+1)^n
         () => {
-          const n = rand(2, 4) * 2 + 1;
-          const arr = [];
-          let v = rand(3, 8);
-          for(let i = 0; i < n; i++){ v += rand(1, 3); arr.push(v); }
-          const mid = Math.floor(n / 2);
-          const answer = arr[mid];
+          const n = rand(3, 7);
+          const k = rand(1, n-1);
+          const answer = factorial(n) / (factorial(k) * factorial(n-k));
           return {
-            text: `Một dãy số liệu đã sắp xếp tăng dần gồm ${n} giá trị: ${arr.join(', ')}. Tính số trung vị (median) của dãy.`,
+            text: `Trong khai triển nhị thức Newton (x + 1)^${n}, hệ số của số hạng chứa x^${k} là bao nhiêu?`,
             answer,
-            choices: createChoices(answer, 6),
-            hint: 'Với dãy có số lẻ giá trị đã sắp xếp, trung vị là giá trị ở chính giữa.'
+            choices: createChoices(answer, Math.max(8, answer * 0.3 + 4)),
+            hint: `Hệ số của x^${k} là C(${n},${k}).`
           };
         },
+
+        // Bắt tay — C(n,2)
         () => {
-          const h = rand(-5, 5);
-          const b = -2 * h;
-          const c = rand(1, 10);
-          const answer = h;
-          const bStr = b === 0 ? '' : (b > 0 ? ` + ${b}x` : ` - ${Math.abs(b)}x`);
+          const n = rand(5, 12);
+          const answer = n * (n-1) / 2;
           return {
-            text: `Cho hàm số y = x²${bStr} + ${c}. Tính hoành độ đỉnh của parabol.`,
+            text: `Một buổi gặp mặt có ${n} người, mỗi hai người bắt tay nhau đúng 1 lần. Tổng số cái bắt tay là bao nhiêu?`,
             answer,
-            choices: createChoices(answer, 6, true),
-            hint: 'Hoành độ đỉnh parabol y = ax² + bx + c là x = −b/(2a).'
+            choices: createChoices(answer, Math.max(10, answer * 0.3 + 6)),
+            hint: 'Mỗi cái bắt tay là 1 cặp không thứ tự → C(n,2) = n(n−1)/2.'
           };
-        }
+        },
+
+        // Đường chéo đa giác
+        () => {
+          const n = rand(5, 10);
+          const answer = n * (n-3) / 2;
+          return {
+            text: `Một đa giác lồi có ${n} đỉnh. Đa giác đó có bao nhiêu đường chéo?`,
+            answer,
+            choices: createChoices(answer, Math.max(8, answer * 0.4 + 6)),
+            hint: 'Số đường chéo = n(n−3)/2.'
+          };
+        },
+
+        // Quy tắc nhân — chọn trang phục
+        () => {
+          const a = rand(3, 6), b = rand(2, 5), c = rand(2, 4);
+          const answer = a * b * c;
+          return {
+            text: `Một bạn có ${a} áo, ${b} quần và ${c} đôi giày khác nhau. Có bao nhiêu cách chọn một bộ gồm 1 áo, 1 quần và 1 đôi giày?`,
+            answer,
+            choices: createChoices(answer, Math.max(14, answer * 0.25 + 8)),
+            hint: 'Quy tắc nhân: số cách = (số áo) × (số quần) × (số giày).'
+          };
+        },
+
+        // Quy tắc cộng — chọn phương tiện
+        () => {
+          const bus = rand(3, 7), train = rand(2, 5);
+          const answer = bus + train;
+          return {
+            text: `Từ thành phố A đến B có ${bus} tuyến xe buýt và ${train} tuyến tàu hỏa (không trùng nhau). Có bao nhiêu cách chọn 1 phương tiện đi từ A đến B?`,
+            answer,
+            choices: createChoices(answer, 8),
+            hint: 'Hai loại phương tiện loại nhau → Quy tắc cộng: tổng số cách = tổng số tuyến.'
+          };
+        },
+
+        // Số đoạn thẳng từ n điểm = C(n,2)
+        () => {
+          const n = rand(5, 10);
+          const answer = n * (n-1) / 2;
+          return {
+            text: `Trong mặt phẳng có ${n} điểm, không có 3 điểm nào thẳng hàng. Kẻ được bao nhiêu đoạn thẳng nối hai điểm bất kì?`,
+            answer,
+            choices: createChoices(answer, Math.max(8, answer * 0.3 + 5)),
+            hint: 'Mỗi đoạn thẳng nối đúng 1 cặp điểm → C(n,2) = n(n−1)/2.'
+          };
+        },
+
+        // Số tam giác từ n điểm = C(n,3)
+        () => {
+          const n = rand(5, 8);
+          const answer = factorial(n) / (factorial(3) * factorial(n-3));
+          return {
+            text: `Trong mặt phẳng có ${n} điểm, không có 3 điểm nào thẳng hàng. Tạo được bao nhiêu tam giác?`,
+            answer,
+            choices: createChoices(answer, Math.max(8, answer * 0.35 + 5)),
+            hint: 'Mỗi tam giác chọn 3 điểm không thứ tự → C(n,3) = n(n−1)(n−2)/6.'
+          };
+        },
+
+        // Bầu ban cán sự (chức vụ khác nhau — chỉnh hợp)
+        () => {
+          const n = rand(8, 15);
+          const answer = n * (n-1);
+          return {
+            text: `Từ ${n} học sinh, cần bầu 1 lớp trưởng và 1 lớp phó (hai người khác nhau). Có bao nhiêu cách bầu?`,
+            answer,
+            choices: createChoices(answer, Math.max(20, answer * 0.15 + 10)),
+            hint: 'Chức vụ khác nhau, có thứ tự → A(n,2) = n × (n−1).'
+          };
+        },
+
+        // Số số tự nhiên 2 chữ số, không lặp = A(n,2)
+        () => {
+          const n = rand(4, 7);
+          const answer = n * (n-1);
+          return {
+            text: `Từ các chữ số 1, 2, 3, …, ${n}, lập được bao nhiêu số tự nhiên gồm 2 chữ số khác nhau?`,
+            answer,
+            choices: createChoices(answer, Math.max(10, answer * 0.2 + 6)),
+            hint: 'Hàng chục: n cách chọn; hàng đơn vị: (n−1) cách → A(n,2) = n×(n−1).'
+          };
+        },
+
+        // Tổng hệ số nhị thức = 2^n
+        () => {
+          const n = rand(3, 6);
+          const answer = Math.pow(2, n);
+          return {
+            text: `Tính tổng tất cả các hệ số trong khai triển nhị thức Newton (1 + x)^${n} khi thay x = 1.`,
+            answer,
+            choices: createChoices(answer, Math.max(10, answer * 0.3 + 6)),
+            hint: `Thay x = 1: (1+1)^${n} = 2^${n}. Tổng hệ số = 2^n.`
+          };
+        },
+
+        // Chọn ủy ban / nhóm từ n người (tổ hợp)
+        () => {
+          const n = rand(6, 10);
+          const k = rand(2, Math.min(4, n-2));
+          const answer = factorial(n) / (factorial(k) * factorial(n-k));
+          return {
+            text: `Một câu lạc bộ có ${n} thành viên. Cần chọn ${k} người vào ban tổ chức sự kiện. Có bao nhiêu cách chọn?`,
+            answer,
+            choices: createChoices(answer, Math.max(12, answer * 0.3 + 6)),
+            hint: `Không phân biệt thứ tự → Tổ hợp C(${n},${k}).`
+          };
+        },
       ];
       return questionChoiceFromPool(pool)();
     }
+
 
     // Grade 11
     function qGrade11(){
