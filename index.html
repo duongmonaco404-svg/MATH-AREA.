@@ -402,6 +402,21 @@
       box-shadow:4px 4px 0 #000;
       outline:none;
     }
+    .field input[type="text"]{
+      width:100%;
+      padding:14px 14px;
+      border:2px solid #000;
+      border-radius:14px;
+      background:#101b33;
+      color:var(--text);
+      box-shadow:4px 4px 0 #000;
+      outline:none;
+      box-sizing:border-box;
+    }
+    .field input[type="text"]::placeholder{
+      color:var(--muted);
+      opacity:.7;
+    }
     .menu-actions{
       display:flex;
       flex-wrap:wrap;
@@ -1771,81 +1786,81 @@
 
   
     /* === Compact desktop layout + richer Mario-style scene === */
-    @keyframes runnerSprite {{
-      from {{ background-position: 0% 0; }}
-      to {{ background-position: 100% 0; }}
-    }}
-    @keyframes skyDrift {{
-      from {{ background-position: 0 0, 0 0, 0 0; }}
-      to {{ background-position: -120px 0, 0 0, 0 0; }}
-    }}
-    @media (min-width: 1100px) {{
-      .menu-wrap, .shop-wrap {{
+    @keyframes runnerSprite {
+      from { background-position: 0% 0; }
+      to { background-position: 100% 0; }
+    }
+    @keyframes skyDrift {
+      from { background-position: 0 0, 0 0, 0 0; }
+      to { background-position: -120px 0, 0 0, 0 0; }
+    }
+    @media (min-width: 1100px) {
+      .menu-wrap, .shop-wrap {
         width: min(1060px, calc(100% - 36px));
-      }}
-      .game-shell {{
+      }
+      .game-shell {
         width: min(920px, calc(100% - 36px));
-      }}
-      .menu-card, .shop-card {{
+      }
+      .menu-card, .shop-card {
         width: 100%;
-      }}
-      .menu-card, .shop-card {{
+      }
+      .menu-card, .shop-card {
         padding: 20px 20px 22px;
-      }}
-      .game-shell {{
+      }
+      .game-shell {
         padding-bottom: 8px;
-      }}
-    }}
-    @media (max-width: 1099px) {{
-      .menu-wrap, .shop-wrap, .game-shell {{
+      }
+    }
+    @media (max-width: 1099px) {
+      .menu-wrap, .shop-wrap, .game-shell {
         width: min(100%, calc(100% - 24px));
-      }}
-    }}
-    .menu, .shop, .game {{
+      }
+    }
+    .menu, .shop, .game {
       padding: 12px;
-    }}
-    .menu-card, .shop-card {{
+    }
+    .menu-card, .shop-card {
       max-width: 100%;
       border-radius: 22px;
-    }}
-    .title {{
+    }
+    .title {
       font-size: clamp(38px, 6.8vw, 82px);
-    }}
-    .subtitle {{
+    }
+    .subtitle {
       max-width: 700px;
       font-size: 14px;
-    }}
-    .game-shell {{
+    }
+    .game-shell {
       display: block;
-    }}
-    .hud {{
+    }
+    .hud {
       gap: 10px;
       margin-bottom: 12px;
-    }}
-    .hud-item {{
+    }
+    .hud-item {
       padding: 10px 12px;
-    }}
-    .hud-item .v {{
+    }
+    .hud-item .v {
       font-size: 16px;
-    }}
-    .layout {{
+    }
+    .layout {
       gap: 14px;
-    }}
-    .arena-inner, .card, .menu-panel, .shop-panel {{
+    }
+    .arena-inner, .card, .menu-panel, .shop-panel {
       padding: 16px;
-    }}
-    .question {{
+    }
+    .question {
       font-size: clamp(22px, 3.4vw, 40px);
-    }}
+    }
 
     .mario-scene,
-    .mario-scene-game {{
+    .mario-scene-game {
       background:
         linear-gradient(180deg, #7fd4ff 0%, #9ee7ff 30%, #d8fbff 54%, #c7ee9c 54%, #88cf59 100%);
       filter: saturate(1.06) brightness(1.03);
-    }}
+    }
     .mario-scene::before,
-    .mario-scene-game::before {{
+    .mario-scene-game::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -1861,9 +1876,9 @@
         radial-gradient(circle at 48% 90%, rgba(103,194,82,.72) 0 120px, transparent 121px);
       opacity: .9;
       pointer-events: none;
-    }}
+    }
     .mario-scene::after,
-    .mario-scene-game::after {{
+    .mario-scene-game::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -1874,8 +1889,8 @@
       opacity: .45;
       animation: skyDrift 24s linear infinite;
       pointer-events: none;
-    }}
-    .mario-hill.back {{
+    }
+    .mario-hill.back {
       background: linear-gradient(180deg, #a7ea7e 0%, #67c85f 100%);
       width: 27vw;
       max-width: 370px;
@@ -1884,8 +1899,8 @@
       left: 2%;
       bottom: 10%;
       opacity: .78;
-    }}
-    .mario-hill.mid {{
+    }
+    .mario-hill.mid {
       background: linear-gradient(180deg, #8ee46d 0%, #54b95a 100%);
       width: 32vw;
       max-width: 470px;
@@ -1894,8 +1909,8 @@
       right: 12%;
       bottom: 8%;
       opacity: .92;
-    }}
-    .mario-hill.front {{
+    }
+    .mario-hill.front {
       background: linear-gradient(180deg, #b2f081 0%, #71ce61 100%);
       width: 19vw;
       max-width: 270px;
@@ -1904,40 +1919,40 @@
       left: 20%;
       bottom: 6%;
       opacity: .88;
-    }}
-    .mario-bricks {{
+    }
+    .mario-bricks {
       opacity: .68;
       filter: saturate(1.1);
-    }}
-    .mario-question-blocks {{
+    }
+    .mario-question-blocks {
       gap: 10px;
       top: 14%;
       left: 48%;
-    }}
-    .mario-question-blocks .block {{
+    }
+    .mario-question-blocks .block {
       width: 44px;
       height: 44px;
       font-size: 20px;
       border-radius: 8px;
       background: linear-gradient(180deg, #fff2a2 0 14px, #f2c83d 14px 100%);
       color: #8b5d00;
-    }}
-    .mario-pipe {{
+    }
+    .mario-pipe {
       border-color: #2d7f2e;
       background: linear-gradient(180deg, #92ef93 0 18px, #52bf52 18px 100%);
-    }}
-    .mario-pipe::before {{
+    }
+    .mario-pipe::before {
       border-color: #2d7f2e;
       background: linear-gradient(180deg, #a1f6a1, #5ed45b);
-    }}
-    .mario-ground {{
+    }
+    .mario-ground {
       height: 17%;
       background:
         linear-gradient(180deg, rgba(255,255,255,.20) 0 11%, rgba(120,210,98,.58) 11% 13%, rgba(68,165,70,.95) 13% 100%),
         repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 42px, rgba(255,255,255,.12) 42px 44px);
-    }}
+    }
 
-    .mario-runner {{
+    .mario-runner {
       width: 52px;
       height: 60px;
       background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20128%2048%22%20shape-rendering%3D%22crispEdges%22%3E%3Cg%20transform%3D%22translate%280%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2216%22%20y%3D%2238%22%20width%3D%2210%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2218%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2832%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%229%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2217%22%20y%3D%2236%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2222%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2864%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2216%22%20y%3D%2238%22%20width%3D%2210%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2218%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2896%200%29%22%3E%3Crect%20x%3D%229%22%20y%3D%2241%22%20width%3D%2214%22%20height%3D%222%22%20fill%3D%22%2300000022%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%23b51f1f%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%224%22%20fill%3D%22%23d62e2e%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%2212%22%20height%3D%228%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2214%22%20width%3D%2210%22%20height%3D%222%22%20fill%3D%22%236b3b1f%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%2212%22%20height%3D%224%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%23c92a2a%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2214%22%20fill%3D%22%232464c7%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%224%22%20fill%3D%22%232d79e8%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23f4d24d%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%2210%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2230%22%20width%3D%224%22%20height%3D%228%22%20fill%3D%22%232f5bd0%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%229%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%2217%22%20y%3D%2236%22%20width%3D%228%22%20height%3D%224%22%20fill%3D%22%236c3b18%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2228%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2222%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1c39c%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
@@ -1949,41 +1964,41 @@
         runnerSprite .55s steps(4) infinite,
         heroRun 7s linear infinite;
       transform-origin: center bottom;
-    }}
-    .mario-runner > span {{
+    }
+    .mario-runner > span {
       display: none !important;
-    }}
+    }
 
-    .menu-card, .shop-card {{
+    .menu-card, .shop-card {
       background: linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.12));
       backdrop-filter: blur(2px);
       box-shadow: 0 16px 34px rgba(0,0,0,.14);
-    }}
-    .menu-panel, .shop-panel, .card, .arena-inner, .mini-stat, .hud-item, .shop-wallet {{
+    }
+    .menu-panel, .shop-panel, .card, .arena-inner, .mini-stat, .hud-item, .shop-wallet {
       border-radius: 18px;
-    }}
-    .menu-banner {{
+    }
+    .menu-banner {
       background: linear-gradient(180deg, rgba(255,255,255,.56), rgba(255,255,255,.28));
       color: #17324e;
-    }}
-    .menu-chip {{
+    }
+    .menu-chip {
       background: linear-gradient(180deg, rgba(255,255,255,.58), rgba(255,255,255,.30));
       color: #17324e;
-    }}
-    .shop-wallet {{
+    }
+    .shop-wallet {
       width: min(340px, 100%);
       margin: 14px auto 0;
-    }}
-    .shop-wallet .v {{
+    }
+    .shop-wallet .v {
       font-size: 24px;
       font-weight: 900;
-    }}
-    .menu-actions {{
+    }
+    .menu-actions {
       gap: 10px;
-    }}
-    .btn, .smallbtn, .buy-btn {{
+    }
+    .btn, .smallbtn, .buy-btn {
       border-radius: 12px;
-    }}
+    }
 
     /* --- Shop alignment fix --- */
     .shop-card{
@@ -3341,49 +3356,50 @@ select{
   100%{ transform:scale(1.7) translateX(-1.2%); }
 }
 
-/* ============ Fix: restore fixed positioning + internal scroll on screens ============ */
-/* A later .menu,.game{position:relative} rule (same specificity as .screen{position:fixed})
-   was winning the cascade and turning screens into normal-flow boxes, which removed their
-   scroll container and clipped content below the fold on narrow viewports. */
-#menuScreen, #shopScreen, #gameScreen{
-  position:fixed !important;
-  inset:0 !important;
-  overflow-y:auto !important;
-  overflow-x:hidden !important;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;
-}
+/* ===== Kiến trúc scroll — dứt khoát, thay mọi Fix trước ===== */
 
-/* ============ Fix: outer page had its own (empty) scroll layer ============ */
-/* html/body were left scrollable by default. On touch devices this created a second,
-   competing scroll region behind the fixed screen: a swipe could start scrolling the
-   empty body first (rubber-banding past the edges) before handing off to the screen's
-   own scroll, which felt like "broken"/double scrolling and also flashed the raw body
-   background through. Locking html/body to a single fixed viewport makes the visible
-   screen the only scrollable layer. */
+/* 1. Body không tự scroll — mỗi màn hình tự quản lý vùng cuộn của mình */
 html, body{
   height:100% !important;
   overflow:hidden !important;
   overscroll-behavior:none;
 }
 
-/* ============ Fix: top content (incl. shop coin badge) clipped out of reach ============ */
-/* .menu/.shop use align-items:center to center the card vertically. When the card is
-   taller than the viewport, centering pushes its top edge above scroll position 0 —
-   that area can never be scrolled into view. This made the "Số xu hiện có" badge at
-   the top of the shop (and anything above the fold on tall screens) unreachable. */
-.menu, .shop{
-  align-items:flex-start !important;
-  padding-top:24px !important;
+/* 2. Menu & Shop: fixed full-viewport, FLEX COLUMN để chỉ canh giữa ngang
+   (không canh giữa dọc → nội dung luôn bắt đầu từ trên cùng, không bao giờ
+   bị đẩy lên khỏi scroll-origin = 0, tức là không còn bị "mất phần đầu"). */
+#menuScreen, #shopScreen{
+  position:fixed !important;
+  inset:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;       /* canh giữa ngang — OK */
+  justify-content:flex-start !important; /* bắt đầu từ trên — không clip! */
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+  padding:24px !important;
+  box-sizing:border-box !important;
 }
 
-/* ============ Fix: background scene scrolled away, exposing flat color below ============ */
-/* .scene-bg was position:absolute inside the scrollable screen, so it was sized to one
-   viewport-height and scrolled out of view past that point — anything further down
-   (e.g. the bottom card on tall screens) sat on the bare body gradient instead of the
-   castle photo. Pinning it to the viewport keeps the scene visible for the whole scroll. */
+/* 3. Game screen: block đơn giản, cuộn khi cần */
+#gameScreen{
+  position:fixed !important;
+  inset:0 !important;
+  display:block !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+}
+
+/* 4. Nền scene luôn đứng yên ở mọi vị trí cuộn */
 .scene-bg{
   position:fixed !important;
+  inset:0 !important;
+  z-index:0;
+  pointer-events:none;
 }
 
 /* ============ Mobile compaction: fit content with little/no scrolling ============ */
@@ -3618,6 +3634,14 @@ html, body{
         <h3>Cài đặt trò chơi</h3>
         <div class="settings">
           <div class="field">
+            <label for="playerNameInput">Họ và tên (để xuất kết quả)</label>
+            <input type="text" id="playerNameInput" placeholder="VD: Nguyễn Văn A" maxlength="60" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="schoolClassInput">Lớp học (VD: 10.1)</label>
+            <input type="text" id="schoolClassInput" placeholder="VD: 10.1" maxlength="20" autocomplete="off">
+          </div>
+          <div class="field">
             <label for="modeSelect">Chế độ</label>
             <select id="modeSelect">
               <option value="arena">Arena</option>
@@ -3759,6 +3783,7 @@ html, body{
 
       <div class="hud">
         <div class="hud-item"><div class="k">Điểm</div><div class="v" id="uiScore">0</div></div>
+        <div class="hud-item"><div class="k">Xu</div><div class="v" id="uiCoins">0</div></div>
         <div class="hud-item"><div class="k">Cấp</div><div class="v" id="uiLevel">1</div></div>
         <div class="hud-item hud-extra"><div class="k">HP</div><div class="v" id="uiHpText">100 / 100</div></div>
         <div class="hud-item hud-extra"><div class="k">Mana</div><div class="v" id="uiMpText">50 / 50</div></div>
@@ -3835,6 +3860,11 @@ html, body{
         <div class="mstat"><div class="l">Sai</div><div class="v" id="endWrong">0</div></div>
         <div class="mstat"><div class="l">Combo</div><div class="v" id="endCombo">0</div></div>
       </div>
+      <div class="menu-actions" style="margin-top:10px;">
+        <button type="button" class="btn secondary" id="copyResultBtn">Sao chép kết quả</button>
+        <button type="button" class="btn secondary" id="downloadResultBtn">Tải file kết quả</button>
+      </div>
+      <p class="tiny" id="resultHint" style="margin-top:6px;">Gửi kết quả này cho giáo viên (dán vào nhóm chat hoặc đính kèm file).</p>
       <button class="btn" id="restartBtn">Chơi lại</button>
     </div>
   </div>
@@ -3876,7 +3906,9 @@ html, body{
       questCleared: 0,
       log: [],
       timePenaltyLock: false,
-      paused: false
+      paused: false,
+      playerName: '',
+      schoolClass: ''
     };
 
     const ui = {
@@ -4009,14 +4041,25 @@ html, body{
       return Math.round(base * (state.classCoinMult || 1));
     }
 
-    function createChoices(answer, spread){
+    function createChoices(answer, spread, allowNegativeOverride){
       const set = new Set([answer]);
-      while(set.size < 4){
-        let delta = rand(1, Math.max(4, spread));
+      const allowNegative = (typeof allowNegativeOverride === 'boolean') ? allowNegativeOverride : (answer < 0);
+      let guard = 0;
+      while(set.size < 4 && guard < 300){
+        guard++;
+        let delta = rand(1, Math.max(4, Math.round(spread)));
         if(Math.random() > 0.5) delta *= -1;
         let cand = answer + delta;
         if(!Number.isFinite(cand)) cand = answer + rand(1, 9);
-        if(cand !== answer) set.add(cand);
+        if(!allowNegative && cand < 0) cand = answer + Math.abs(delta) + rand(0, 3);
+        if(cand !== answer && (allowNegative || cand >= 0)) set.add(cand);
+      }
+      // Lưới an toàn: đảm bảo luôn đủ 4 đáp án kể cả trong các trường hợp hiếm khi vòng lặp trên không đủ.
+      let extra = 1;
+      while(set.size < 4){
+        const cand = answer + extra;
+        if(cand !== answer && (allowNegative || cand >= 0)) set.add(cand);
+        extra++;
       }
       return shuffle([...set]);
     }
@@ -4142,6 +4185,147 @@ html, body{
             answer,
             choices: createChoices(answer, 8),
             hint: 'Hệ số là C(n, k).'
+          };
+        },
+        () => {
+          const num = rand(2, 4), den = num + rand(1, 3);
+          const unit = rand(2, 5);
+          const hyp = unit * den, opp = unit * num;
+          const answer = hyp;
+          return {
+            text: `Trong tam giác vuông, sin α = ${num}/${den} và cạnh đối diện góc α dài ${opp}. Tính cạnh huyền.`,
+            answer,
+            choices: createChoices(answer, 10),
+            hint: 'sin α = cạnh đối / cạnh huyền.'
+          };
+        },
+        () => {
+          const num = rand(2, 5), den = num + rand(1, 4);
+          const unit = rand(2, 5);
+          const opp = unit * num, adj = unit * den;
+          const answer = adj;
+          return {
+            text: `Trong tam giác vuông, tan α = ${num}/${den} và cạnh đối của góc α dài ${opp}. Tính cạnh kề.`,
+            answer,
+            choices: createChoices(answer, 10),
+            hint: 'tan α = cạnh đối / cạnh kề.'
+          };
+        },
+        () => {
+          const k = rand(2, 6);
+          const triples = [[3,4,5],[5,12,13],[6,8,10],[8,15,17],[7,24,25]];
+          const t = pick(triples);
+          const a = t[0] * k, b = t[1] * k, c = t[2] * k;
+          const answer = a + b + c;
+          return {
+            text: `Một tam giác vuông có hai cạnh góc vuông là ${a} và ${b}. Tính chu vi tam giác.`,
+            answer,
+            choices: createChoices(answer, 16),
+            hint: 'Tìm cạnh huyền bằng định lí Pythagore rồi cộng cả ba cạnh.'
+          };
+        },
+        () => {
+          const k = rand(2, 6);
+          const triples = [[3,4,5],[5,12,13],[8,15,17],[7,24,25],[9,12,15]];
+          const t = pick(triples);
+          const knownIsFirst = Math.random() > 0.5;
+          const known = knownIsFirst ? t[0] : t[1];
+          const other = knownIsFirst ? t[1] : t[0];
+          const a = known * k, c = t[2] * k;
+          const answer = other * k;
+          return {
+            text: `Một tam giác vuông có cạnh huyền dài ${c} và một cạnh góc vuông dài ${a}. Tính cạnh góc vuông còn lại.`,
+            answer,
+            choices: createChoices(answer, 14),
+            hint: 'Dùng định lí Pythagore: cạnh² = huyền² − cạnh kia².'
+          };
+        },
+        () => {
+          const n = rand(5, 10);
+          const answer = factorial(n) / (factorial(2) * factorial(n - 2));
+          return {
+            text: `Trong một buổi họp lớp có ${n} bạn, mỗi hai bạn bắt tay nhau đúng một lần. Hỏi có tất cả bao nhiêu cái bắt tay?`,
+            answer,
+            choices: createChoices(answer, Math.max(10, answer * 0.3 + 6)),
+            hint: 'Số cái bắt tay = C(n, 2) = n(n−1)/2.'
+          };
+        },
+        () => {
+          const n = rand(5, 10);
+          const answer = n * (n - 3) / 2;
+          return {
+            text: `Một đa giác lồi có ${n} cạnh. Hỏi đa giác đó có bao nhiêu đường chéo?`,
+            answer,
+            choices: createChoices(answer, Math.max(8, answer * 0.4 + 6)),
+            hint: 'Số đường chéo của đa giác n cạnh là n(n−3)/2.'
+          };
+        },
+        () => {
+          const shirts = rand(3, 6);
+          const pants = rand(2, 5);
+          const shoes = rand(2, 4);
+          const answer = shirts * pants * shoes;
+          return {
+            text: `Một bạn có ${shirts} áo, ${pants} quần và ${shoes} đôi giày khác nhau. Hỏi có bao nhiêu cách chọn một bộ gồm 1 áo, 1 quần, 1 đôi giày?`,
+            answer,
+            choices: createChoices(answer, Math.max(14, answer * 0.25 + 8)),
+            hint: 'Áp dụng quy tắc nhân: số cách = số áo × số quần × số giày.'
+          };
+        },
+        () => {
+          const threshold = rand(1, 4);
+          const answer = 6 - threshold;
+          return {
+            text: `Gieo một con xúc xắc cân đối, đồng chất 6 mặt. Có bao nhiêu kết quả thuận lợi cho biến cố "số chấm xuất hiện lớn hơn ${threshold}"?`,
+            answer,
+            choices: createChoices(answer, 5),
+            hint: 'Liệt kê các mặt từ 1 đến 6 rồi đếm các mặt thoả điều kiện.'
+          };
+        },
+        () => {
+          const n = rand(4, 6);
+          const base = rand(5, 12);
+          const nums = [];
+          for(let i = 0; i < n; i++) nums.push(base + rand(-3, 3));
+          let sum = nums.reduce((s, v) => s + v, 0);
+          const remainder = ((sum % n) + n) % n;
+          if(remainder !== 0){
+            nums[n - 1] += (n - remainder);
+            sum += (n - remainder);
+          }
+          const answer = sum / n;
+          return {
+            text: `Điểm kiểm tra của ${n} bạn lần lượt là: ${nums.join(', ')}. Tính điểm trung bình cộng.`,
+            answer,
+            choices: createChoices(answer, 6),
+            hint: 'Số trung bình cộng = tổng các giá trị chia cho số lượng giá trị.'
+          };
+        },
+        () => {
+          const n = rand(2, 4) * 2 + 1;
+          const arr = [];
+          let v = rand(3, 8);
+          for(let i = 0; i < n; i++){ v += rand(1, 3); arr.push(v); }
+          const mid = Math.floor(n / 2);
+          const answer = arr[mid];
+          return {
+            text: `Một dãy số liệu đã sắp xếp tăng dần gồm ${n} giá trị: ${arr.join(', ')}. Tính số trung vị (median) của dãy.`,
+            answer,
+            choices: createChoices(answer, 6),
+            hint: 'Với dãy có số lẻ giá trị đã sắp xếp, trung vị là giá trị ở chính giữa.'
+          };
+        },
+        () => {
+          const h = rand(-5, 5);
+          const b = -2 * h;
+          const c = rand(1, 10);
+          const answer = h;
+          const bStr = b === 0 ? '' : (b > 0 ? ` + ${b}x` : ` - ${Math.abs(b)}x`);
+          return {
+            text: `Cho hàm số y = x²${bStr} + ${c}. Tính hoành độ đỉnh của parabol.`,
+            answer,
+            choices: createChoices(answer, 6, true),
+            hint: 'Hoành độ đỉnh parabol y = ax² + bx + c là x = −b/(2a).'
           };
         }
       ];
@@ -4515,10 +4699,70 @@ html, body{
           if(state.timeLeft <= 15) ui.hint.textContent = 'Sắp hết giờ!';
           updateBars();
           if(state.timeLeft <= 0){
-            endGame('time');
+            timeOutQuestion();
           }
         }
       }, 1000);
+    }
+
+    function timeOutQuestion(){
+      if(!state.running || state.answered) return;
+      state.answered = true;
+
+      const buttons = [...ui.choices.querySelectorAll('.choice')];
+      buttons.forEach(b => b.disabled = true);
+      const q = state.current;
+      if(q){
+        buttons.forEach(b => {
+          if(Number(b.textContent) === Number(q.answer)) b.classList.add('correct');
+        });
+      }
+
+      state.wrong++;
+      state.streak = 0;
+      ui.hint.textContent = q ? `Hết giờ! Đáp án đúng là ${q.answer}.` : 'Hết giờ!';
+      log(`Hết giờ câu ${state.index + 1}`, 'bad');
+
+      let dmg = state.grade === 10 ? 14 : state.grade === 11 ? 18 : 24;
+      if(state.mode === 'boss') dmg += 8;
+      if(state.mode === 'exam') dmg += 4;
+      dmg = Math.max(1, Math.round(dmg * (state.classDmgMult || 1)));
+
+      if(state.shield > 0){
+        state.shield--;
+        dmg = 0;
+        toast('Shield chặn 1 lần mất máu!');
+        log('Shield đã chặn sát thương.', 'warn');
+      }
+
+      if(dmg > 0){
+        state.hp -= dmg;
+        log(`Mất ${dmg} HP do hết giờ.`, 'warn');
+        if(state.hp <= 0){
+          state.hp = 0;
+          updateBars();
+          endGame('dead');
+          return;
+        }
+      }
+
+      updateBars();
+      saveGame(false);
+
+      setTimeout(() => {
+        if(!state.running) return;
+        state.answered = false;
+        if(state.mode === 'survival'){
+          state.index++;
+          if(state.index >= 20){
+            endGame('clear');
+            return;
+          }
+          chooseNextQuestion();
+        } else {
+          advanceQuest();
+        }
+      }, 900);
     }
 
     function startGame(){
@@ -4830,8 +5074,78 @@ html, body{
       ui.endCombo.textContent = state.bestCombo;
       ui.overlay.classList.add('show');
 
+      state.lastResult = {
+        reason,
+        score: state.score,
+        correct: state.correct,
+        wrong: state.wrong,
+        accuracy: acc,
+        bestCombo: state.bestCombo,
+        level: state.level,
+        mode: modeNames[state.mode] || state.mode,
+        klass: classNames[state.klass] || state.klass,
+        playerName: state.playerName || '',
+        schoolClass: state.schoolClass || '',
+        finishedAt: new Date()
+      };
+
       if(reason === 'clear' && totalAnswered >= 5 && acc >= 60) awardQuest();
       saveGame(true);
+    }
+
+    function buildResultText(){
+      const r = state.lastResult;
+      if(!r) return 'Chưa có kết quả trận đấu nào.';
+      const time = r.finishedAt instanceof Date ? r.finishedAt.toLocaleString('vi-VN') : '';
+      const lines = [
+        'KẾT QUẢ MATH ARENA',
+        `Họ và tên: ${r.playerName || '(chưa nhập)'}`,
+        `Lớp: ${r.schoolClass || '(chưa nhập)'}`,
+        `Chế độ: ${r.mode} | Nhân vật: ${r.klass}`,
+        `Điểm số: ${r.score}`,
+        `Số câu đúng: ${r.correct} | Số câu sai: ${r.wrong}`,
+        `Độ chính xác: ${r.accuracy}%`,
+        `Combo cao nhất: ${r.bestCombo}`,
+        `Cấp nhân vật: ${r.level}`,
+        `Thời điểm: ${time}`
+      ];
+      return lines.join('\n');
+    }
+
+    async function copyResult(){
+      const text = buildResultText();
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          await navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        toast('Đã sao chép kết quả!', 'success');
+      } catch(e){
+        toast('Không sao chép được, thử Tải file kết quả nhé', 'warn');
+      }
+    }
+
+    function downloadResult(){
+      const text = buildResultText();
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const namePart = (state.lastResult?.playerName || 'ket-qua').replace(/[^\p{L}\p{N}_-]+/gu, '_');
+      a.href = url;
+      a.download = `math-arena_${namePart}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast('Đã tải file kết quả!', 'success');
     }
 
     function saveGame(showToast = true){
@@ -4853,12 +5167,44 @@ html, body{
       if(showToast) toast('Đã lưu game');
     }
 
-    // Tắt tải save để mỗi lần vào game là một lượt mới.
+    // Nạp lại tiến trình đã lưu (xu, cấp độ, vật phẩm trong shop...) khi mở trang.
+    // Lưu ý: chỉ khôi phục các chỉ số "mang theo giữa các ván" (xu, level, HP/MP tối đa, shield...).
+    // Điểm số, combo, đúng/sai của ván chơi vẫn luôn bắt đầu lại từ 0 mỗi khi bấm "Bắt đầu".
+    function loadGame(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if(!raw) return;
+        const data = JSON.parse(raw);
+        if(!data || typeof data !== 'object') return;
+
+        if(Number.isFinite(data.coins)) state.coins = data.coins;
+        if(Number.isFinite(data.level)) state.level = data.level;
+        if(Number.isFinite(data.xp)) state.xp = data.xp;
+        if(Number.isFinite(data.xpNeed)) state.xpNeed = data.xpNeed;
+        if(Number.isFinite(data.maxHp)) state.maxHp = data.maxHp;
+        if(Number.isFinite(data.maxMp)) state.maxMp = data.maxMp;
+        if(Number.isFinite(data.hp)) state.hp = data.hp;
+        if(Number.isFinite(data.mp)) state.mp = data.mp;
+        if(Number.isFinite(data.questCleared)) state.questCleared = data.questCleared;
+        if(Number.isFinite(data.shield)) state.shield = data.shield;
+        if(typeof data.klass === 'string') state.klass = data.klass;
+        if(Array.isArray(data.log)) state.log = data.log;
+
+        const classEl = $('classSelect');
+        if(classEl && state.klass) classEl.value = state.klass;
+      } catch(e){
+        // Dữ liệu lưu bị hỏng/không đọc được: bỏ qua, chơi như lần đầu.
+      }
+    }
 
     function syncFromUI(){
       state.mode = $('modeSelect').value;
       state.grade = 10;
       state.klass = $('classSelect').value;
+      const nameEl = $('playerNameInput');
+      const classEl = $('schoolClassInput');
+      if(nameEl) state.playerName = nameEl.value.trim();
+      if(classEl) state.schoolClass = classEl.value.trim();
       setClassStats();
       updateBars();
       refreshShopButtons();
@@ -4872,6 +5218,8 @@ html, body{
       toast('Đã mở cửa hàng');
     });
     on('restartBtn', 'click', () => { ui.overlay.classList.remove('show'); syncFromUI(); startGame(); });
+    on('copyResultBtn', 'click', copyResult);
+    on('downloadResultBtn', 'click', downloadResult);
 
     document.querySelectorAll('.buy-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -4904,6 +5252,7 @@ html, body{
     on('modeSelect', 'change', syncFromUI);
 on('classSelect', 'change', syncFromUI);
 
+    loadGame();
     buildLevels(12);
     syncFromUI();
     updateBars();
