@@ -3302,6 +3302,12 @@ select{
   font-size:12px;
   color:#5c3a12;
 }
+.bottom-row.endless-active{
+  grid-template-columns:1fr;
+}
+.bottom-row.endless-active #progressCard{
+  display:none;
+}
 @media (max-width:760px){
   .bottom-row{
     grid-template-columns:1fr;
@@ -3622,7 +3628,32 @@ html, body{
 .choice.anim-wrong  {animation:shakeNo  .3s ease forwards;}
 @keyframes bounceOk{0%{transform:scale(1);}40%{transform:scale(1.08);}70%{transform:scale(.97);}100%{transform:scale(1);}}
 @keyframes shakeNo{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}50%{transform:translateX(7px);}75%{transform:translateX(-4px);}}
+
+    /* ===== BẢNG XẾP HẠNG ===== */
+    #leaderboardModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;}
+    #leaderboardModal.show{display:flex;}
+    .lb-panel{background:var(--panel);border:2px solid #f5c518;border-radius:16px;padding:24px;width:94%;max-width:680px;max-height:88vh;overflow-y:auto;}
+    .lb-title{text-align:center;font-size:1.5rem;font-weight:700;color:#f5c518;margin-bottom:6px;letter-spacing:.05em;}
+    .lb-live{text-align:center;font-size:.75rem;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;}
+    .lb-dot{width:9px;height:9px;background:#2ecc71;border-radius:50%;animation:lbPulse 1.4s infinite;}
+    @keyframes lbPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.65);}}
+    .lb-table{width:100%;border-collapse:collapse;font-size:.87rem;}
+    .lb-table th{background:var(--bg2);padding:9px 8px;text-align:left;color:var(--muted);font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;}
+    .lb-table td{padding:9px 8px;border-bottom:1px solid var(--line);}
+    .lb-table tr:hover td{background:rgba(255,255,255,.04);}
+    .lb-table .top1 td{background:rgba(255,215,0,.13);color:#ffd700;font-weight:700;}
+    .lb-table .top2 td{background:rgba(192,192,192,.1);color:#c0c0c0;font-weight:600;}
+    .lb-table .top3 td{background:rgba(205,127,50,.1);color:#cd7f32;font-weight:600;}
+    .lb-empty{text-align:center;color:var(--muted);padding:32px 0;font-size:1rem;}
+    .lb-score{font-weight:700;color:#7ec8e3;font-size:1rem;}
+    .lb-no-firebase{text-align:center;padding:22px 10px;color:var(--muted);line-height:1.8;font-size:.9rem;}
+    .lb-no-firebase a{color:#7ec8e3;}
+    .lb-no-firebase code{background:var(--bg2);padding:2px 7px;border-radius:4px;color:#f5c518;font-size:.8rem;}
+    /* ========================= */
 </style>
+  <!-- Firebase SDK v9 -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <body>
     
 <div id="menuScreen" class="screen menu">
@@ -3677,10 +3708,8 @@ html, body{
           <div class="field">
             <label for="modeSelect">Chế độ</label>
             <select id="modeSelect">
-              <option value="arena">Arena</option>
-              <option value="survival">Survival</option>
-              <option value="boss">Boss Rush</option>
-              <option value="exam">Exam</option>
+              <option value="standard">Thường</option>
+              <option value="endless">Vô Tận 🔥</option>
             </select>
           </div>
           <div class="field">
@@ -3846,12 +3875,13 @@ html, body{
               <button class="btn secondary" id="skipBtn">Bỏ qua</button>
               <button type="button" class="btn secondary" id="openShopFromGame">Cửa hàng</button>
               <button type="button" class="btn secondary" id="musicToggleBtn" title="Bật/tắt nhạc nền">🎵 Nhạc</button>
+              <button type="button" class="btn secondary" id="leaderboardBtn" title="Bảng xếp hạng (chỉ chế độ Vô Tận)">🏆 BXH</button>
             </div>
           </div>
         </section>
 
         <aside class="side bottom-row">
-          <section class="card">
+          <section class="card" id="charCard">
             <div class="garland top" aria-hidden="true"></div>
             <div class="garland bottom" aria-hidden="true"></div>
             <div class="garland left" aria-hidden="true"></div>
@@ -3867,7 +3897,7 @@ html, body{
             <div class="tiny" id="classMiniNote" style="margin-top:8px;">Chọn class để đổi HP, mana và phần thưởng.</div>
           </section>
 
-          <section class="card">
+          <section class="card" id="progressCard">
             <div class="garland top" aria-hidden="true"></div>
             <div class="garland bottom" aria-hidden="true"></div>
             <div class="garland left" aria-hidden="true"></div>
@@ -3912,6 +3942,19 @@ html, body{
   "></div>
   <div id="flashOverlay" style="position:fixed;inset:0;z-index:55;pointer-events:none;opacity:0;"></div>
   <div id="floatScoreRoot" style="position:fixed;inset:0;z-index:58;pointer-events:none;overflow:hidden;"></div>
+
+  <!-- LEADERBOARD MODAL -->
+  <div id="leaderboardModal">
+    <div class="lb-panel">
+      <div class="lb-title">🏆 Bảng Xếp Hạng Realtime</div>
+      <div class="lb-live">
+        <div class="lb-dot"></div>
+        <span id="lbLive">Đang kết nối…</span>
+      </div>
+      <div id="lbEntries"><p class="lb-empty">⏳ Đang tải…</p></div>
+      <button class="btn secondary" id="closeLbBtn" style="margin-top:16px;width:100%;">✖ Đóng</button>
+    </div>
+  </div>
 
   <script>
     const LS_KEY = 'math_arena_retro_save_v1';
@@ -4087,7 +4130,7 @@ html, body{
     const state = {
       running: false,
       grade: 11,
-      mode: 'arena',
+      mode: 'standard',
       klass: 'mage',
       total: 12,
       index: 0,
@@ -4160,7 +4203,7 @@ html, body{
       menuBestAccuracy: $('menuBestAccuracy')
     };
 
-    const modeNames = { arena: 'Arena', survival: 'Survival', boss: 'Boss Rush', exam: 'Exam' };
+    const modeNames = { standard: 'Thường', endless: 'Vô Tận' };
     const gradeNames = { 10: 'Lớp 10' };
     const classNames = { mage: 'Mage', warrior: 'Warrior', sage: 'Sage', rogue: 'Rogue' };
 
@@ -5053,7 +5096,7 @@ html, body{
       setTimeout(() => {
         if(!state.running) return;
         state.answered = false;
-        if(state.mode === 'survival'){
+        if(state.mode === 'endless'){
           state.index++;
           if(state.index >= 20){
             endGame('clear');
@@ -5070,7 +5113,7 @@ html, body{
       state.mode = $('modeSelect').value;
       state.grade = 10;
       state.klass = $('classSelect').value;
-      state.total = state.mode === 'boss' ? 45 : state.mode === 'exam' ? 45 : state.mode === 'survival' ? 999 : 45;
+      state.total = state.mode === 'endless' ? 999 : 45;
 
       state.index = 0;
       state.current = null;
@@ -5095,13 +5138,18 @@ html, body{
       state.hp = state.maxHp;
       state.mp = state.maxMp;
 
-      buildLevels(state.mode === 'survival' ? 20 : state.total);
+      buildLevels(state.mode === 'endless' ? 20 : state.total);
+
+      const bottomRow = document.querySelector('.bottom-row');
+      if(bottomRow) bottomRow.classList.toggle('endless-active', state.mode === 'endless');
+      const lbBtn = $('leaderboardBtn');
+      if(lbBtn) lbBtn.style.display = state.mode === 'endless' ? '' : 'none';
 
       showGame();
       startBgMusic();
 
       log(`Bắt đầu ${modeNames[state.mode]} - ${gradeNames[state.grade]} | ${classNames[state.klass]} | Toán lớp 10`, 'good');
-      if(state.mode === 'survival') log('Survival: sai sẽ bị trừ HP.', 'warn');
+      if(state.mode === 'endless') log('Vô Tận: sai sẽ bị trừ HP.', 'warn');
 
       chooseNextQuestion();
       startTimer();
@@ -5113,7 +5161,7 @@ html, body{
     function advanceQuest(){
       state.index++;
       updateBars();
-      if(state.mode !== 'survival' && state.index >= state.total){
+      if(state.mode !== 'endless' && state.index >= state.total){
         endGame('clear');
         return;
       }
@@ -5205,7 +5253,7 @@ html, body{
       setTimeout(() => {
         if(!state.running) return;
         state.answered = false;
-        if(state.mode === 'survival'){
+        if(state.mode === 'endless'){
           state.index++;
           if(state.index >= 20){
             endGame('clear');
@@ -5263,7 +5311,7 @@ html, body{
       state.index++;
       updateBars();
       saveGame(false);
-      if(state.mode !== 'survival' && state.index >= state.total){
+      if(state.mode !== 'endless' && state.index >= state.total){
         endGame('clear');
         return;
       }
@@ -5406,6 +5454,7 @@ html, body{
 
       if(reason === 'clear' && totalAnswered >= 5 && acc >= 60) awardQuest();
       saveGame(true);
+      saveScoreToFirebase();
     }
 
     function buildResultText(){
@@ -5592,6 +5641,112 @@ html, body{
     on('modeSelect', 'change', syncFromUI);
 on('classSelect', 'change', syncFromUI);
 
+    // ============================================================
+    // 🏆 FIREBASE LEADERBOARD — điền config của bạn vào đây
+    // Hướng dẫn: vào console.firebase.google.com → tạo project
+    // → Realtime Database → lấy config → dán vào đây
+    // Database rules: { "rules": { ".read": true, ".write": true } }
+    // ============================================================
+    const FIREBASE_CONFIG = {
+      apiKey:            "AIzaSyBgnMcgeoCtyjm68NIIKp_N4itvkkznLTA",
+      authDomain:        "bxh-math-area-42aef.firebaseapp.com",
+      databaseURL:       "https://bxh-math-area-42aef-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId:         "bxh-math-area-42aef",
+      storageBucket:     "bxh-math-area-42aef.appspot.com",
+      messagingSenderId: "234770064728",
+      appId:             "1:234770064728:web:cfd49b01f28c2ac74df12d"
+    };
+    // ============================================================
+
+    let _fbDB = null;
+
+    (function initFirebase(){
+      try{
+        if(typeof firebase === 'undefined') return;
+        if(FIREBASE_CONFIG.apiKey === 'YOUR_API_KEY'){
+          const liveEl = document.getElementById('lbLive');
+          if(liveEl) liveEl.textContent = 'Chưa cấu hình Firebase';
+          return;
+        }
+        firebase.initializeApp(FIREBASE_CONFIG);
+        _fbDB = firebase.database();
+        // Lắng nghe realtime — tự cập nhật khi có điểm mới
+        _fbDB.ref('math-arena/scores').on('value', snap => {
+          renderLB(snap.val());
+          const liveEl = document.getElementById('lbLive');
+          if(liveEl) liveEl.textContent = 'Cập nhật lúc ' + new Date().toLocaleTimeString('vi-VN');
+        });
+        const liveEl = document.getElementById('lbLive');
+        if(liveEl) liveEl.textContent = 'Đã kết nối ✓';
+      } catch(e){ console.warn('Firebase init:', e); }
+    })();
+
+    function saveScoreToFirebase(){
+      if(!_fbDB) return;
+      if(state.mode !== 'endless') return; // chỉ lưu BXH chế độ Vô Tận
+      const r = state.lastResult;
+      if(!r || !r.playerName) return;
+      _fbDB.ref('math-arena/scores').push({
+        name:     r.playerName,
+        class:    r.schoolClass || '',
+        score:    r.score,
+        correct:  r.correct,
+        accuracy: r.accuracy,
+        combo:    r.bestCombo,
+        mode:     r.mode,
+        ts:       Date.now()
+      })
+      .then(()  => toast('✅ Điểm đã lên bảng xếp hạng!', 'good'))
+      .catch(()  => toast('⚠️ Không thể lưu điểm — kiểm tra mạng', 'bad'));
+    }
+
+    function renderLB(data){
+      const el = document.getElementById('lbEntries');
+      if(!el) return;
+      if(!data){
+        el.innerHTML = '<p class="lb-empty">Chưa có điểm nào. Hãy là người đầu tiên! 🎮</p>';
+        return;
+      }
+      const entries = Object.values(data).sort((a,b) => b.score - a.score).slice(0, 30);
+      const medals  = ['🥇','🥈','🥉'];
+      const rowCls  = i => i < 3 ? ` class="top${i+1}"` : '';
+      let html = `<table class="lb-table">
+        <thead><tr>
+          <th>#</th><th>Họ và tên</th><th>Lớp</th>
+          <th>Điểm</th><th>Chính xác</th><th>Combo</th>
+        </tr></thead><tbody>`;
+      entries.forEach((e, i) => {
+        html += `<tr${rowCls(i)}>
+          <td>${medals[i] || (i+1)}</td>
+          <td>${e.name}</td>
+          <td>${e.class}</td>
+          <td class="lb-score">${e.score}</td>
+          <td>${e.accuracy}%</td>
+          <td>×${e.combo}</td>
+        </tr>`;
+      });
+      html += '</tbody></table>';
+      el.innerHTML = html;
+    }
+
+    function showLeaderboard(){
+      if(!_fbDB){
+        document.getElementById('lbEntries').innerHTML = `
+          <div class="lb-no-firebase">
+            ⚠️ <strong>Chưa kết nối Firebase</strong><br><br>
+            Để dùng bảng xếp hạng realtime:<br>
+            1. Vào <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a><br>
+            2. Tạo project → <strong>Realtime Database</strong><br>
+            3. Copy config → dán vào <code>FIREBASE_CONFIG</code> trong file HTML<br>
+            4. Database rules: <code>".read": true, ".write": true</code>
+          </div>`;
+      }
+      document.getElementById('leaderboardModal').classList.add('show');
+    }
+
+    on('leaderboardBtn', 'click', showLeaderboard);
+    on('closeLbBtn', 'click', () => document.getElementById('leaderboardModal').classList.remove('show'));
+
     loadGame();
     buildLevels(12);
     syncFromUI();
@@ -5602,5 +5757,6 @@ on('classSelect', 'change', syncFromUI);
     ui.hint.textContent = '3 phút mỗi câu, tập trung vào Toán lớp 10.';
     log('Sẵn sàng. Chọn lớp 10 và bắt đầu trận đấu.', 'normal');
   </script>
+
 </body>
 </html>
