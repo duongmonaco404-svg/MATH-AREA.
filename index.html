@@ -851,7 +851,7 @@
     }
     .hud{
       display:grid;
-      grid-template-columns:repeat(6,1fr);
+      grid-template-columns:repeat(5,1fr);
       gap:12px;
       margin-bottom:14px;
     }
@@ -906,6 +906,22 @@
       box-shadow:4px 4px 0 #000;
       font-size:13px;
       white-space:nowrap;
+    }
+    #leaderboardBtn{
+      cursor:pointer;
+      background:linear-gradient(180deg, #ffd84a, #f5b800) !important;
+      border-color:#000;
+      font-family:inherit;
+      transition:transform .12s ease;
+    }
+    #leaderboardBtn .k{ color:#3a2900 !important; }
+    #leaderboardBtn .v{ color:#1a1400 !important; }
+    #leaderboardBtn:hover{
+      transform:translateY(-2px);
+    }
+    #leaderboardBtn:active{
+      transform:translateY(1px);
+      box-shadow:2px 2px 0 #000;
     }
     .question{
       margin:8px 0 10px;
@@ -1129,7 +1145,7 @@
     .tiny{color:var(--muted);font-size:13px;line-height:1.45}
     @media (max-width: 1080px){
       .menu-shell,.menu-grid,.layout{grid-template-columns:1fr}
-      .hud{grid-template-columns:repeat(3,1fr)}
+      .hud{grid-template-columns:repeat(5,1fr)}
       .choices,.controls,.modal-grid{grid-template-columns:1fr 1fr}
     }
     @media (max-width: 680px){
@@ -1492,6 +1508,36 @@
       padding:12px 16px;
       border-radius:18px;
     }
+    .pb-row{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:12px;
+      max-width:760px;
+    }
+    .pb-item{
+      background:rgba(0,0,0,.28);
+      border:2px solid rgba(0,0,0,.3);
+      border-radius:14px;
+      padding:10px 8px;
+      text-align:center;
+    }
+    .pb-label{
+      font-size:11px;
+      color:#ffe9b3;
+      letter-spacing:.02em;
+      margin-bottom:4px;
+    }
+    .pb-value{
+      font-size:20px;
+      font-weight:800;
+      color:#fff;
+      text-shadow:2px 2px 0 rgba(0,0,0,.4);
+    }
+    @media (max-width:520px){
+      .pb-row{ grid-template-columns:1fr 1fr; }
+      .pb-item:nth-child(3){ grid-column:1 / span 2; }
+    }
     .grade-tag{
       display:inline-block;
       font-size:10px;
@@ -1571,7 +1617,7 @@
 
     @media (max-width: 1080px){
       .menu-shell,.menu-grid,.layout{grid-template-columns:1fr}
-      .hud{grid-template-columns:repeat(3,1fr)}
+      .hud{grid-template-columns:repeat(5,1fr)}
       .choices,.controls,.modal-grid{grid-template-columns:1fr 1fr}
     }
     @media (max-width: 680px){
@@ -2556,7 +2602,7 @@
     .shop-card .subtitle{ max-width:760px; margin-left:auto; margin-right:auto; }
     .layout{ grid-template-columns:1.06fr .74fr; gap:14px; }
     .game-shell{ max-width:1180px; }
-    .hud{ grid-template-columns:repeat(6, 1fr); gap:10px; }
+    .hud{ grid-template-columns:repeat(5, 1fr); gap:10px; }
     .hud-item .v,
     .mini-stat .v,
     .row strong,
@@ -2577,7 +2623,7 @@
     @media (max-width: 1080px){
       .layout{ grid-template-columns:1fr; }
       .menu-grid,.modal-grid{ grid-template-columns:1fr 1fr; }
-      .hud{ grid-template-columns:repeat(3, 1fr); }
+      .hud{ grid-template-columns:repeat(5, 1fr); }
       .shop-wallet{ position:static; margin:0 auto 14px; }
       .shop-card .title{ margin-top:0; }
     }
@@ -3246,11 +3292,38 @@ select{
   display:flex !important;
   flex-direction:column;
   align-items:stretch !important;
-  gap:14px;
+  gap:10px;
 }
 .layout .arena{
   width:100%;
 }
+@media (min-width:1081px){
+  /* Trên desktop: giữ câu hỏi to, full-width như cũ. Chỉ nén bớt khoảng
+     trắng ở các phần phụ (HUD, khung nhân vật, tiến trình...) để vẫn
+     đủ chỗ hiển thị hết, không cần cuộn trang. */
+  .hud{ margin-bottom:4px !important; }
+  .hud-item{ padding:6px 10px !important; }
+  .question-meta{ margin-bottom:4px !important; }
+  #questionText{
+    font-size:clamp(22px, 3vw, 36px) !important;
+    line-height:1.15 !important;
+    margin:4px 0 4px !important;
+  }
+  #hintText{ margin-bottom:4px !important; }
+  .timer-wrap{ margin:4px 0 6px !important; }
+  .choices{ gap:8px !important; margin-top:4px !important; }
+  .choice{ min-height:46px !important; padding:8px 16px !important; }
+  .controls{ margin-top:6px !important; }
+  .arena-inner{ padding:8px 18px !important; }
+  .bottom-row .levels{
+    max-height:80px;
+    overflow-y:auto;
+    padding-right:4px;
+  }
+  .game, #gameScreen{ padding:6px !important; }
+  .layout{ gap:6px !important; }
+}
+
 .bottom-row{
   display:grid !important;
   grid-template-columns:1fr 1fr;
@@ -3262,7 +3335,7 @@ select{
   height:100%;
   display:flex;
   flex-direction:column;
-  padding:22px 22px 16px !important;
+  padding:14px 18px 10px !important;
 }
 .bottom-row .card .garland.top, .bottom-row .card .garland.bottom{
   height:14px;
@@ -3274,10 +3347,10 @@ select{
 }
 .bottom-row .card h3{
   font-size:15px !important;
-  margin:0 0 8px !important;
+  margin:0 0 5px !important;
 }
 .bottom-row .card .row{
-  margin-bottom:6px !important;
+  margin-bottom:4px !important;
   font-size:13px;
 }
 .bottom-row .card .meter{
@@ -3415,20 +3488,26 @@ html, body{
    so the whole game screen needs far less (often zero) scrolling on a phone. */
 @media (max-width:680px){
   .hud{
-    grid-template-columns:repeat(3, 1fr) !important;
-    gap:6px !important;
+    grid-template-columns:repeat(5, 1fr) !important;
+    gap:4px !important;
     margin-bottom:8px !important;
   }
   .hud-item{
-    padding:6px 4px !important;
+    padding:5px 2px !important;
     text-align:center;
   }
   .hud-item .k{
-    font-size:9px !important;
+    font-size:8px !important;
     margin-bottom:2px !important;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
   .hud-item .v{
-    font-size:12px !important;
+    font-size:11px !important;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
   .hud-item.hud-extra{
     display:none !important;
@@ -3692,6 +3771,20 @@ html, body{
         <p class="subtitle">
           Chinh phục thử thách Toán học, tích lũy vàng, nâng cấp vật phẩm và trở thành nhà vô địch!
         </p>
+        <div class="pb-row" id="pbRow">
+          <div class="pb-item">
+            <div class="pb-label">🏆 Điểm cao nhất (Vô Tận)</div>
+            <div class="pb-value" id="pbEndlessScore">0</div>
+          </div>
+          <div class="pb-item">
+            <div class="pb-label">🌊 Sóng xa nhất</div>
+            <div class="pb-value" id="pbEndlessWave">0</div>
+          </div>
+          <div class="pb-item">
+            <div class="pb-label">⭐ Điểm cao nhất (Thường)</div>
+            <div class="pb-value" id="pbStandardScore">0</div>
+          </div>
+        </div>
       </div>
 
       <section class="menu-card-mini pixel-frame menu-panel">
@@ -3777,37 +3870,37 @@ html, body{
             <div class="shop-grid-main">
               <div class="shop-panel" data-shop="heal">
                 <strong>Heal Potion</strong>
-                <div class="price">30 xu</div>
+                <div class="price">70 xu</div>
                 <div class="desc">Hồi 25 HP để bạn trụ lâu hơn trong trận.</div>
                 <button class="buy-btn" data-shop="heal">Mua</button>
               </div>
               <div class="shop-panel" data-shop="mana">
                 <strong>Mana Potion</strong>
-                <div class="price">25 xu</div>
+                <div class="price">60 xu</div>
                 <div class="desc">Hồi 20 mana cho gợi ý và bỏ qua câu hỏi.</div>
                 <button class="buy-btn" data-shop="mana">Mua</button>
               </div>
               <div class="shop-panel" data-shop="shield">
                 <strong>Shield</strong>
-                <div class="price">60 xu</div>
+                <div class="price">140 xu</div>
                 <div class="desc">Chặn 1 lần mất máu khi trả lời sai.</div>
                 <button class="buy-btn" data-shop="shield">Mua</button>
               </div>
               <div class="shop-panel" data-shop="boost">
                 <strong>Power Drink</strong>
-                <div class="price">70 xu</div>
+                <div class="price">160 xu</div>
                 <div class="desc">Nhân đôi EXP nhận được trong 5 câu tiếp theo.</div>
                 <button class="buy-btn" data-shop="boost">Mua</button>
               </div>
               <div class="shop-panel" data-shop="heart">
                 <strong>Heart Core</strong>
-                <div class="price">90 xu</div>
+                <div class="price">200 xu</div>
                 <div class="desc">Tăng tối đa 20 HP và hồi đầy máu ngay.</div>
                 <button class="buy-btn" data-shop="heart">Mua</button>
               </div>
               <div class="shop-panel" data-shop="ether">
                 <strong>Ether Core</strong>
-                <div class="price">80 xu</div>
+                <div class="price">175 xu</div>
                 <div class="desc">Tăng tối đa 15 mana và hồi đầy năng lượng.</div>
                 <button class="buy-btn" data-shop="ether">Mua</button>
               </div>
@@ -3848,6 +3941,9 @@ html, body{
         <div class="hud-item"><div class="k">Xu</div><div class="v" id="uiCoins">0</div></div>
         <div class="hud-item"><div class="k">Cấp</div><div class="v" id="uiLevel">1</div></div>
         <div class="hud-item"><div class="k">Timer</div><div class="v" id="uiTime">180s</div></div>
+        <button type="button" class="hud-item hud-lb-btn" id="leaderboardBtn" title="Bảng xếp hạng (chỉ chế độ Vô Tận)">
+          <div class="k">🏆</div><div class="v">BXH</div>
+        </button>
       </div>
 
       <div class="layout">
@@ -3875,7 +3971,6 @@ html, body{
               <button class="btn secondary" id="skipBtn">Bỏ qua</button>
               <button type="button" class="btn secondary" id="openShopFromGame">Cửa hàng</button>
               <button type="button" class="btn secondary" id="musicToggleBtn" title="Bật/tắt nhạc nền">🎵 Nhạc</button>
-              <button type="button" class="btn secondary" id="leaderboardBtn" title="Bảng xếp hạng (chỉ chế độ Vô Tận)">🏆 BXH</button>
             </div>
           </div>
         </section>
@@ -3926,7 +4021,10 @@ html, body{
         <button type="button" class="btn secondary" id="downloadResultBtn">Tải file kết quả</button>
       </div>
       <p class="tiny" id="resultHint" style="margin-top:6px;">Gửi kết quả này cho giáo viên (dán vào nhóm chat hoặc đính kèm file).</p>
-      <button class="btn" id="restartBtn">Chơi lại</button>
+      <div class="menu-actions" style="margin-top:12px;">
+        <button class="btn" id="restartBtn">Chơi lại</button>
+        <button type="button" class="btn secondary" id="backToMenuBtn">🏠 Menu</button>
+      </div>
     </div>
   </div>
 
@@ -4158,7 +4256,10 @@ html, body{
       timePenaltyLock: false,
       paused: false,
       playerName: '',
-      schoolClass: ''
+      schoolClass: '',
+      bestEndlessScore: 0,
+      bestEndlessWave: 0,
+      bestStandardScore: 0
     };
 
     const ui = {
@@ -4198,9 +4299,9 @@ html, body{
       menuLifeCount: $('menuLifeCount'),
       menuTimeCount: $('menuTimeCount'),
       menuShieldCount: $('menuShieldCount'),
-      menuBestScore: $('menuBestScore'),
-      menuBestRound: $('menuBestRound'),
-      menuBestAccuracy: $('menuBestAccuracy')
+      pbEndlessScore: $('pbEndlessScore'),
+      pbEndlessWave: $('pbEndlessWave'),
+      pbStandardScore: $('pbStandardScore')
     };
 
     const modeNames = { standard: 'Thường', endless: 'Vô Tận' };
@@ -4236,12 +4337,9 @@ html, body{
       if(ui.menuLifeCount) ui.menuLifeCount.textContent = `x${state.menuLifeCount || 1}`;
       if(ui.menuTimeCount) ui.menuTimeCount.textContent = `x${state.menuTimeCount || 1}`;
       if(ui.menuShieldCount) ui.menuShieldCount.textContent = `x${state.shield || 0}`;
-      if(ui.menuBestScore) ui.menuBestScore.textContent = String(state.bestMenuScore || state.score || 0);
-      if(ui.menuBestRound) ui.menuBestRound.textContent = String(state.bestMenuRound || state.index || 0);
-      if(ui.menuBestAccuracy) {
-        const acc = state.bestMenuAccuracy ?? (state.correct + state.wrong ? Math.round((state.correct / Math.max(1, state.correct + state.wrong)) * 100) : 0);
-        ui.menuBestAccuracy.textContent = `${acc}%`;
-      }
+      if(ui.pbEndlessScore) ui.pbEndlessScore.textContent = String(state.bestEndlessScore || 0);
+      if(ui.pbEndlessWave) ui.pbEndlessWave.textContent = String(state.bestEndlessWave || 0);
+      if(ui.pbStandardScore) ui.pbStandardScore.textContent = String(state.bestStandardScore || 0);
     }
     function log(msg, tone='normal'){}
 
@@ -4277,15 +4375,29 @@ html, body{
       if(state.grade === 10) base = 20;
       if(state.grade === 11) base = 28;
       if(state.grade === 12) base = 36;
-      if(state.mode === 'boss') base += 8;
       if(state.mode === 'exam') base += 6;
       return Math.round(base * (state.classXpMult || 1));
     }
 
+    // Tự động khớp số cột HUD theo đúng số ô đang hiển thị (tránh dư khoảng trống
+    // khi nút BXH bị ẩn ở chế độ Thường). Dùng !important qua JS để thắng mọi
+    // breakpoint CSS khác.
+    function syncHudColumns(){
+      const hud = document.querySelector('.hud');
+      if(!hud) return;
+      const visibleCount = [...hud.children].filter(el => getComputedStyle(el).display !== 'none').length;
+      hud.style.setProperty('grid-template-columns', `repeat(${visibleCount || 1}, 1fr)`, 'important');
+    }
+
     function coinGainBase(){
       let base = 8 + state.grade * 2;
-      if(state.mode === 'boss') base += 10;
-      return Math.round(base * (state.classCoinMult || 1));
+      let result = base * (state.classCoinMult || 1);
+      if(state.mode === 'endless'){
+        // Xu kiếm được giảm dần theo số câu đã qua, tối thiểu còn 15% so với ban đầu
+        const decay = Math.max(0.15, Math.pow(0.985, state.index));
+        result *= decay;
+      }
+      return Math.round(result);
     }
 
     function createChoices(answer, spread, allowNegativeOverride){
@@ -4317,541 +4429,197 @@ html, body{
 
 
     // Grade 10 — chỉ gồm Hệ thức lượng trong tam giác vuông & Đại số tổ hợp
-    function qGrade10(){
-      const pool = [
+    function qGrade10(difficulty = 1, boost = 0){
+      /* difficulty: 1=dễ, 2=trung bình, 3=khó, 4=cực khó (dùng boost để tăng dần mãi) */
 
-        /* ══════════════ HỆ THỨC LƯỢNG TRONG TAM GIÁC VUÔNG ══════════════ */
-
+      /* ══ HỆ THỨC LƯỢNG ══ */
+      const geo_easy = [
         // sin α → cạnh huyền
         () => {
           const pairs = [[1,2],[2,5],[3,5],[4,5],[5,13],[3,13],[12,13],[5,17],[8,17]];
           const [num,den] = pick(pairs);
           const unit = rand(2,5);
           const opp = unit * num, hyp = unit * den;
-          return {
-            text: `Trong tam giác vuông, sin α = ${num}/${den} và cạnh đối diện góc α dài ${opp}. Tính cạnh huyền.`,
-            answer: hyp,
-            choices: createChoices(hyp, 10),
-            hint: 'sin α = cạnh đối / cạnh huyền → cạnh huyền = cạnh đối ÷ sin α.'
-          };
+          return { text: `Trong tam giác vuông, sin α = ${num}/${den} và cạnh đối diện góc α dài ${opp}. Tính cạnh huyền.`, answer: hyp, choices: createChoices(hyp, 10), hint: 'sin α = cạnh đối / cạnh huyền → cạnh huyền = cạnh đối ÷ sin α.' };
         },
-
         // cos α → cạnh kề
         () => {
           const pairs = [[3,5],[4,5],[5,13],[12,13],[8,17],[15,17],[7,25],[24,25]];
           const [num,den] = pick(pairs);
           const unit = rand(2,5);
           const adj = unit * num, hyp = unit * den;
-          return {
-            text: `Trong tam giác vuông, cos α = ${num}/${den} và cạnh huyền dài ${hyp}. Tính cạnh kề của góc α.`,
-            answer: adj,
-            choices: createChoices(adj, 10),
-            hint: 'cos α = cạnh kề / cạnh huyền → cạnh kề = cạnh huyền × cos α.'
-          };
+          return { text: `Trong tam giác vuông, cos α = ${num}/${den} và cạnh huyền dài ${hyp}. Tính cạnh kề của góc α.`, answer: adj, choices: createChoices(adj, 10), hint: 'cos α = cạnh kề / cạnh huyền → cạnh kề = cạnh huyền × cos α.' };
         },
-
         // tan α → cạnh đối
         () => {
           const pairs = [[3,4],[5,12],[8,15],[7,24],[1,1]];
           const [num,den] = pick(pairs);
           const unit = rand(2,5);
           const opp = unit * num, adj = unit * den;
-          return {
-            text: `Trong tam giác vuông, tan α = ${num}/${den} và cạnh kề của góc α dài ${adj}. Tính cạnh đối.`,
-            answer: opp,
-            choices: createChoices(opp, 10),
-            hint: 'tan α = cạnh đối / cạnh kề → cạnh đối = cạnh kề × tan α.'
-          };
+          return { text: `Trong tam giác vuông, tan α = ${num}/${den} và cạnh kề của góc α dài ${adj}. Tính cạnh đối.`, answer: opp, choices: createChoices(opp, 10), hint: 'tan α = cạnh đối / cạnh kề → cạnh đối = cạnh kề × tan α.' };
         },
+        // Pythagore cơ bản — tìm cạnh huyền
+        () => {
+          const k = rand(2,5);
+          const triples = [[3,4,5],[5,12,13],[8,15,17],[7,24,25]];
+          const [a,b,c] = pick(triples);
+          return { text: `Một tam giác vuông có hai cạnh góc vuông lần lượt là ${a*k} và ${b*k}. Tính cạnh huyền.`, answer: c*k, choices: createChoices(c*k, 12), hint: 'Dùng định lí Pythagore: c² = a² + b².' };
+        },
+        // Quy tắc cộng
+        () => {
+          const bus = rand(3, 7), train = rand(2, 5);
+          return { text: `Từ thành phố A đến B có ${bus} tuyến xe buýt và ${train} tuyến tàu hỏa (không trùng nhau). Có bao nhiêu cách chọn 1 phương tiện đi từ A đến B?`, answer: bus+train, choices: createChoices(bus+train, 8), hint: 'Hai loại phương tiện loại nhau → Quy tắc cộng.' };
+        },
+        // Quy tắc nhân
+        () => {
+          const a = rand(3, 6), b = rand(2, 5), c = rand(2, 4);
+          return { text: `Một bạn có ${a} áo, ${b} quần và ${c} đôi giày. Có bao nhiêu cách chọn 1 bộ gồm 1 áo, 1 quần và 1 đôi giày?`, answer: a*b*c, choices: createChoices(a*b*c, Math.max(14, a*b*c*0.25+8)), hint: 'Quy tắc nhân: số cách = (số áo) × (số quần) × (số giày).' };
+        },
+        // Bắt tay C(n,2)
+        () => {
+          const n = rand(5, 10);
+          const answer = n*(n-1)/2;
+          return { text: `Một buổi gặp mặt có ${n} người, mỗi hai người bắt tay nhau đúng 1 lần. Tổng số cái bắt tay là bao nhiêu?`, answer, choices: createChoices(answer, Math.max(10, answer*0.3+6)), hint: 'Mỗi cái bắt tay là 1 cặp không thứ tự → C(n,2) = n(n−1)/2.' };
+        },
+        // Hoán vị n!
+        () => {
+          const n = rand(4, 6);
+          const answer = factorial(n);
+          const ctx = pick([`${n} quyển sách khác nhau trên một kệ`, `${n} học sinh xếp thành một hàng dọc`, `${n} bức tranh khác nhau treo trên tường`]);
+          return { text: `Có bao nhiêu cách sắp xếp ${ctx}?`, answer, choices: createChoices(answer, Math.max(12, answer*0.25+6)), hint: `Sắp thứ tự tất cả ${n} phần tử → Hoán vị P(${n}) = ${n}!.` };
+        },
+      ];
 
+      const geo_medium = [
         // tan α → cạnh kề (nghịch)
         () => {
           const pairs = [[3,4],[5,12],[8,15],[7,24]];
           const [num,den] = pick(pairs);
           const unit = rand(2,5);
           const opp = unit * num, adj = unit * den;
-          return {
-            text: `Trong tam giác vuông, tan α = ${num}/${den} và cạnh đối của góc α dài ${opp}. Tính cạnh kề.`,
-            answer: adj,
-            choices: createChoices(adj, 10),
-            hint: 'tan α = cạnh đối / cạnh kề → cạnh kề = cạnh đối ÷ tan α.'
-          };
+          return { text: `Trong tam giác vuông, tan α = ${num}/${den} và cạnh đối của góc α dài ${opp}. Tính cạnh kề.`, answer: adj, choices: createChoices(adj, 10), hint: 'tan α = cạnh đối / cạnh kề → cạnh kề = cạnh đối ÷ tan α.' };
         },
-
-        // Pythagore: tìm cạnh huyền
-        () => {
-          const k = rand(2,5);
-          const triples = [[3,4,5],[5,12,13],[8,15,17],[7,24,25]];
-          const [a,b,c] = pick(triples);
-          const answer = c * k;
-          return {
-            text: `Một tam giác vuông có hai cạnh góc vuông lần lượt là ${a*k} và ${b*k}. Tính cạnh huyền.`,
-            answer,
-            choices: createChoices(answer, 12),
-            hint: 'Dùng định lí Pythagore: c² = a² + b².'
-          };
-        },
-
-        // Pythagore: tìm cạnh góc vuông còn lại
+        // Pythagore — tìm cạnh góc vuông còn lại
         () => {
           const k = rand(2,6);
           const triples = [[3,4,5],[5,12,13],[8,15,17],[7,24,25],[9,12,15]];
           const [a,b,c] = pick(triples);
-          const flip = Math.random() > 0.5;
-          const known = flip ? a : b, other = flip ? b : a;
-          const answer = other * k;
-          return {
-            text: `Một tam giác vuông có cạnh huyền dài ${c*k} và một cạnh góc vuông dài ${known*k}. Tính cạnh góc vuông còn lại.`,
-            answer,
-            choices: createChoices(answer, 14),
-            hint: 'Dùng định lí Pythagore: cạnh² = huyền² − cạnh kia².'
-          };
+          const flip = Math.random()>0.5;
+          const known = flip?a:b, other = flip?b:a;
+          return { text: `Một tam giác vuông có cạnh huyền dài ${c*k} và một cạnh góc vuông dài ${known*k}. Tính cạnh góc vuông còn lại.`, answer: other*k, choices: createChoices(other*k, 14), hint: 'Dùng định lí Pythagore: cạnh² = huyền² − cạnh kia².' };
         },
-
-        // Diện tích tam giác vuông (từ 2 cạnh góc vuông)
+        // Diện tích tam giác vuông
         () => {
-          const a = rand(2,8) * 2;   // chẵn → tích a*b chia đôi luôn nguyên
-          const b = rand(3,10);
-          const answer = a * b / 2;
-          return {
-            text: `Hai cạnh góc vuông của một tam giác vuông là ${a} và ${b}. Tính diện tích tam giác.`,
-            answer,
-            choices: createChoices(answer, 12),
-            hint: 'Diện tích tam giác vuông = ½ × cạnh₁ × cạnh₂.'
-          };
+          const a = rand(2,8)*2, b = rand(3,10);
+          return { text: `Hai cạnh góc vuông của một tam giác vuông là ${a} và ${b}. Tính diện tích tam giác.`, answer: a*b/2, choices: createChoices(a*b/2, 12), hint: 'Diện tích tam giác vuông = ½ × cạnh₁ × cạnh₂.' };
         },
-
-        // Chu vi tam giác vuông (Pythagore + cộng)
-        () => {
-          const k = rand(2,5);
-          const triples = [[3,4,5],[5,12,13],[8,15,17],[7,24,25]];
-          const [a,b,c] = pick(triples);
-          const answer = (a + b + c) * k;
-          return {
-            text: `Một tam giác vuông có hai cạnh góc vuông là ${a*k} và ${b*k}. Tính chu vi tam giác.`,
-            answer,
-            choices: createChoices(answer, 16),
-            hint: 'Tìm cạnh huyền bằng Pythagore, rồi chu vi = a + b + c.'
-          };
-        },
-
-        // Thang dựa tường (ứng dụng Pythagore)
+        // Thang dựa tường
         () => {
           const k = rand(1,4);
           const triples = [[3,4,5],[5,12,13],[8,15,17],[6,8,10]];
           const [a,b,c] = pick(triples);
-          const dist = a*k, wall = b*k, ladder = c*k;
-          return {
-            text: `Một cái thang dài ${ladder}m dựa vào tường thẳng đứng. Chân thang cách chân tường ${dist}m. Đầu thang chạm tường ở độ cao bao nhiêu mét?`,
-            answer: wall,
-            choices: createChoices(wall, 10),
-            hint: 'Chiều cao² = thang² − khoảng cách². Dùng định lí Pythagore.'
-          };
+          return { text: `Một cái thang dài ${c*k}m dựa vào tường thẳng đứng. Chân thang cách chân tường ${a*k}m. Đầu thang chạm tường ở độ cao bao nhiêu mét?`, answer: b*k, choices: createChoices(b*k, 10), hint: 'Chiều cao² = thang² − khoảng cách².' };
         },
-
-        // Sân chữ nhật: biết một cạnh và đường chéo, tìm cạnh còn lại
+        // Tổ hợp C(n,k)
         () => {
-          const k = rand(1,4);
-          const triples = [[3,4,5],[5,12,13],[8,15,17],[6,8,10]];
-          const [a,b,c] = pick(triples);
-          const flip = Math.random() > 0.5;
-          const known = flip ? a : b, other = flip ? b : a;
-          const answer = other * k;
-          return {
-            text: `Sân hình chữ nhật có một chiều dài ${known*k}m và đường chéo ${c*k}m. Tính chiều còn lại của sân.`,
-            answer,
-            choices: createChoices(answer, 12),
-            hint: 'Đường chéo² = chiều dài² + chiều rộng². Dùng Pythagore.'
-          };
+          const n = rand(5, 9), k = rand(2, Math.min(4, n-1));
+          const answer = factorial(n)/(factorial(k)*factorial(n-k));
+          return { text: `Từ ${n} học sinh, chọn ${k} bạn để làm trực nhật. Có bao nhiêu cách chọn?`, answer, choices: createChoices(answer, Math.max(12, answer*0.3+6)), hint: `Không phân biệt thứ tự → Tổ hợp C(${n},${k}).` };
         },
-
-        // Diện tích tam giác vuông: biết huyền và một cạnh
-        () => {
-          const k = rand(1,3);
-          const triples = [[3,4,5],[5,12,13],[8,15,17]];
-          const [a,b,c] = pick(triples);
-          const answer = a * b * k * k / 2;
-          return {
-            text: `Tam giác vuông có cạnh huyền ${c*k}m và một cạnh góc vuông ${a*k}m. Tính diện tích tam giác.`,
-            answer,
-            choices: createChoices(answer, 14),
-            hint: 'Tìm cạnh kia bằng Pythagore: b² = c² − a², rồi S = ½ × a × b.'
-          };
-        },
-
-        // Chu vi sân chữ nhật biết một cạnh và đường chéo
-        () => {
-          const k = rand(1,3);
-          const triples = [[3,4,5],[5,12,13],[8,15,17]];
-          const [a,b,c] = pick(triples);
-          const answer = 2 * (a + b) * k;
-          return {
-            text: `Sân hình chữ nhật có chiều rộng ${a*k}m và đường chéo ${c*k}m. Tính chu vi sân.`,
-            answer,
-            choices: createChoices(answer, 16),
-            hint: 'Tìm chiều dài bằng Pythagore, rồi chu vi = 2 × (dài + rộng).'
-          };
-        },
-
-        /* ══════════════ ĐẠI SỐ TỔ HỢP ══════════════ */
-
-        // Tổ hợp C(n,k) — chọn nhóm không thứ tự
-        () => {
-          const n = rand(5, 9);
-          const k = rand(2, Math.min(4, n-1));
-          const answer = factorial(n) / (factorial(k) * factorial(n-k));
-          return {
-            text: `Từ ${n} học sinh, chọn ${k} bạn để làm trực nhật. Có bao nhiêu cách chọn?`,
-            answer,
-            choices: createChoices(answer, Math.max(12, answer * 0.3 + 6)),
-            hint: `Không phân biệt thứ tự → Tổ hợp C(${n},${k}).`
-          };
-        },
-
-        // Chỉnh hợp A(n,k) — xếp vào vị trí phân biệt
-        () => {
-          const n = rand(6, 10);
-          const k = rand(2, 3);
-          const answer = factorial(n) / factorial(n-k);
-          return {
-            text: `Từ ${n} học sinh khác nhau, chọn ${k} bạn xếp vào ${k} vị trí phân biệt. Có bao nhiêu cách?`,
-            answer,
-            choices: createChoices(answer, Math.max(20, answer * 0.2 + 10)),
-            hint: `Có thứ tự → Chỉnh hợp A(${n},${k}) = ${n}!/(${n-k})!.`
-          };
-        },
-
-        // Hoán vị n! — sắp xếp toàn bộ
-        () => {
-          const n = rand(4, 6);
-          const answer = factorial(n);
-          const ctx = pick([
-            `${n} quyển sách khác nhau trên một kệ`,
-            `${n} học sinh xếp thành một hàng dọc`,
-            `${n} bức tranh khác nhau treo trên tường thẳng`
-          ]);
-          return {
-            text: `Có bao nhiêu cách sắp xếp ${ctx}?`,
-            answer,
-            choices: createChoices(answer, Math.max(12, answer * 0.25 + 6)),
-            hint: `Sắp thứ tự tất cả ${n} phần tử → Hoán vị P(${n}) = ${n}!.`
-          };
-        },
-
-        // Nhị thức Newton — hệ số của x^k trong (x+1)^n
-        () => {
-          const n = rand(3, 7);
-          const k = rand(1, n-1);
-          const answer = factorial(n) / (factorial(k) * factorial(n-k));
-          return {
-            text: `Trong khai triển nhị thức Newton (x + 1)^${n}, hệ số của số hạng chứa x^${k} là bao nhiêu?`,
-            answer,
-            choices: createChoices(answer, Math.max(8, answer * 0.3 + 4)),
-            hint: `Hệ số của x^${k} là C(${n},${k}).`
-          };
-        },
-
-        // Bắt tay — C(n,2)
-        () => {
-          const n = rand(5, 12);
-          const answer = n * (n-1) / 2;
-          return {
-            text: `Một buổi gặp mặt có ${n} người, mỗi hai người bắt tay nhau đúng 1 lần. Tổng số cái bắt tay là bao nhiêu?`,
-            answer,
-            choices: createChoices(answer, Math.max(10, answer * 0.3 + 6)),
-            hint: 'Mỗi cái bắt tay là 1 cặp không thứ tự → C(n,2) = n(n−1)/2.'
-          };
-        },
-
         // Đường chéo đa giác
         () => {
           const n = rand(5, 10);
-          const answer = n * (n-3) / 2;
-          return {
-            text: `Một đa giác lồi có ${n} đỉnh. Đa giác đó có bao nhiêu đường chéo?`,
-            answer,
-            choices: createChoices(answer, Math.max(8, answer * 0.4 + 6)),
-            hint: 'Số đường chéo = n(n−3)/2.'
-          };
+          const answer = n*(n-3)/2;
+          return { text: `Một đa giác lồi có ${n} đỉnh. Đa giác đó có bao nhiêu đường chéo?`, answer, choices: createChoices(answer, Math.max(8, answer*0.4+6)), hint: 'Số đường chéo = n(n−3)/2.' };
         },
-
-        // Quy tắc nhân — chọn trang phục
-        () => {
-          const a = rand(3, 6), b = rand(2, 5), c = rand(2, 4);
-          const answer = a * b * c;
-          return {
-            text: `Một bạn có ${a} áo, ${b} quần và ${c} đôi giày khác nhau. Có bao nhiêu cách chọn một bộ gồm 1 áo, 1 quần và 1 đôi giày?`,
-            answer,
-            choices: createChoices(answer, Math.max(14, answer * 0.25 + 8)),
-            hint: 'Quy tắc nhân: số cách = (số áo) × (số quần) × (số giày).'
-          };
-        },
-
-        // Quy tắc cộng — chọn phương tiện
-        () => {
-          const bus = rand(3, 7), train = rand(2, 5);
-          const answer = bus + train;
-          return {
-            text: `Từ thành phố A đến B có ${bus} tuyến xe buýt và ${train} tuyến tàu hỏa (không trùng nhau). Có bao nhiêu cách chọn 1 phương tiện đi từ A đến B?`,
-            answer,
-            choices: createChoices(answer, 8),
-            hint: 'Hai loại phương tiện loại nhau → Quy tắc cộng: tổng số cách = tổng số tuyến.'
-          };
-        },
-
-        // Số đoạn thẳng từ n điểm = C(n,2)
+        // Số đoạn thẳng từ n điểm
         () => {
           const n = rand(5, 10);
-          const answer = n * (n-1) / 2;
-          return {
-            text: `Trong mặt phẳng có ${n} điểm, không có 3 điểm nào thẳng hàng. Kẻ được bao nhiêu đoạn thẳng nối hai điểm bất kì?`,
-            answer,
-            choices: createChoices(answer, Math.max(8, answer * 0.3 + 5)),
-            hint: 'Mỗi đoạn thẳng nối đúng 1 cặp điểm → C(n,2) = n(n−1)/2.'
-          };
+          const answer = n*(n-1)/2;
+          return { text: `Trong mặt phẳng có ${n} điểm, không có 3 điểm nào thẳng hàng. Kẻ được bao nhiêu đoạn thẳng nối hai điểm bất kì?`, answer, choices: createChoices(answer, Math.max(8, answer*0.3+5)), hint: 'Mỗi đoạn thẳng nối đúng 1 cặp điểm → C(n,2).' };
         },
-
-        // Số tam giác từ n điểm = C(n,3)
-        () => {
-          const n = rand(5, 8);
-          const answer = factorial(n) / (factorial(3) * factorial(n-3));
-          return {
-            text: `Trong mặt phẳng có ${n} điểm, không có 3 điểm nào thẳng hàng. Tạo được bao nhiêu tam giác?`,
-            answer,
-            choices: createChoices(answer, Math.max(8, answer * 0.35 + 5)),
-            hint: 'Mỗi tam giác chọn 3 điểm không thứ tự → C(n,3) = n(n−1)(n−2)/6.'
-          };
-        },
-
-        // Bầu ban cán sự (chức vụ khác nhau — chỉnh hợp)
+        // Bầu ban cán sự — A(n,2)
         () => {
           const n = rand(8, 15);
-          const answer = n * (n-1);
-          return {
-            text: `Từ ${n} học sinh, cần bầu 1 lớp trưởng và 1 lớp phó (hai người khác nhau). Có bao nhiêu cách bầu?`,
-            answer,
-            choices: createChoices(answer, Math.max(20, answer * 0.15 + 10)),
-            hint: 'Chức vụ khác nhau, có thứ tự → A(n,2) = n × (n−1).'
-          };
+          const answer = n*(n-1);
+          return { text: `Từ ${n} học sinh, cần bầu 1 lớp trưởng và 1 lớp phó (hai người khác nhau). Có bao nhiêu cách bầu?`, answer, choices: createChoices(answer, Math.max(20, answer*0.15+10)), hint: 'Chức vụ khác nhau, có thứ tự → A(n,2) = n × (n−1).' };
         },
+      ];
 
-        // Số số tự nhiên 2 chữ số, không lặp = A(n,2)
+      const geo_hard = [
+        // Chu vi tam giác vuông (Pythagore + cộng)
         () => {
-          const n = rand(4, 7);
-          const answer = n * (n-1);
-          return {
-            text: `Từ các chữ số 1, 2, 3, …, ${n}, lập được bao nhiêu số tự nhiên gồm 2 chữ số khác nhau?`,
-            answer,
-            choices: createChoices(answer, Math.max(10, answer * 0.2 + 6)),
-            hint: 'Hàng chục: n cách chọn; hàng đơn vị: (n−1) cách → A(n,2) = n×(n−1).'
-          };
+          const k = rand(2,5+boost);
+          const triples = [[3,4,5],[5,12,13],[8,15,17],[7,24,25]];
+          const [a,b,c] = pick(triples);
+          return { text: `Một tam giác vuông có hai cạnh góc vuông là ${a*k} và ${b*k}. Tính chu vi tam giác.`, answer: (a+b+c)*k, choices: createChoices((a+b+c)*k, 16+boost*2), hint: 'Tìm cạnh huyền bằng Pythagore, rồi chu vi = a + b + c.' };
         },
-
+        // Sân chữ nhật: biết một cạnh và đường chéo
+        () => {
+          const k = rand(1,4+boost);
+          const triples = [[3,4,5],[5,12,13],[8,15,17],[6,8,10]];
+          const [a,b,c] = pick(triples);
+          const flip = Math.random()>0.5;
+          const known = flip?a:b, other = flip?b:a;
+          return { text: `Sân hình chữ nhật có một chiều dài ${known*k}m và đường chéo ${c*k}m. Tính chiều còn lại của sân.`, answer: other*k, choices: createChoices(other*k, 12+boost*2), hint: 'Đường chéo² = chiều dài² + chiều rộng². Dùng Pythagore.' };
+        },
+        // Diện tích từ huyền + một cạnh
+        () => {
+          const k = rand(1,3+Math.floor(boost/2));
+          const triples = [[3,4,5],[5,12,13],[8,15,17]];
+          const [a,b,c] = pick(triples);
+          return { text: `Tam giác vuông có cạnh huyền ${c*k}m và một cạnh góc vuông ${a*k}m. Tính diện tích tam giác.`, answer: a*b*k*k/2, choices: createChoices(a*b*k*k/2, 14+boost*3), hint: 'Tìm cạnh kia bằng Pythagore: b² = c² − a², rồi S = ½ × a × b.' };
+        },
+        // Chu vi sân chữ nhật biết một cạnh và đường chéo
+        () => {
+          const k = rand(1,3+Math.floor(boost/2));
+          const triples = [[3,4,5],[5,12,13],[8,15,17]];
+          const [a,b,c] = pick(triples);
+          return { text: `Sân hình chữ nhật có chiều rộng ${a*k}m và đường chéo ${c*k}m. Tính chu vi sân.`, answer: 2*(a+b)*k, choices: createChoices(2*(a+b)*k, 16+boost*2), hint: 'Tìm chiều dài bằng Pythagore, rồi chu vi = 2 × (dài + rộng).' };
+        },
+        // Chỉnh hợp A(n,k)
+        () => {
+          const n = rand(6, 10+boost), k = rand(2, 3+Math.floor(boost/3));
+          const answer = factorial(n)/factorial(n-k);
+          return { text: `Từ ${n} học sinh khác nhau, chọn ${k} bạn xếp vào ${k} vị trí phân biệt. Có bao nhiêu cách?`, answer, choices: createChoices(answer, Math.max(20, answer*0.2+10)), hint: `Có thứ tự → Chỉnh hợp A(${n},${k}) = ${n}!/(${n-k})!.` };
+        },
+        // Nhị thức Newton — hệ số x^k
+        () => {
+          const n = rand(3, 7+boost), k = rand(1, n-1);
+          const answer = factorial(n)/(factorial(k)*factorial(n-k));
+          return { text: `Trong khai triển nhị thức Newton (x + 1)^${n}, hệ số của số hạng chứa x^${k} là bao nhiêu?`, answer, choices: createChoices(answer, Math.max(8, answer*0.3+4)), hint: `Hệ số của x^${k} là C(${n},${k}).` };
+        },
+        // Số tam giác từ n điểm = C(n,3)
+        () => {
+          const n = rand(5, 8+boost);
+          const answer = factorial(n)/(factorial(3)*factorial(n-3));
+          return { text: `Trong mặt phẳng có ${n} điểm, không có 3 điểm nào thẳng hàng. Tạo được bao nhiêu tam giác?`, answer, choices: createChoices(answer, Math.max(8, answer*0.35+5)), hint: 'Mỗi tam giác chọn 3 điểm không thứ tự → C(n,3) = n(n−1)(n−2)/6.' };
+        },
+        // Số số tự nhiên 2 chữ số, không lặp
+        () => {
+          const n = rand(4, 7+boost);
+          const answer = n*(n-1);
+          return { text: `Từ các chữ số 1, 2, 3, …, ${n}, lập được bao nhiêu số tự nhiên gồm 2 chữ số khác nhau?`, answer, choices: createChoices(answer, Math.max(10, answer*0.2+6)), hint: 'Hàng chục: n cách chọn; hàng đơn vị: (n−1) cách → A(n,2).' };
+        },
         // Tổng hệ số nhị thức = 2^n
         () => {
-          const n = rand(3, 6);
+          const n = rand(3, 6+Math.floor(boost/2));
           const answer = Math.pow(2, n);
-          return {
-            text: `Tính tổng tất cả các hệ số trong khai triển nhị thức Newton (1 + x)^${n} khi thay x = 1.`,
-            answer,
-            choices: createChoices(answer, Math.max(10, answer * 0.3 + 6)),
-            hint: `Thay x = 1: (1+1)^${n} = 2^${n}. Tổng hệ số = 2^n.`
-          };
+          return { text: `Tính tổng tất cả các hệ số trong khai triển nhị thức Newton (1 + x)^${n} khi thay x = 1.`, answer, choices: createChoices(answer, Math.max(10, answer*0.3+6)), hint: `Thay x = 1: (1+1)^${n} = 2^${n}.` };
         },
-
-        // Chọn ủy ban / nhóm từ n người (tổ hợp)
+        // Tổ hợp n lớn — chọn ủy ban
         () => {
-          const n = rand(6, 10);
-          const k = rand(2, Math.min(4, n-2));
-          const answer = factorial(n) / (factorial(k) * factorial(n-k));
-          return {
-            text: `Một câu lạc bộ có ${n} thành viên. Cần chọn ${k} người vào ban tổ chức sự kiện. Có bao nhiêu cách chọn?`,
-            answer,
-            choices: createChoices(answer, Math.max(12, answer * 0.3 + 6)),
-            hint: `Không phân biệt thứ tự → Tổ hợp C(${n},${k}).`
-          };
+          const n = rand(6, 10+boost), k = rand(2, Math.min(4+Math.floor(boost/3), n-2));
+          const answer = factorial(n)/(factorial(k)*factorial(n-k));
+          return { text: `Một câu lạc bộ có ${n} thành viên. Cần chọn ${k} người vào ban tổ chức sự kiện. Có bao nhiêu cách chọn?`, answer, choices: createChoices(answer, Math.max(12, answer*0.3+6)), hint: `Không phân biệt thứ tự → Tổ hợp C(${n},${k}).` };
         },
       ];
-      return questionChoiceFromPool(pool)();
-    }
 
-
-    // Grade 11
-    function qGrade11(){
-      const pool = [
-        () => {
-          const u1 = rand(1, 10);
-          const d = rand(1, 8);
-          const n = rand(5, 18);
-          const answer = u1 + (n - 1) * d;
-          return {
-            text: `Cấp số cộng có u₁ = ${u1}, d = ${d}. Tính u_${n}.`,
-            answer,
-            choices: createChoices(answer, 12),
-            hint: 'uₙ = u₁ + (n - 1)d.'
-          };
-        },
-        () => {
-          const u1 = rand(1, 9);
-          const d = rand(1, 6);
-          const n = rand(4, 12);
-          const answer = (n * (2 * u1 + (n - 1) * d)) / 2;
-          return {
-            text: `Cấp số cộng có u₁ = ${u1}, d = ${d}. Tính S_${n}.`,
-            answer,
-            choices: createChoices(answer, Math.max(10, answer * 0.25 + 6)),
-            hint: 'Sₙ = n(2u₁ + (n-1)d)/2.'
-          };
-        },
-        () => {
-          const n = rand(6, 12);
-          const k = rand(2, Math.floor(n / 2));
-          const comb = factorial(n) / (factorial(k) * factorial(n - k));
-          return {
-            text: `Có bao nhiêu cách chọn ${k} học sinh từ ${n} học sinh?`,
-            answer: comb,
-            choices: createChoices(comb, Math.max(12, comb * 0.2 + 6)),
-            hint: 'Dùng tổ hợp C(n,k).'
-          };
-        },
-        () => {
-          const base = rand(2, 5);
-          const power = rand(2, 5);
-          const answer = power;
-          return {
-            text: `Tính giá trị: log_${base}(${Math.pow(base, power)}).`,
-            answer,
-            choices: createChoices(answer, 6),
-            hint: 'log_a(a^n) = n.'
-          };
-        },
-        () => {
-          const a = rand(1, 4);
-          const b = rand(1, 4);
-          const answer = 1;
-          return {
-            text: `Tính: sin 30° × ${a} + cos 60° × ${b}.`,
-            answer: (a + b) / 2,
-            choices: createChoices((a + b) / 2, 6),
-            hint: 'sin 30° = cos 60° = 1/2.'
-          };
-        },
-        () => {
-          const dice = rand(1, 2);
-          if(dice === 1){
-            return {
-              text: `Một con xúc xắc cân đối được tung một lần. Số kết quả có mặt chấm lớn hơn 4 là bao nhiêu?`,
-              answer: 2,
-              choices: createChoices(2, 4),
-              hint: 'Các mặt 5 và 6.'
-            };
-          }
-          return {
-            text: `Có bao nhiêu số tự nhiên có hai chữ số khác nhau được tạo từ các chữ số 1,2,3,4?`,
-            answer: 12,
-            choices: createChoices(12, 8),
-            hint: 'Chọn hàng chục rồi hàng đơn vị, không lặp.'
-          };
-        }
-      ];
-      return questionChoiceFromPool(pool)();
-    }
-
-    // Grade 12
-    function qGrade12(){
-      const pool = [
-        () => {
-          const a = rand(2, 8);
-          const b = rand(-10, 10);
-          const x0 = rand(1, 6);
-          const c = rand(-12, 12);
-          const answer = 2 * a * x0 + b;
-          const signB = b >= 0 ? `+ ${b}` : `- ${Math.abs(b)}`;
-          const signC = c >= 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
-          return {
-            text: `Cho f(x) = ${a}x² ${signB}x ${signC}. Tính f'(${x0}).`,
-            answer,
-            choices: createChoices(answer, Math.max(12, Math.abs(answer) * 0.3 + 6)),
-            hint: "Đạo hàm: (ax² + bx + c)' = 2ax + b."
-          };
-        },
-        () => {
-          const a = rand(1, 5);
-          const b = rand(1, 8);
-          const c = rand(-6, 6);
-          const d = rand(-10, 10);
-          const x0 = rand(1, 4);
-          const antiderivativeAt = (x) => (a/4)*x**4 + (b/3)*x**3 + (c/2)*x**2 + d*x;
-          // use coefficients making integral exact by choosing easy forms below
-          const p = rand(1, 5);
-          const q = rand(1, 6);
-          const r = rand(0, 5);
-          const upper = rand(2, 5);
-          const lower = 0;
-          const answer = p * upper * upper / 2 + q * upper + r * upper;
-          return {
-            text: `Tính ∫ từ 0 đến ${upper} của biểu thức ${p}x + ${q} dx.`,
-            answer,
-            choices: createChoices(answer, Math.max(12, Math.abs(answer) * 0.25 + 6)),
-            hint: 'Nguyên hàm của ax + b là ax²/2 + bx.'
-          };
-        },
-        () => {
-          const x1 = rand(-6, 6);
-          const y1 = rand(-6, 6);
-          const x2 = x1 + rand(3, 8);
-          const y2 = y1 + rand(4, 8);
-          const dx = x2 - x1;
-          const dy = y2 - y1;
-          const answer = Math.sqrt(dx * dx + dy * dy);
-          return {
-            text: `Trong mặt phẳng Oxy, A(${x1},${y1}) và B(${x2},${y2}). Tính AB.`,
-            answer,
-            choices: createChoices(answer, 10),
-            hint: 'Dùng công thức khoảng cách.'
-          };
-        },
-        () => {
-          const a = rand(1, 9);
-          const b = rand(1, 9);
-          const answer = Math.sqrt(a * a + b * b);
-          return {
-            text: `Cho số phức z = ${a} + ${b}i. Tính |z|.`,
-            answer,
-            choices: createChoices(answer, 8),
-            hint: '|a + bi| = √(a² + b²).'
-          };
-        },
-        () => {
-          const x1 = rand(-3, 3);
-          const y1 = rand(-3, 3);
-          const z1 = rand(-3, 3);
-          const x2 = x1 + rand(2, 6);
-          const y2 = y1 + rand(2, 6);
-          const z2 = z1 + rand(2, 6);
-          const answer = Math.sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2);
-          return {
-            text: `Trong không gian Oxyz, A(${x1},${y1},${z1}) và B(${x2},${y2},${z2}). Tính AB.`,
-            answer,
-            choices: createChoices(answer, 10),
-            hint: 'Dùng công thức khoảng cách trong không gian.'
-          };
-        },
-        () => {
-          const a = rand(1, 5);
-          const b = rand(1, 5);
-          const x = rand(1, 6);
-          const c = rand(-8, 8);
-          const answer = 3 * a * x * x - 2 * b * x + c;
-          const signC = c >= 0 ? `+ ${c}` : `- ${Math.abs(c)}`;
-          return {
-            text: `Cho f(x) = ${a}x³ - ${b}x² ${signC}x. Tính f'(${x}).`,
-            answer,
-            choices: createChoices(answer, Math.max(12, Math.abs(answer) * 0.3 + 6)),
-            hint: "f'(x) = 3ax² - 2bx + c."
-          };
-        }
-      ];
+      let pool;
+      if(difficulty === 1)      pool = geo_easy;
+      else if(difficulty === 2) pool = [...geo_easy, ...geo_medium];
+      else if(difficulty === 3) pool = [...geo_medium, ...geo_hard];
+      else                      pool = geo_hard;  // difficulty 4+: cực khó, boost tăng dần mãi
       return questionChoiceFromPool(pool)();
     }
 
@@ -4862,6 +4630,15 @@ html, body{
     }
 
     function generateQuestion(){
+      if(state.mode === 'endless'){
+        const idx = state.index;
+        if(idx < 15) return qGrade10(1);
+        if(idx < 30) return qGrade10(2);
+        if(idx < 45) return qGrade10(3);
+        // Từ câu 46 trở đi: cực khó, số liệu tăng dần mỗi 10 câu (tối đa +6)
+        const boost = Math.min(6, Math.floor((idx - 45) / 10) + 1);
+        return qGrade10(4, boost);
+      }
       return qGrade10();
     }
 
@@ -4929,12 +4706,12 @@ html, body{
     }
 
     const shopCatalog = {
-      heal: { cost: 30, label: 'Heal Potion' },
-      mana: { cost: 25, label: 'Mana Potion' },
-      shield: { cost: 60, label: 'Shield' },
-      boost: { cost: 70, label: 'Power Drink' },
-      heart: { cost: 90, label: 'Heart Core' },
-      ether: { cost: 80, label: 'Ether Core' }
+      heal: { cost: 70, label: 'Heal Potion' },
+      mana: { cost: 60, label: 'Mana Potion' },
+      shield: { cost: 140, label: 'Shield' },
+      boost: { cost: 160, label: 'Power Drink' },
+      heart: { cost: 200, label: 'Heart Core' },
+      ether: { cost: 175, label: 'Ether Core' }
     };
 
     function refreshShopButtons(){
@@ -4963,7 +4740,9 @@ html, body{
       ui.time.textContent = `${state.timeLeft}s`;
       ui.modeBadge.textContent = `Mode: ${modeNames[state.mode]}`;
       ui.gradeBadge.textContent = `Grade: ${gradeNames[state.grade]}`;
-      ui.questBadge.textContent = `Quest: ${Math.min(state.index + 1, state.total)}/${state.total}`;
+      ui.questBadge.textContent = state.mode === 'endless'
+        ? `Câu: ${state.index + 1} ♾️`
+        : `Quest: ${Math.min(state.index + 1, state.total)}/${state.total}`;
       ui.timeBadge.textContent = `${Math.ceil(state.timeLeft / 60)}:${String(state.timeLeft % 60).padStart(2,'0')}`;
       ui.hp.style.width = `${(state.hp / state.maxHp) * 100}%`;
       ui.mp.style.width = `${(state.mp / state.maxMp) * 100}%`;
@@ -4971,8 +4750,7 @@ html, body{
       ui.timerBar.style.width = `${(state.timeLeft / QUESTION_SECONDS) * 100}%`;
       if(ui.levels){
         [...ui.levels.children].forEach((dot, i) => {
-          dot.classList.remove('active', 'done', 'boss');
-          if(state.mode === 'boss') dot.classList.add('boss');
+          dot.classList.remove('active', 'done');
           if(i < state.index) dot.classList.add('done');
           if(i === state.index && state.running) dot.classList.add('active');
         });
@@ -4996,7 +4774,6 @@ html, body{
       if(state.streak >= 5) mult += 0.25;
       if(state.streak >= 10) mult += 0.35;
       if(state.xpBoostTurns > 0) mult *= 2;
-      if(state.mode === 'boss') mult += 0.25;
       return mult;
     }
 
@@ -5022,6 +4799,12 @@ html, body{
     function addCoins(amount){ state.coins += amount; }
 
     function chooseNextQuestion(){
+      if(state.mode === 'endless'){
+        if(state.index === 15) toast('🔥 Độ khó tăng! Câu hỏi phức tạp hơn.', 'warn');
+        if(state.index === 30) toast('⚡ Khó hơn nữa! Cẩn thận nhé.', 'warn');
+        if(state.index === 45) toast('💥 Cực khó! Số liệu ngày càng lớn.', 'warn');
+        if(state.index > 45 && (state.index - 45) % 10 === 0) toast('🌋 Độ khó lại tăng thêm!', 'warn');
+      }
       state.current = generateQuestion();
       state.answered = false;
       state.timeLeft = QUESTION_SECONDS;
@@ -5068,7 +4851,6 @@ html, body{
       showFlash('wrong');
 
       let dmg = state.grade === 10 ? 14 : state.grade === 11 ? 18 : 24;
-      if(state.mode === 'boss') dmg += 8;
       if(state.mode === 'exam') dmg += 4;
       dmg = Math.max(1, Math.round(dmg * (state.classDmgMult || 1)));
 
@@ -5098,10 +4880,6 @@ html, body{
         state.answered = false;
         if(state.mode === 'endless'){
           state.index++;
-          if(state.index >= 20){
-            endGame('clear');
-            return;
-          }
           chooseNextQuestion();
         } else {
           advanceQuest();
@@ -5119,7 +4897,7 @@ html, body{
       state.current = null;
       state.answered = false;
       state.score = 0;
-      state.coins = state.coins || 0;
+      state.coins = 0;  // reset xu mỗi ván mới
       state.level = 1;
       state.xp = 0;
       state.xpNeed = 100;
@@ -5144,6 +4922,7 @@ html, body{
       if(bottomRow) bottomRow.classList.toggle('endless-active', state.mode === 'endless');
       const lbBtn = $('leaderboardBtn');
       if(lbBtn) lbBtn.style.display = state.mode === 'endless' ? '' : 'none';
+      syncHudColumns();
 
       showGame();
       startBgMusic();
@@ -5216,7 +4995,6 @@ html, body{
         spawnFloatScore(btn, '✗', '#ff6b6b');
 
         let dmg = state.grade === 10 ? 14 : state.grade === 11 ? 18 : 24;
-        if(state.mode === 'boss') dmg += 8;
         if(state.mode === 'exam') dmg += 4;
         dmg = Math.max(1, Math.round(dmg * (state.classDmgMult || 1)));
 
@@ -5241,12 +5019,6 @@ html, body{
         }
       }
 
-      if(state.mode === 'boss' && state.correct > 0 && state.correct % 3 === 0){
-        state.coins += 12;
-        state.mp = clamp(state.mp + 6, 0, state.maxMp);
-        toast('Boss reward + xu + mana');
-      }
-
       updateBars();
       saveGame(false);
 
@@ -5255,10 +5027,6 @@ html, body{
         state.answered = false;
         if(state.mode === 'endless'){
           state.index++;
-          if(state.index >= 20){
-            endGame('clear');
-            return;
-          }
           chooseNextQuestion();
         } else {
           advanceQuest();
@@ -5294,7 +5062,6 @@ html, body{
       log(`Bỏ qua câu ${state.index + 1}`, 'warn');
 
       let dmg = state.grade === 10 ? 8 : state.grade === 11 ? 12 : 16;
-      if(state.mode === 'boss') dmg += 4;
       if(state.shield > 0){
         state.shield--;
         dmg = 0;
@@ -5453,6 +5220,17 @@ html, body{
       };
 
       if(reason === 'clear' && totalAnswered >= 5 && acc >= 60) awardQuest();
+
+      // Kiểm tra & lưu kỷ lục cá nhân
+      let newRecord = false;
+      if(state.mode === 'endless'){
+        if(state.score > state.bestEndlessScore){ state.bestEndlessScore = state.score; newRecord = true; }
+        if(state.index > state.bestEndlessWave){ state.bestEndlessWave = state.index; newRecord = true; }
+      } else {
+        if(state.score > state.bestStandardScore){ state.bestStandardScore = state.score; newRecord = true; }
+      }
+      if(newRecord) setTimeout(() => toast('🏆 Kỷ lục cá nhân mới!', 'good'), 300);
+
       saveGame(true);
       saveScoreToFirebase();
     }
@@ -5525,7 +5303,10 @@ html, body{
         questCleared: state.questCleared,
         log: state.log.slice(0, 20),
         shield: state.shield,
-        klass: state.klass
+        klass: state.klass,
+        bestEndlessScore: state.bestEndlessScore,
+        bestEndlessWave: state.bestEndlessWave,
+        bestStandardScore: state.bestStandardScore
       };
       localStorage.setItem(LS_KEY, JSON.stringify(data));
       if(showToast) toast('Đã lưu game');
@@ -5553,6 +5334,9 @@ html, body{
         if(Number.isFinite(data.shield)) state.shield = data.shield;
         if(typeof data.klass === 'string') state.klass = data.klass;
         if(Array.isArray(data.log)) state.log = data.log;
+        if(Number.isFinite(data.bestEndlessScore)) state.bestEndlessScore = data.bestEndlessScore;
+        if(Number.isFinite(data.bestEndlessWave)) state.bestEndlessWave = data.bestEndlessWave;
+        if(Number.isFinite(data.bestStandardScore)) state.bestStandardScore = data.bestStandardScore;
 
         const classEl = $('classSelect');
         if(classEl && state.klass) classEl.value = state.klass;
@@ -5607,6 +5391,7 @@ html, body{
       toast('Đã mở cửa hàng');
     });
     on('restartBtn', 'click', () => { ui.overlay.classList.remove('show'); syncFromUI(); startGame(); });
+on('backToMenuBtn', 'click', () => { ui.overlay.classList.remove('show'); showMenu(); });
     on('copyResultBtn', 'click', copyResult);
     on('downloadResultBtn', 'click', downloadResult);
 
@@ -5660,32 +5445,109 @@ on('classSelect', 'change', syncFromUI);
 
     let _fbDB = null;
 
-    (function initFirebase(){
+    // ============================================================
+    // 🏆 KẾT NỐI FIREBASE THEO KIỂU "LAZY" (chỉ kết nối khi thật sự cần)
+    // ------------------------------------------------------------
+    // Lý do đổi cách này: nếu kết nối ngay khi tải trang (như code cũ),
+    // quy mô CẢ TRƯỜNG (vài trăm em mở trang cùng lúc) có thể vượt trần
+    // 100 kết nối đồng thời của gói Spark miễn phí — dù chẳng ai đang
+    // xem BXH cả! Giờ chỉ kết nối khi:
+    //   (a) người chơi bấm mở BXH, hoặc
+    //   (b) vừa chơi xong cần lưu điểm lên BXH
+    // và sẽ tự ngắt kết nối sau khi xong việc / đóng BXH.
+    // Nhờ đó, số kết nối cùng lúc chỉ còn phụ thuộc vào "đang có bao
+    // nhiêu người MỞ BXH ngay lúc này", gần như không bao giờ chạm 100
+    // dù cả trường cùng chơi.
+    // ============================================================
+    let _fbInited = false;
+    let _fbListenerActive = false;
+    let _fbDisconnectTimer = null;
+
+    function ensureFirebaseApp(){
+      if(_fbInited) return !!_fbDB;
+      _fbInited = true;
       try{
-        if(typeof firebase === 'undefined') return;
-        if(FIREBASE_CONFIG.apiKey === 'YOUR_API_KEY'){
-          const liveEl = document.getElementById('lbLive');
-          if(liveEl) liveEl.textContent = 'Chưa cấu hình Firebase';
-          return;
-        }
+        if(typeof firebase === 'undefined') return false;
+        if(FIREBASE_CONFIG.apiKey === 'YOUR_API_KEY') return false;
         firebase.initializeApp(FIREBASE_CONFIG);
         _fbDB = firebase.database();
-        // Lắng nghe realtime — tự cập nhật khi có điểm mới
-        _fbDB.ref('math-arena/scores').on('value', snap => {
-          renderLB(snap.val());
-          const liveEl = document.getElementById('lbLive');
-          if(liveEl) liveEl.textContent = 'Cập nhật lúc ' + new Date().toLocaleTimeString('vi-VN');
-        });
-        const liveEl = document.getElementById('lbLive');
-        if(liveEl) liveEl.textContent = 'Đã kết nối ✓';
-      } catch(e){ console.warn('Firebase init:', e); }
-    })();
+        setupFirebaseInactivityManager();
+        return true;
+      } catch(e){ console.warn('Firebase init:', e); return false; }
+    }
+
+    // Hủy lịch tự-ngắt-kết-nối đang chờ (nếu có thao tác mới xen vào)
+    function cancelScheduledDisconnect(){
+      if(_fbDisconnectTimer){ clearTimeout(_fbDisconnectTimer); _fbDisconnectTimer = null; }
+    }
+    // Ngắt kết nối sau một khoảng trễ ngắn, chỉ khi không còn ai đang xem BXH
+    function scheduleDisconnectIfIdle(delayMs = 4000){
+      cancelScheduledDisconnect();
+      _fbDisconnectTimer = setTimeout(() => {
+        if(!_fbListenerActive && _fbDB){ _fbDB.goOffline(); }
+      }, delayMs);
+    }
+
+    // ============================================================
+    // Quản lý kết nối Firebase theo mức độ hoạt động (tối ưu connections).
+    // Ý tưởng lấy từ gợi ý goOffline/goOnline, viết lại theo đúng cú pháp
+    // Firebase SDK bản "compat" (nhúng qua <script>) mà file này đang dùng —
+    // KHÔNG dùng cú pháp import kiểu module vì không có bundler.
+    // ============================================================
+    function setupFirebaseInactivityManager(){
+      if(!_fbDB) return;
+      const INACTIVE_MS = 5 * 60 * 1000;      // 5 phút không thao tác → ngắt kết nối
+      const TAB_HIDDEN_GRACE_MS = 30 * 1000;  // ẩn tab 30s → ngắt kết nối
+      let inactivityTimer = null;
+      let hiddenTimer = null;
+      let isOffline = false;
+
+      function goOffline(){
+        if(isOffline) return;
+        isOffline = true;
+        _fbDB.goOffline();
+      }
+      function goOnline(){
+        if(!isOffline) return;
+        isOffline = false;
+        _fbDB.goOnline();
+        toast('🔄 Đã kết nối lại với máy chủ BXH', 'good');
+      }
+      function resetInactivityTimer(){
+        goOnline();
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(goOffline, INACTIVE_MS);
+      }
+
+      ['mousemove','mousedown','keydown','touchstart','scroll'].forEach(evt => {
+        document.addEventListener(evt, resetInactivityTimer, { passive: true });
+      });
+      resetInactivityTimer();
+
+      document.addEventListener('visibilitychange', () => {
+        if(document.hidden){
+          clearTimeout(inactivityTimer);
+          hiddenTimer = setTimeout(goOffline, TAB_HIDDEN_GRACE_MS);
+        } else {
+          clearTimeout(hiddenTimer);
+          resetInactivityTimer();
+        }
+      });
+    }
 
     function saveScoreToFirebase(){
-      if(!_fbDB) return;
       if(state.mode !== 'endless') return; // chỉ lưu BXH chế độ Vô Tận
       const r = state.lastResult;
-      if(!r || !r.playerName) return;
+      if(!r || !r.playerName){
+        console.warn('[BXH] Thiếu tên người chơi, không lưu điểm.', r);
+        toast('⚠️ Thiếu tên người chơi nên chưa lưu được lên BXH.', 'bad');
+        return;
+      }
+      if(!ensureFirebaseApp()){
+        console.warn('[BXH] Chưa kết nối được Firebase — không thể lưu điểm.');
+        return;
+      }
+      cancelScheduledDisconnect();
       _fbDB.ref('math-arena/scores').push({
         name:     r.playerName,
         class:    r.schoolClass || '',
@@ -5696,8 +5558,16 @@ on('classSelect', 'change', syncFromUI);
         mode:     r.mode,
         ts:       Date.now()
       })
-      .then(()  => toast('✅ Điểm đã lên bảng xếp hạng!', 'good'))
-      .catch(()  => toast('⚠️ Không thể lưu điểm — kiểm tra mạng', 'bad'));
+      .then(()  => {
+        toast('✅ Điểm đã lên bảng xếp hạng!', 'good');
+        // Lưu xong thì không cần giữ kết nối nữa (trừ khi đang mở BXH)
+        scheduleDisconnectIfIdle();
+      })
+      .catch((err)  => {
+        console.error('[BXH] Lỗi lưu điểm:', err);
+        toast(`⚠️ Lỗi lưu BXH: ${err.code || err.message || 'không rõ'}`, 'bad');
+        scheduleDisconnectIfIdle();
+      });
     }
 
     function renderLB(data){
@@ -5707,7 +5577,7 @@ on('classSelect', 'change', syncFromUI);
         el.innerHTML = '<p class="lb-empty">Chưa có điểm nào. Hãy là người đầu tiên! 🎮</p>';
         return;
       }
-      const entries = Object.values(data).sort((a,b) => b.score - a.score).slice(0, 30);
+      const entries = Object.values(data).sort((a,b) => b.score - a.score).slice(0, 100);
       const medals  = ['🥇','🥈','🥉'];
       const rowCls  = i => i < 3 ? ` class="top${i+1}"` : '';
       let html = `<table class="lb-table">
@@ -5730,7 +5600,10 @@ on('classSelect', 'change', syncFromUI);
     }
 
     function showLeaderboard(){
-      if(!_fbDB){
+      document.getElementById('leaderboardModal').classList.add('show');
+      cancelScheduledDisconnect();
+
+      if(!ensureFirebaseApp()){
         document.getElementById('lbEntries').innerHTML = `
           <div class="lb-no-firebase">
             ⚠️ <strong>Chưa kết nối Firebase</strong><br><br>
@@ -5740,18 +5613,37 @@ on('classSelect', 'change', syncFromUI);
             3. Copy config → dán vào <code>FIREBASE_CONFIG</code> trong file HTML<br>
             4. Database rules: <code>".read": true, ".write": true</code>
           </div>`;
+        return;
       }
-      document.getElementById('leaderboardModal').classList.add('show');
+
+      const liveEl = document.getElementById('lbLive');
+      if(liveEl) liveEl.textContent = 'Đang kết nối…';
+      _fbListenerActive = true;
+      // Chỉ lắng nghe realtime TRONG LÚC đang mở BXH — đóng modal sẽ hủy lắng nghe
+      _fbDB.ref('math-arena/scores').on('value', snap => {
+        renderLB(snap.val());
+        if(liveEl) liveEl.textContent = 'Cập nhật lúc ' + new Date().toLocaleTimeString('vi-VN');
+      });
+    }
+
+    function closeLeaderboard(){
+      document.getElementById('leaderboardModal').classList.remove('show');
+      if(_fbDB){
+        _fbDB.ref('math-arena/scores').off('value'); // hủy lắng nghe realtime
+      }
+      _fbListenerActive = false;
+      scheduleDisconnectIfIdle(); // không ai xem nữa → ngắt kết nối sau vài giây
     }
 
     on('leaderboardBtn', 'click', showLeaderboard);
-    on('closeLbBtn', 'click', () => document.getElementById('leaderboardModal').classList.remove('show'));
+    on('closeLbBtn', 'click', closeLeaderboard);
 
     loadGame();
     buildLevels(12);
     syncFromUI();
     updateBars();
     refreshShopButtons();
+    syncHudColumns();
     showMenu();
     ui.question.textContent = 'Math Arena sẵn sàng. Bấm Bắt đầu để vào trận đấu.';
     ui.hint.textContent = '3 phút mỗi câu, tập trung vào Toán lớp 10.';
