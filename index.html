@@ -1142,6 +1142,38 @@
       z-index:30;
     }
     .toast.show{display:block}
+    /* Khung thông báo kết nối lại — hiện giữa màn hình, tự ẩn sau vài giây */
+    #reconnectModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;align-items:center;justify-content:center;}
+    #reconnectModal.show{display:flex;}
+    .reconnect-panel{
+      background:var(--panel);
+      border:2px solid #4ade80;
+      border-radius:16px;
+      padding:28px 36px;
+      max-width:400px;
+      width:90%;
+      text-align:center;
+      box-shadow:0 0 30px rgba(74,222,128,.35);
+      animation:reconnectPop .25s ease-out;
+      transition:border-color .3s ease, box-shadow .3s ease;
+    }
+    .reconnect-panel.connecting{
+      border-color:#f5c518;
+      box-shadow:0 0 30px rgba(245,197,24,.35);
+    }
+    .reconnect-panel.connecting .reconnect-title{ color:#f5c518; }
+    .reconnect-panel.connecting .reconnect-icon{ animation:reconnectSpin 1s linear infinite; }
+    @keyframes reconnectSpin{
+      from{ transform:rotate(0deg); }
+      to{ transform:rotate(360deg); }
+    }
+    @keyframes reconnectPop{
+      0%{ transform:scale(.85); opacity:0; }
+      100%{ transform:scale(1); opacity:1; }
+    }
+    .reconnect-icon{ font-size:40px; margin-bottom:10px; display:inline-block; }
+    .reconnect-title{ font-size:1.2rem; font-weight:700; color:#4ade80; margin-bottom:6px; transition:color .3s ease; }
+    .reconnect-sub{ font-size:.85rem; color:var(--muted); }
     .tiny{color:var(--muted);font-size:13px;line-height:1.45}
     @media (max-width: 1080px){
       .menu-shell,.menu-grid,.layout{grid-template-columns:1fr}
@@ -4054,6 +4086,15 @@ html, body{
     </div>
   </div>
 
+  <!-- RECONNECT NOTIFICATION MODAL -->
+  <div id="reconnectModal" onclick="this.classList.remove('show')">
+    <div class="reconnect-panel" id="reconnectPanel">
+      <div class="reconnect-icon" id="reconnectIcon">🔄</div>
+      <div class="reconnect-title" id="reconnectTitle">Đang kết nối lại...</div>
+      <div class="reconnect-sub" id="reconnectSub">Đang thiết lập lại kết nối tới máy chủ bảng xếp hạng.</div>
+    </div>
+  </div>
+
   <script>
     const LS_KEY = 'math_arena_retro_save_v1';
     const QUESTION_SECONDS = 180;
@@ -5494,6 +5535,31 @@ on('classSelect', 'change', syncFromUI);
     // Firebase SDK bản "compat" (nhúng qua <script>) mà file này đang dùng —
     // KHÔNG dùng cú pháp import kiểu module vì không có bundler.
     // ============================================================
+    let _reconnectTimer = null;
+    function showReconnectNotice(stage){
+      const modal = document.getElementById('reconnectModal');
+      const panel = document.getElementById('reconnectPanel');
+      const icon  = document.getElementById('reconnectIcon');
+      const title = document.getElementById('reconnectTitle');
+      const sub   = document.getElementById('reconnectSub');
+      if(!modal) return;
+      modal.classList.add('show');
+      clearTimeout(_reconnectTimer);
+      if(stage === 'connecting'){
+        panel.classList.add('connecting');
+        icon.textContent = '🔄';
+        title.textContent = 'Đang kết nối lại...';
+        sub.textContent = 'Đang thiết lập lại kết nối tới máy chủ bảng xếp hạng.';
+        // không tự ẩn khi đang ở trạng thái "đang kết nối" — chờ xác nhận thật sự
+      } else {
+        panel.classList.remove('connecting');
+        icon.textContent = '✅';
+        title.textContent = 'Đã kết nối lại!';
+        sub.textContent = 'Máy chủ bảng xếp hạng đã kết nối lại thành công.';
+        _reconnectTimer = setTimeout(() => modal.classList.remove('show'), 2200);
+      }
+    }
+
     function setupFirebaseInactivityManager(){
       if(!_fbDB) return;
       const INACTIVE_MS = 5 * 60 * 1000;      // 5 phút không thao tác → ngắt kết nối
@@ -5501,17 +5567,31 @@ on('classSelect', 'change', syncFromUI);
       let inactivityTimer = null;
       let hiddenTimer = null;
       let isOffline = false;
+      let connectedHandler = null;
+      const connectedRef = _fbDB.ref('.info/connected');
 
       function goOffline(){
         if(isOffline) return;
         isOffline = true;
+        if(connectedHandler){ connectedRef.off('value', connectedHandler); connectedHandler = null; }
         _fbDB.goOffline();
       }
       function goOnline(){
         if(!isOffline) return;
         isOffline = false;
+        showReconnectNotice('connecting');
         _fbDB.goOnline();
-        toast('🔄 Đã kết nối lại với máy chủ BXH', 'good');
+        // Lắng nghe trạng thái kết nối THẬT từ Firebase (.info/connected),
+        // chỉ báo "đã kết nối lại" khi thực sự đã nối lại xong, không đoán mò.
+        if(connectedHandler) connectedRef.off('value', connectedHandler);
+        connectedHandler = (snap) => {
+          if(snap.val() === true){
+            showReconnectNotice('connected');
+            connectedRef.off('value', connectedHandler);
+            connectedHandler = null;
+          }
+        };
+        connectedRef.on('value', connectedHandler);
       }
       function resetInactivityTimer(){
         goOnline();
