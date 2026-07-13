@@ -4056,6 +4056,7 @@ html, body{
       <div class="menu-actions" style="margin-top:12px;">
         <button class="btn" id="restartBtn">Chơi lại</button>
         <button type="button" class="btn secondary" id="backToMenuBtn">🏠 Menu</button>
+        <button type="button" class="btn secondary" id="rateGameBtn">⭐ Đánh giá</button>
       </div>
     </div>
   </div>
@@ -5433,6 +5434,7 @@ html, body{
     });
     on('restartBtn', 'click', () => { ui.overlay.classList.remove('show'); syncFromUI(); startGame(); });
 on('backToMenuBtn', 'click', () => { ui.overlay.classList.remove('show'); showMenu(); });
+on('rateGameBtn', 'click', () => { window.open('https://forms.gle/JuZChBEuK8Q43aGj7', '_blank'); });
     on('copyResultBtn', 'click', copyResult);
     on('downloadResultBtn', 'click', downloadResult);
 
@@ -5507,35 +5509,22 @@ on('classSelect', 'change', syncFromUI);
     const POLL_INTERVAL_MS = 4000;
     let _lbPollTimer = null;
     let _lbFetchFailed = false; // để biết khi nào cần báo "đã kết nối lại"
-    let _lbLastEtag = null;     // để biết dữ liệu có thay đổi hay chưa
 
-    // Dùng ETag: nếu dữ liệu CHƯA đổi so với lần tải trước, Firebase trả về
-    // "304 Not Modified" (gần như 0 byte) thay vì tải lại nguyên bảng — tiết
-    // kiệm phần lớn băng thông vì đa số các lần hỏi lại đều chưa có điểm mới.
-    const _NOT_MODIFIED = Symbol('not-modified'); // đánh dấu riêng, không trùng với null hợp lệ (BXH trống)
-
+    // LƯU Ý: đã bỏ cơ chế ETag (304 Not Modified) từng thêm để tiết kiệm băng
+    // thông — vì gây ra lỗi hiểu nhầm "chưa đổi gì" dù thực ra đã có điểm mới,
+    // khiến BXH không tự cập nhật (phải tải lại trang mới thấy). Ưu tiên chạy
+    // ĐÚNG hơn là tối ưu băng thông — mỗi lần hỏi lại sẽ luôn lấy dữ liệu mới
+    // thật sự, không đoán mò dựa vào cache nữa.
     function fetchLeaderboardOnce(){
       const liveEl = document.getElementById('lbLive');
-      const headers = { 'X-Firebase-ETag': 'true' };
-      if(_lbLastEtag) headers['if-none-match'] = _lbLastEtag;
-
-      fetch(REST_SCORES_QUERY_URL, { headers })
+      fetch(REST_SCORES_QUERY_URL, { cache: 'no-store' })
         .then(res => {
-          if(res.status === 304){
-            // Chưa có gì thay đổi — không cần vẽ lại bảng, chỉ cập nhật giờ kiểm tra
-            if(liveEl) liveEl.textContent = 'Đã kiểm tra lúc ' + new Date().toLocaleTimeString('vi-VN') + ' (chưa có gì mới)';
-            return _NOT_MODIFIED;
-          }
           if(!res.ok) throw new Error('HTTP ' + res.status);
-          const etag = res.headers.get('ETag');
-          if(etag) _lbLastEtag = etag;
           return res.json();
         })
         .then(data => {
-          if(data !== _NOT_MODIFIED){
-            renderLB(data); // data có thể là null thật (BXH chưa có ai chơi) — vẫn render đúng trạng thái trống
-            if(liveEl) liveEl.textContent = 'Cập nhật lúc ' + new Date().toLocaleTimeString('vi-VN');
-          }
+          renderLB(data);
+          if(liveEl) liveEl.textContent = 'Cập nhật lúc ' + new Date().toLocaleTimeString('vi-VN');
           if(_lbFetchFailed){
             _lbFetchFailed = false;
             showReconnectNotice('connected');
