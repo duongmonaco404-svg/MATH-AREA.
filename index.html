@@ -3763,8 +3763,8 @@ html, body{
     /* ========================= */
 </style>
   <!-- Firebase SDK v9 -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <!-- Không cần SDK Firebase nữa — BXH giờ dùng REST API (fetch) thuần,
+       gọn hơn và không giữ kết nối nào cả. -->
 <body>
     
 <div id="menuScreen" class="screen menu">
@@ -5484,57 +5484,88 @@ on('classSelect', 'change', syncFromUI);
     };
     // ============================================================
 
-    let _fbDB = null;
-
     // ============================================================
-    // 🏆 KẾT NỐI FIREBASE THEO KIỂU "LAZY" (chỉ kết nối khi thật sự cần)
+    // 🏆 BXH DÙNG REST API THUẦN — KHÔNG DÙNG SDK, KHÔNG GIỮ KẾT NỐI
     // ------------------------------------------------------------
-    // Lý do đổi cách này: nếu kết nối ngay khi tải trang (như code cũ),
-    // quy mô CẢ TRƯỜNG (vài trăm em mở trang cùng lúc) có thể vượt trần
-    // 100 kết nối đồng thời của gói Spark miễn phí — dù chẳng ai đang
-    // xem BXH cả! Giờ chỉ kết nối khi:
-    //   (a) người chơi bấm mở BXH, hoặc
-    //   (b) vừa chơi xong cần lưu điểm lên BXH
-    // và sẽ tự ngắt kết nối sau khi xong việc / đóng BXH.
-    // Nhờ đó, số kết nối cùng lúc chỉ còn phụ thuộc vào "đang có bao
-    // nhiêu người MỞ BXH ngay lúc này", gần như không bao giờ chạm 100
-    // dù cả trường cùng chơi.
+    // Thay vì dùng SDK thời gian thực (giữ 1 kết nối WebSocket sống mãi
+    // trong lúc xem BXH — tính vào trần 100 kết nối đồng thời), giờ chỉ
+    // gọi REST API (fetch GET/POST bình thường) — mỗi lần gọi là 1 yêu
+    // cầu ngắn, xong là đóng ngay, KHÔNG có khái niệm "đang kết nối" nào
+    // cả. Nhờ vậy dù cả trường (hàng trăm người) cùng mở BXH một lúc,
+    // cũng không bao giờ chạm trần 100 kết nối — vì về bản chất không hề
+    // có "kết nối" nào được giữ lại.
+    // Đánh đổi: BXH không update tức thì từng mili-giây nữa, mà cập nhật
+    // mỗi 4 giây/lần trong lúc đang mở — với leaderboard thì không ai
+    // nhận ra khác biệt.
     // ============================================================
-    let _fbInited = false;
-    let _fbListenerActive = false;
-    let _fbDisconnectTimer = null;
+    const REST_SCORES_URL = FIREBASE_CONFIG.databaseURL + '/math-arena/scores.json';
+    // Chỉ tải về đúng 100 điểm CAO NHẤT từ phía server (không tải hết rồi mới lọc) —
+    // nhờ vậy dù database có hàng chục nghìn lượt chơi tích lũy qua nhiều năm,
+    // mỗi lần tải vẫn chỉ nặng đúng bằng 100 dòng, không phình to theo thời gian.
+    // Yêu cầu: Database Rules phải có ".indexOn": ["score"] (xem hướng dẫn bên dưới).
+    const REST_SCORES_QUERY_URL = REST_SCORES_URL + '?orderBy=' + encodeURIComponent('"score"') + '&limitToLast=100';
+    const POLL_INTERVAL_MS = 4000;
+    let _lbPollTimer = null;
+    let _lbFetchFailed = false; // để biết khi nào cần báo "đã kết nối lại"
+    let _lbLastEtag = null;     // để biết dữ liệu có thay đổi hay chưa
 
-    function ensureFirebaseApp(){
-      if(_fbInited) return !!_fbDB;
-      _fbInited = true;
-      try{
-        if(typeof firebase === 'undefined') return false;
-        if(FIREBASE_CONFIG.apiKey === 'YOUR_API_KEY') return false;
-        firebase.initializeApp(FIREBASE_CONFIG);
-        _fbDB = firebase.database();
-        setupFirebaseInactivityManager();
-        return true;
-      } catch(e){ console.warn('Firebase init:', e); return false; }
+    // Dùng ETag: nếu dữ liệu CHƯA đổi so với lần tải trước, Firebase trả về
+    // "304 Not Modified" (gần như 0 byte) thay vì tải lại nguyên bảng — tiết
+    // kiệm phần lớn băng thông vì đa số các lần hỏi lại đều chưa có điểm mới.
+    const _NOT_MODIFIED = Symbol('not-modified'); // đánh dấu riêng, không trùng với null hợp lệ (BXH trống)
+
+    function fetchLeaderboardOnce(){
+      const liveEl = document.getElementById('lbLive');
+      const headers = { 'X-Firebase-ETag': 'true' };
+      if(_lbLastEtag) headers['if-none-match'] = _lbLastEtag;
+
+      fetch(REST_SCORES_QUERY_URL, { headers })
+        .then(res => {
+          if(res.status === 304){
+            // Chưa có gì thay đổi — không cần vẽ lại bảng, chỉ cập nhật giờ kiểm tra
+            if(liveEl) liveEl.textContent = 'Đã kiểm tra lúc ' + new Date().toLocaleTimeString('vi-VN') + ' (chưa có gì mới)';
+            return _NOT_MODIFIED;
+          }
+          if(!res.ok) throw new Error('HTTP ' + res.status);
+          const etag = res.headers.get('ETag');
+          if(etag) _lbLastEtag = etag;
+          return res.json();
+        })
+        .then(data => {
+          if(data !== _NOT_MODIFIED){
+            renderLB(data); // data có thể là null thật (BXH chưa có ai chơi) — vẫn render đúng trạng thái trống
+            if(liveEl) liveEl.textContent = 'Cập nhật lúc ' + new Date().toLocaleTimeString('vi-VN');
+          }
+          if(_lbFetchFailed){
+            _lbFetchFailed = false;
+            showReconnectNotice('connected');
+          }
+        })
+        .catch(err => {
+          console.warn('[BXH] Lỗi tải bảng xếp hạng:', err);
+          if(liveEl) liveEl.textContent = 'Mất kết nối, đang thử lại…';
+          if(!_lbFetchFailed){
+            _lbFetchFailed = true;
+            showReconnectNotice('connecting');
+          }
+        });
     }
 
-    // Hủy lịch tự-ngắt-kết-nối đang chờ (nếu có thao tác mới xen vào)
-    function cancelScheduledDisconnect(){
-      if(_fbDisconnectTimer){ clearTimeout(_fbDisconnectTimer); _fbDisconnectTimer = null; }
+    function startLeaderboardPolling(){
+      stopLeaderboardPolling();
+      fetchLeaderboardOnce(); // gọi ngay lần đầu, không đợi 4s
+      _lbPollTimer = setInterval(fetchLeaderboardOnce, POLL_INTERVAL_MS);
     }
-    // Ngắt kết nối sau một khoảng trễ ngắn, chỉ khi không còn ai đang xem BXH
-    function scheduleDisconnectIfIdle(delayMs = 4000){
-      cancelScheduledDisconnect();
-      _fbDisconnectTimer = setTimeout(() => {
-        if(!_fbListenerActive && _fbDB){ _fbDB.goOffline(); }
-      }, delayMs);
+    function stopLeaderboardPolling(){
+      if(_lbPollTimer){ clearInterval(_lbPollTimer); _lbPollTimer = null; }
     }
+    // Tạm dừng polling khi ẩn tab (đỡ tốn băng thông), tiếp tục khi quay lại
+    document.addEventListener('visibilitychange', () => {
+      if(!document.getElementById('leaderboardModal').classList.contains('show')) return;
+      if(document.hidden) stopLeaderboardPolling();
+      else startLeaderboardPolling();
+    });
 
-    // ============================================================
-    // Quản lý kết nối Firebase theo mức độ hoạt động (tối ưu connections).
-    // Ý tưởng lấy từ gợi ý goOffline/goOnline, viết lại theo đúng cú pháp
-    // Firebase SDK bản "compat" (nhúng qua <script>) mà file này đang dùng —
-    // KHÔNG dùng cú pháp import kiểu module vì không có bundler.
-    // ============================================================
     let _reconnectTimer = null;
     function showReconnectNotice(stage){
       const modal = document.getElementById('reconnectModal');
@@ -5549,70 +5580,14 @@ on('classSelect', 'change', syncFromUI);
         panel.classList.add('connecting');
         icon.textContent = '🔄';
         title.textContent = 'Đang kết nối lại...';
-        sub.textContent = 'Đang thiết lập lại kết nối tới máy chủ bảng xếp hạng.';
-        // không tự ẩn khi đang ở trạng thái "đang kết nối" — chờ xác nhận thật sự
+        sub.textContent = 'Đang thử tải lại bảng xếp hạng.';
       } else {
         panel.classList.remove('connecting');
         icon.textContent = '✅';
         title.textContent = 'Đã kết nối lại!';
-        sub.textContent = 'Máy chủ bảng xếp hạng đã kết nối lại thành công.';
+        sub.textContent = 'Bảng xếp hạng đã tải lại thành công.';
         _reconnectTimer = setTimeout(() => modal.classList.remove('show'), 2200);
       }
-    }
-
-    function setupFirebaseInactivityManager(){
-      if(!_fbDB) return;
-      const INACTIVE_MS = 5 * 60 * 1000;      // 5 phút không thao tác → ngắt kết nối
-      const TAB_HIDDEN_GRACE_MS = 30 * 1000;  // ẩn tab 30s → ngắt kết nối
-      let inactivityTimer = null;
-      let hiddenTimer = null;
-      let isOffline = false;
-      let connectedHandler = null;
-      const connectedRef = _fbDB.ref('.info/connected');
-
-      function goOffline(){
-        if(isOffline) return;
-        isOffline = true;
-        if(connectedHandler){ connectedRef.off('value', connectedHandler); connectedHandler = null; }
-        _fbDB.goOffline();
-      }
-      function goOnline(){
-        if(!isOffline) return;
-        isOffline = false;
-        showReconnectNotice('connecting');
-        _fbDB.goOnline();
-        // Lắng nghe trạng thái kết nối THẬT từ Firebase (.info/connected),
-        // chỉ báo "đã kết nối lại" khi thực sự đã nối lại xong, không đoán mò.
-        if(connectedHandler) connectedRef.off('value', connectedHandler);
-        connectedHandler = (snap) => {
-          if(snap.val() === true){
-            showReconnectNotice('connected');
-            connectedRef.off('value', connectedHandler);
-            connectedHandler = null;
-          }
-        };
-        connectedRef.on('value', connectedHandler);
-      }
-      function resetInactivityTimer(){
-        goOnline();
-        clearTimeout(inactivityTimer);
-        inactivityTimer = setTimeout(goOffline, INACTIVE_MS);
-      }
-
-      ['mousemove','mousedown','keydown','touchstart','scroll'].forEach(evt => {
-        document.addEventListener(evt, resetInactivityTimer, { passive: true });
-      });
-      resetInactivityTimer();
-
-      document.addEventListener('visibilitychange', () => {
-        if(document.hidden){
-          clearTimeout(inactivityTimer);
-          hiddenTimer = setTimeout(goOffline, TAB_HIDDEN_GRACE_MS);
-        } else {
-          clearTimeout(hiddenTimer);
-          resetInactivityTimer();
-        }
-      });
     }
 
     function saveScoreToFirebase(){
@@ -5623,30 +5598,28 @@ on('classSelect', 'change', syncFromUI);
         toast('⚠️ Thiếu tên người chơi nên chưa lưu được lên BXH.', 'bad');
         return;
       }
-      if(!ensureFirebaseApp()){
-        console.warn('[BXH] Chưa kết nối được Firebase — không thể lưu điểm.');
-        return;
-      }
-      cancelScheduledDisconnect();
-      _fbDB.ref('math-arena/scores').push({
-        name:     r.playerName,
-        class:    r.schoolClass || '',
-        score:    r.score,
-        correct:  r.correct,
-        accuracy: r.accuracy,
-        combo:    r.bestCombo,
-        mode:     r.mode,
-        ts:       Date.now()
+      // POST qua REST API — 1 yêu cầu ngắn, không cần "kết nối" gì cả
+      fetch(REST_SCORES_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          name:     r.playerName,
+          class:    r.schoolClass || '',
+          score:    r.score,
+          correct:  r.correct,
+          accuracy: r.accuracy,
+          combo:    r.bestCombo,
+          mode:     r.mode,
+          ts:       Date.now()
+        })
       })
-      .then(()  => {
-        toast('✅ Điểm đã lên bảng xếp hạng!', 'good');
-        // Lưu xong thì không cần giữ kết nối nữa (trừ khi đang mở BXH)
-        scheduleDisconnectIfIdle();
+      .then(res => {
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
       })
+      .then(()  => toast('✅ Điểm đã lên bảng xếp hạng!', 'good'))
       .catch((err)  => {
         console.error('[BXH] Lỗi lưu điểm:', err);
-        toast(`⚠️ Lỗi lưu BXH: ${err.code || err.message || 'không rõ'}`, 'bad');
-        scheduleDisconnectIfIdle();
+        toast(`⚠️ Lỗi lưu BXH: ${err.message || 'không rõ'}`, 'bad');
       });
     }
 
@@ -5681,38 +5654,15 @@ on('classSelect', 'change', syncFromUI);
 
     function showLeaderboard(){
       document.getElementById('leaderboardModal').classList.add('show');
-      cancelScheduledDisconnect();
-
-      if(!ensureFirebaseApp()){
-        document.getElementById('lbEntries').innerHTML = `
-          <div class="lb-no-firebase">
-            ⚠️ <strong>Chưa kết nối Firebase</strong><br><br>
-            Để dùng bảng xếp hạng realtime:<br>
-            1. Vào <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a><br>
-            2. Tạo project → <strong>Realtime Database</strong><br>
-            3. Copy config → dán vào <code>FIREBASE_CONFIG</code> trong file HTML<br>
-            4. Database rules: <code>".read": true, ".write": true</code>
-          </div>`;
-        return;
-      }
-
       const liveEl = document.getElementById('lbLive');
-      if(liveEl) liveEl.textContent = 'Đang kết nối…';
-      _fbListenerActive = true;
-      // Chỉ lắng nghe realtime TRONG LÚC đang mở BXH — đóng modal sẽ hủy lắng nghe
-      _fbDB.ref('math-arena/scores').on('value', snap => {
-        renderLB(snap.val());
-        if(liveEl) liveEl.textContent = 'Cập nhật lúc ' + new Date().toLocaleTimeString('vi-VN');
-      });
+      if(liveEl) liveEl.textContent = 'Đang tải…';
+      _lbFetchFailed = false;
+      startLeaderboardPolling();
     }
 
     function closeLeaderboard(){
       document.getElementById('leaderboardModal').classList.remove('show');
-      if(_fbDB){
-        _fbDB.ref('math-arena/scores').off('value'); // hủy lắng nghe realtime
-      }
-      _fbListenerActive = false;
-      scheduleDisconnectIfIdle(); // không ai xem nữa → ngắt kết nối sau vài giây
+      stopLeaderboardPolling();
     }
 
     on('leaderboardBtn', 'click', showLeaderboard);
