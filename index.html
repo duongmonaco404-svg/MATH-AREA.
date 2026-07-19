@@ -27,9 +27,9 @@
       margin:0;
       color:var(--text);
       background:
-        radial-gradient(circle at 20% 10%, rgba(87,217,255,.12), transparent 22%),
-        radial-gradient(circle at 80% 0%, rgba(143,123,255,.14), transparent 20%),
-        linear-gradient(180deg, #091121 0%, #08111f 55%, #040913 100%);
+        radial-gradient(circle at 20% 10%, rgba(87,217,255,.22), transparent 26%),
+        radial-gradient(circle at 80% 0%, rgba(143,123,255,.24), transparent 24%),
+        linear-gradient(180deg, #1a2b52 0%, #142240 55%, #0e1830 100%);
       font-family:"Courier New", Courier, monospace;
       overflow-x:hidden;
       text-rendering:optimizeLegibility;
@@ -52,8 +52,8 @@
       position:fixed;
       inset:0;
       pointer-events:none;
-      background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.18) 50%, transparent 100%);
-      opacity:.45;
+      background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.10) 50%, transparent 100%);
+      opacity:.3;
       z-index:0;
     }
     .screen{
@@ -444,6 +444,74 @@
       display:grid;
       grid-template-columns:repeat(2,1fr);
       gap:12px;
+    }
+    .char-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+    }
+    .char-card{
+      border:2px solid #000;
+      border-radius:16px;
+      background:linear-gradient(180deg, rgba(28,44,80,.96), rgba(18,28,54,.96));
+      padding:16px 12px;
+      box-shadow:4px 4px 0 #000;
+      cursor:pointer;
+      text-align:center;
+      color:var(--text);
+      font-family:inherit;
+      transition:transform .12s ease, box-shadow .12s ease, filter .12s ease, border-color .12s ease;
+    }
+    .char-card:hover{ transform:translate(1px,1px); box-shadow:3px 3px 0 #000; filter:brightness(1.12); }
+    .char-card.selected{
+      border-color:#ffd36b;
+      background:linear-gradient(180deg, #3a4f88, #263962);
+      box-shadow:4px 4px 0 #ffd36b;
+    }
+    .char-icon{ font-size:32px; margin-bottom:6px; }
+    .char-name{ font-size:16px; font-weight:800; margin-bottom:4px; }
+    .char-desc{ font-size:11px; color:var(--muted); line-height:1.3; }
+
+    #bossRevealName{ display:inline-block; will-change:transform; }
+    #bossRevealName.boss-rolling{
+      animation: bossRoll .1s linear infinite;
+      color:#ff8a3d;
+    }
+    #bossRevealName.boss-landed{
+      animation: bossLand .55s cubic-bezier(.34,1.56,.64,1);
+      color:#ffd36b;
+      text-shadow:0 0 18px rgba(255,211,107,.65), 0 0 34px rgba(255,138,61,.45);
+    }
+    @keyframes bossRoll{
+      0%{ transform:scale(1) skewX(0deg); filter:blur(0px); }
+      50%{ transform:scale(1.04) skewX(-2deg); filter:blur(.5px); }
+      100%{ transform:scale(1) skewX(2deg); filter:blur(0px); }
+    }
+    @keyframes bossLand{
+      0%{ transform:scale(.55) rotate(-6deg); opacity:0; }
+      55%{ transform:scale(1.15) rotate(3deg); opacity:1; }
+      75%{ transform:scale(.94) rotate(-2deg); }
+      100%{ transform:scale(1) rotate(0deg); }
+    }
+    #bossRevealScreen .menu-card.boss-shake{
+      animation: bossShake .4s ease;
+    }
+    @keyframes bossShake{
+      0%,100%{ transform:translate(0,0); }
+      20%{ transform:translate(-4px,2px); }
+      40%{ transform:translate(4px,-2px); }
+      60%{ transform:translate(-3px,1px); }
+      80%{ transform:translate(3px,-1px); }
+    }
+    #bossRevealScreen .menu-title-row{
+      flex-direction:column;
+      gap:10px;
+    }
+    #bossRevealScreen .menu-banner{
+      margin-bottom:0;
+    }
+    #bossRevealScreen .menu-emblem{
+      animation: emblemGlow 1.4s ease-in-out infinite;
     }
     .mini-stat{
       border:2px solid #000;
@@ -3863,7 +3931,7 @@ html, body{
               <option value="endless">Vô Tận 🔥</option>
             </select>
           </div>
-          <div class="field">
+          <div class="field" style="display:none;">
             <label for="classSelect">Nhân vật</label>
             <select id="classSelect">
               <option value="mage">Mage - Mana rất cao, EXP +</option>
@@ -3875,13 +3943,111 @@ html, body{
         </div>
 
         <div class="menu-actions">
-          <button type="button" class="btn" id="startBtn">Bắt đầu</button>
+          <button type="button" class="btn" id="startBtn">Tiếp theo →</button>
         </div>
 
         <div class="menu-foot" aria-hidden="true">
           <div class="menu-chip">Hệ thức lượng</div>
           <div class="menu-chip">Đại số tổ hợp</div>
           <div class="menu-chip">8-bit retro</div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<div id="charScreen" class="screen menu hidden">
+  <div class="scene-bg" aria-hidden="true">
+    <div class="scene-photo"></div>
+    <div class="scene-cloud c1"></div>
+    <div class="scene-cloud c2"></div>
+    <div class="scene-cloud c3"></div>
+    <div class="scene-spark s1"></div>
+    <div class="scene-spark s2"></div>
+    <div class="scene-spark s3"></div>
+    <div class="scene-hills h1"></div>
+    <div class="scene-hills h2"></div>
+    <div class="scene-shade"></div>
+  </div>
+  <div class="menu-wrap">
+    <div class="menu-card pixel-frame">
+      <div class="menu-card-inner-frame" aria-hidden="true"></div>
+      <div class="garland top" aria-hidden="true"></div>
+      <div class="garland bottom" aria-hidden="true"></div>
+      <div class="garland left" aria-hidden="true"></div>
+      <div class="garland right" aria-hidden="true"></div>
+      <div class="menu-hero">
+        <div class="menu-title-row">
+          <div class="menu-emblem">★</div>
+          <div>
+            <div class="menu-banner">Bước 2</div>
+            <h1 class="title">CHỌN<br>CHIẾN BINH</h1>
+          </div>
+          <div class="menu-emblem">Σ</div>
+        </div>
+        <p class="subtitle">Mỗi nhân vật có chỉ số và lối chơi khác nhau — chọn kỹ trước khi xung trận!</p>
+      </div>
+
+      <section class="menu-card-mini pixel-frame menu-panel">
+        <h3>Nhân vật</h3>
+        <div class="char-grid" id="charGrid">
+          <button type="button" class="char-card" data-klass="mage">
+            <div class="char-icon">🧙</div>
+            <div class="char-name">Mage</div>
+            <div class="char-desc">Mana rất cao, cộng thêm EXP</div>
+          </button>
+          <button type="button" class="char-card" data-klass="warrior">
+            <div class="char-icon">🛡️</div>
+            <div class="char-name">Warrior</div>
+            <div class="char-desc">HP cực cao, cộng thêm xu</div>
+          </button>
+          <button type="button" class="char-card" data-klass="sage">
+            <div class="char-icon">📜</div>
+            <div class="char-name">Sage</div>
+            <div class="char-desc">EXP cực cao, cộng thêm mana</div>
+          </button>
+          <button type="button" class="char-card" data-klass="rogue">
+            <div class="char-icon">🗡️</div>
+            <div class="char-name">Rogue</div>
+            <div class="char-desc">Xu cực cao, chịu sát thương nhiều hơn</div>
+          </button>
+        </div>
+        <div class="menu-actions" style="margin-top:18px;">
+          <button type="button" class="btn secondary" id="charBackBtn">← Quay lại</button>
+          <button type="button" class="btn" id="charConfirmBtn">Xác nhận ✓</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<div id="bossRevealScreen" class="screen menu hidden">
+  <div class="scene-bg" aria-hidden="true">
+    <div class="scene-photo"></div>
+    <div class="scene-cloud c1"></div>
+    <div class="scene-cloud c2"></div>
+    <div class="scene-hills h1"></div>
+    <div class="scene-hills h2"></div>
+    <div class="scene-shade"></div>
+  </div>
+  <div class="menu-wrap">
+    <div class="menu-card pixel-frame">
+      <div class="menu-card-inner-frame" aria-hidden="true"></div>
+      <div class="garland top" aria-hidden="true"></div>
+      <div class="garland bottom" aria-hidden="true"></div>
+      <div class="garland left" aria-hidden="true"></div>
+      <div class="garland right" aria-hidden="true"></div>
+      <div class="menu-hero">
+        <div class="menu-title-row boss-title-row">
+          <div class="menu-emblem">⚔️</div>
+          <div class="menu-banner">Bước 3 — Đề thi hôm nay</div>
+          <h1 class="title" id="bossRevealName">???</h1>
+          <div class="menu-emblem">⚔️</div>
+        </div>
+        <p class="subtitle" id="bossRevealFlavor">Một thử thách bí ẩn đang chờ bạn phía trước...</p>
+      </div>
+      <section class="menu-card-mini pixel-frame menu-panel">
+        <div class="menu-actions">
+          <button type="button" class="btn secondary" id="bossRevealBackBtn">← Đổi nhân vật</button>
+          <button type="button" class="btn" id="bossRevealStartBtn">Vào trận! ⚔️</button>
         </div>
       </section>
     </div>
@@ -4401,6 +4567,10 @@ html, body{
       menuScreen: $('menuScreen'),
       shopScreen: $('shopScreen'),
       gameScreen: $('gameScreen'),
+      charScreen: $('charScreen'),
+      bossRevealScreen: $('bossRevealScreen'),
+      bossRevealName: $('bossRevealName'),
+      bossRevealFlavor: $('bossRevealFlavor'),
       shopCoinText: $('shopCoinText'),
       menuCoinText: $('menuCoinText'),
       menuLifeCount: $('menuLifeCount'),
@@ -4795,7 +4965,90 @@ html, body{
       ui.menuScreen.classList.remove('hidden');
       ui.shopScreen.classList.add('hidden');
       ui.gameScreen.classList.add('hidden');
+      if(ui.charScreen) ui.charScreen.classList.add('hidden');
+      if(ui.bossRevealScreen) ui.bossRevealScreen.classList.add('hidden');
       refreshMenuStats();
+    }
+
+    function highlightSelectedChar(){
+      const current = $('classSelect') ? $('classSelect').value : 'mage';
+      document.querySelectorAll('.char-card').forEach(card => {
+        card.classList.toggle('selected', card.dataset.klass === current);
+      });
+    }
+
+    function showCharScreen(){
+      ui.menuScreen.classList.add('hidden');
+      ui.shopScreen.classList.add('hidden');
+      ui.gameScreen.classList.add('hidden');
+      if(ui.bossRevealScreen) ui.bossRevealScreen.classList.add('hidden');
+      if(ui.charScreen) ui.charScreen.classList.remove('hidden');
+      highlightSelectedChar();
+    }
+
+    const BOSS_EXAM_NAMES = [
+      { name: 'Ma Vương Tam Giác',       flavor: 'Chúa tể của những góc nhọn và cạnh huyền.' },
+      { name: 'Chúa Tể Lượng Giác',      flavor: 'Sin, Cos, Tan đều phải run sợ trước hắn.' },
+      { name: 'Bóng Ma Nhị Thức',        flavor: 'Khai triển từng số hạng để lộ nguyên hình.' },
+      { name: 'Hắc Long Tổ Hợp',         flavor: 'Đếm từng cách nó có thể nuốt chửng bạn.' },
+      { name: 'Quỷ Vương Xác Suất',      flavor: 'Xác suất bạn thắng... còn phải xem đã.' },
+      { name: 'Thần Chết Định Lý',       flavor: 'Không chứng minh được thì đừng mơ qua ải.' },
+      { name: 'Ác Ma Hệ Số',             flavor: 'Từng hệ số là một nhát chém.' },
+      { name: 'Bạo Chúa Phương Trình',   flavor: 'Giải hắn ra hoặc bị hắn giải quyết.' },
+      { name: 'Yêu Tinh Đường Tròn',     flavor: 'Xoay vòng vòng đến khi bạn chóng mặt.' },
+      { name: 'Ma Nữ Vector',            flavor: 'Có hướng, có độ lớn, và rất nguy hiểm.' },
+      { name: 'Cổ Long Đại Số',          flavor: 'Ngàn năm tuổi, ngàn năm khó nhằn.' },
+      { name: 'Hung Thần Hình Học',      flavor: 'Mọi đường thẳng đều dẫn đến hắn.' },
+      { name: 'Chủ Tể Cos-Sin',          flavor: 'Dao động giữa việc qua môn và... trượt môn.' },
+      { name: 'Vua Chỉnh Hợp',           flavor: 'Sắp xếp lại số phận của bạn theo ý hắn.' },
+      { name: 'Ác Quỷ Giai Thừa',        flavor: 'Nhân dồn từng con số đến vô tận.' },
+      { name: 'Đại Ma Vương Cuối Kỳ',    flavor: 'Trùm cuối. Không còn ai đáng sợ hơn.' }
+    ];
+
+    function showBossRevealScreen(){
+      ui.menuScreen.classList.add('hidden');
+      ui.shopScreen.classList.add('hidden');
+      ui.gameScreen.classList.add('hidden');
+      if(ui.charScreen) ui.charScreen.classList.add('hidden');
+      if(ui.bossRevealScreen) ui.bossRevealScreen.classList.remove('hidden');
+
+      const finalPick = BOSS_EXAM_NAMES[Math.floor(Math.random() * BOSS_EXAM_NAMES.length)];
+      state.examBossName = finalPick.name;
+
+      const nameEl = ui.bossRevealName;
+      const flavorEl = ui.bossRevealFlavor;
+      clearTimeout(state.bossRevealTimer);
+      if(!nameEl){ if(flavorEl) flavorEl.textContent = finalPick.flavor; return; }
+
+      nameEl.classList.remove('boss-landed');
+      nameEl.classList.add('boss-rolling');
+      if(flavorEl) flavorEl.textContent = 'Đang triệu hồi thử thách bí ẩn...';
+
+      let step = 0;
+      const totalSteps = 14;
+      const rollStep = () => {
+        if(step < totalSteps){
+          const randomShow = BOSS_EXAM_NAMES[Math.floor(Math.random() * BOSS_EXAM_NAMES.length)];
+          nameEl.textContent = randomShow.name;
+          sfxTick(false);
+          step++;
+          const delay = 55 + step * 13; // càng về sau càng chậm, giống máy quay số
+          state.bossRevealTimer = setTimeout(rollStep, delay);
+        } else {
+          nameEl.textContent = finalPick.name;
+          nameEl.classList.remove('boss-rolling');
+          nameEl.classList.add('boss-landed');
+          if(flavorEl) flavorEl.textContent = finalPick.flavor;
+          sfxLevelUp();
+          const card = document.querySelector('#bossRevealScreen .menu-card');
+          if(card){
+            card.classList.remove('boss-shake');
+            void card.offsetWidth; // restart animation
+            card.classList.add('boss-shake');
+          }
+        }
+      };
+      rollStep();
     }
 
     function showShop(fromGame = false){
@@ -4803,6 +5056,8 @@ html, body{
       ui.menuScreen.classList.add('hidden');
       ui.shopScreen.classList.remove('hidden');
       ui.gameScreen.classList.add('hidden');
+      if(ui.charScreen) ui.charScreen.classList.add('hidden');
+      if(ui.bossRevealScreen) ui.bossRevealScreen.classList.add('hidden');
       refreshShopButtons();
       refreshMenuStats();
       if (ui.shopCoinText) ui.shopCoinText.textContent = `${state.coins} xu`;
@@ -4812,6 +5067,8 @@ html, body{
       ui.menuScreen.classList.add('hidden');
       ui.shopScreen.classList.add('hidden');
       ui.gameScreen.classList.remove('hidden');
+      if(ui.charScreen) ui.charScreen.classList.add('hidden');
+      if(ui.bossRevealScreen) ui.bossRevealScreen.classList.add('hidden');
       resumeGame();
     }
 
@@ -5072,8 +5329,10 @@ html, body{
       showGame();
       startBgMusic();
 
-      log(`Bắt đầu ${modeNames[state.mode]} - ${gradeNames[state.grade]} | ${classNames[state.klass]} | Toán lớp 10`, 'good');
+      const bossNote = (state.mode === 'standard' && state.examBossName) ? ` | Đề: ${state.examBossName}` : '';
+      log(`Bắt đầu ${modeNames[state.mode]} - ${gradeNames[state.grade]} | ${classNames[state.klass]} | Toán lớp 10${bossNote}`, 'good');
       if(state.mode === 'endless') log('Vô Tận: sai sẽ bị trừ HP.', 'warn');
+      if(state.mode === 'standard' && state.examBossName) toast(`📜 Đề thi: ${state.examBossName}`, 'warn');
 
       chooseNextQuestion();
       startTimer();
@@ -5531,8 +5790,30 @@ html, body{
       }
       if(nameEl) nameEl.style.outline='';
       if(classEl) classEl.style.outline='';
-      syncFromUI(); startGame();
+      syncFromUI();
+      showCharScreen();
     });
+
+    document.querySelectorAll('.char-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const klass = card.dataset.klass;
+        const sel = $('classSelect');
+        if(sel) sel.value = klass;
+        highlightSelectedChar();
+        syncFromUI();
+      });
+    });
+    on('charBackBtn', 'click', () => { showMenu(); });
+    on('charConfirmBtn', 'click', () => {
+      syncFromUI();
+      if(state.mode === 'standard'){
+        showBossRevealScreen();
+      } else {
+        startGame();
+      }
+    });
+    on('bossRevealBackBtn', 'click', () => { clearTimeout(state.bossRevealTimer); showCharScreen(); });
+    on('bossRevealStartBtn', 'click', () => { clearTimeout(state.bossRevealTimer); startGame(); });
     on('musicToggleBtn', 'click', toggleBgMusic);
     on('hintBtn', 'click', useHint);
     on('skipBtn', 'click', skipQuestion);
